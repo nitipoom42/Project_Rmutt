@@ -1,0 +1,17 @@
+input[type="file"] {
+  height: 50px;
+}
+::-webkit-file-upload-button {
+  position: relative;
+  font-size: 15px;
+  border-radius: 20px;
+  bottom: 12px;
+  left: 470px;
+}
+span {
+  font-size: 100px;
+}
+
+input[type="file"] {
+  height: 50px;
+}
