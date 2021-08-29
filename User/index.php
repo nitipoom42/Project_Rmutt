@@ -39,8 +39,6 @@
 <body>
     <?php require_once('alert.php'); ?>
     <div class="container overflow-hidden">
-
-        test
         <?php require_once('navbar.php'); ?>
         <br>
         <br>
