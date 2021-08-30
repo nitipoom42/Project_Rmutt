@@ -86,6 +86,8 @@ foreach ($result_type as $row_result_type_ID) { ?>
                                         </div>
                                     </div>
                                 </div>
+
+                                <input type="hidden" name="Point_Product" value="<?php echo $row_stock['POINT_Product']; ?>">
                                 <div class="modal-footer">
                                     <button class="btn btn-success" type="submit" name="Add_Cart">หยิบลงตะกร้า</button>
                                 </div>

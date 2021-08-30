@@ -17,8 +17,8 @@
     $result_cart = $stmt_cart->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
+    <!-- สินค้าโปรโมชั่น -->
     <?php
-
     @$data_member = [
         'ID_Member' => $_SESSION['ID_Member'],
     ];
@@ -177,11 +177,12 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-2">
-                            <p><?php echo $row_cart_promotion['QTY'] * $row_cart_promotion['POINT_Product']; ?> แต้ม</p>
+                            <?php $sum_point = $row_cart_promotion['QTY'] * $row_cart_promotion['POINT_Product']; ?>
+                            <p><?php echo $sum_point ?> แต้ม</p>
                         </div>
 
                         <div class="col-md-1 col-2">
-                            <a onclick="del_product_cart(<?php echo $row_cart_promotion['ID_Product_Promotion']  ?>,<?php echo $row_cart_promotion['QTY']  ?>)" class=" btn btn-danger "><i class=" fas fa-trash-alt"></i> </a>
+                            <a onclick="del_product_cart(<?php echo $row_cart_promotion['ID_Product_Promotion'] ?>,<?php echo $row_cart_promotion['QTY'] ?>,<?php echo $sum_point ?>)" class=" btn btn-danger "><i class=" fas fa-trash-alt"></i> </a>
                         </div>
                     </div>
 
@@ -196,14 +197,12 @@
                 <hr>
                 <div class="row ">
                     <div class="col text-end ">
-
                         <?php
                         $potin = $total;
                         $Point =  $potin / 20;
                         ?>
                         <h5>ได้รับแต้ม <?php echo $Point; ?> แต้ม</h5>
                         <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท </h5>
-
                     </div>
                 </div>
                 <div class="row text-end mt-5">
@@ -211,7 +210,6 @@
                 </div>
             </form>
         </div>
-
     <?php } ?>
 
 
@@ -273,11 +271,11 @@
     </script>
 
     <script>
-        function del_product_cart(id, QTY) {
+        function del_product_cart(id, QTY, POINT_Product) {
             Swal.fire({
                 icon: 'error',
-                title: 'คุณจะลบรายการนี้หรือไม่',
-                confirmButtonText: `<a class="text-light" href="../sql/del.php?Cart_ID_Product=${id}&QTY=${QTY}">ยืนยัน</a>`,
+                title: `คุณจะลบรายการนี้หรือไม่`,
+                confirmButtonText: `<a class="text-light" href="../sql/del.php?Cart_ID_Product=${id}&QTY=${QTY}&POINT_Product=${POINT_Product}">ยืนยัน</a>`,
                 confirmButtonColor: '#d33',
                 showCancelButton: true,
                 cancelButtonText: `ยกเลิก`,

@@ -40,6 +40,26 @@ if (isset($_GET['Cart_ID_Product'])) {
     $stmt_QTY = $conn->prepare($sql_QTY);
     $stmt_QTY->execute($data_QTY);
 
+    // ตัด potin ของสมาชิก
+    $data_promotion = [
+        'ID_Member' => $_SESSION['ID_Member'],
+        'POINT_Product' => $_GET['POINT_Product']
+    ];
+    $sql_point = "UPDATE member SET Point=Point+:POINT_Product WHERE ID_Member=:ID_Member ";
+    $stmt_point = $conn->prepare($sql_point);
+    $stmt_point->execute($data_promotion);
+
+    // ตัดสินค้าโปรโมชั่น
+    // ตัด stock สินค้าเมื่อมีการหยิบลงตะกร้า
+    $data_stock_promotion = [
+        'Cart_ID_Product' => $_GET['Cart_ID_Product'],
+        'QTY' => $_GET['QTY'],
+
+    ];
+    $sql_stock_promotion = "UPDATE stock_promotion SET QTY_Product=QTY_Product+:QTY WHERE ID_Product_Promotion=:Cart_ID_Product";
+    $stmt_stock_promotion = $conn->prepare($sql_stock_promotion);
+    $stmt_stock_promotion->execute($data_stock_promotion);
+
     // ลบสินค้าออกจากตะกร้าสินค้า
     $data_delete_Product = [
         'Cart_ID_Product' => $_GET['Cart_ID_Product']

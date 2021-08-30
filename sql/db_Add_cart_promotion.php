@@ -46,6 +46,16 @@ else if (isset($_POST['Add_Cart'])) {
             $sql_QTY = "UPDATE stock_promotion SET QTY_Product=QTY_Product-:QTY WHERE ID_Product_Promotion=:ID_Product_Promotion ";
             $stmt_QTY = $conn->prepare($sql_QTY);
             $stmt_QTY->execute($data_QTY);
+
+
+            $data_promotion = [
+                'ID_Member' => $_SESSION['ID_Member'],
+                'Point_Product' => $_POST['Point_Product']
+            ];
+
+            $sql_point = "UPDATE member SET Point=Point-:Point_Product WHERE ID_Member=:ID_Member ";
+            $stmt_point = $conn->prepare($sql_point);
+            $stmt_point->execute($data_promotion);
             $_SESSION['cart'] = 1;
             Header("Location:../User/index.php");
         }
