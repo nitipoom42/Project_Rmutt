@@ -2,7 +2,7 @@
 
 <!-- เรียกข้อมูลประเภทสินค้าจาก ฐานข้อมูล type_product -->
 <?php
-$sql_fetch_type = "SELECT * FROM type_product WHERE NOT ID_Type_Product=1";
+$sql_fetch_type = "SELECT * FROM type_product WHERE ID_Type_Product=1";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute();
 $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
@@ -83,7 +83,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                 <!-- End of Topbar -->
 
                 <div class="col-md-5 card border-left-primary shadow mx-auto">
-                    <form class="user" action="../sql/db_Add_Product.php" enctype="multipart/form-data" method="post">
+                    <form class="user" action="../sql/db_Add_Product_Promotion.php" enctype="multipart/form-data" method="post">
                         <div class="card-body">
                             <div class="mb-3 text-center">
                                 <img class="shadow-lg rounded" width="260" height="250" id="output" src="https://hongthaipackaging.com/wp-content/uploads/2019/04/%E0%B8%81%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%9A%E0%B8%AD%E0%B8%A3%E0%B9%8C-I-55x45x40-cm-%E0%B8%A2x%E0%B8%81x%E0%B8%AA.jpg">
@@ -101,7 +101,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                             </div>
                             <div class="form-group row">
                                 <label class="form-label">ราคาสินค้า</label>
-                                <input name="PRICE_Product" type="number" class="form-control form-control-user" placeholder="ราคาสินค้า..." required>
+                                <input name="POINT_Product" type="number" class="form-control form-control-user" placeholder="ราคาสินค้า..." required>
                             </div>
                             <div class="form-group row">
                                 <label class="form-label">จำนวนสินค้า</label>
@@ -120,7 +120,8 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                             </div>
                             <div class="form-group row">
                                 <div class="mx-auto">
-                                    <button onclick="add_product() " type="submit" name="Add_Product" class="btn btn-success mt-3 mr-5">เพิ่มสินค้า</button>
+                                    <button onclick="add_product() " type="submit" name="Add_Product_Promotion" class="btn btn-success mt-3 mr-5">เพิ่มสินค้า</button>
+
                                     <a type="reset" href="index.php" class="btn btn-outline-danger mt-3">ยกเลิก</a>
                                 </div>
                             </div>

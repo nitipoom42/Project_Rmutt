@@ -24,6 +24,16 @@ GROUP BY o.ID_Oder";
 $stmt_oder = $conn->prepare($sql_oder);
 $stmt_oder->execute($data_id);
 $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
+
+// สินค้าโปรโมชั่น
+$sql_oder_promotion = "SELECT * FROM oder_detail as od
+JOIN oder as o ON od.ID_Oder = od.ID_Oder
+JOIN stock_promotion as sp ON sp.ID_Product_Promotion = od.ID_Product
+WHERE o.ID_Member=:ID_Member AND NOT oder_status=3
+GROUP BY o.ID_Oder";
+$stmt_oder_promotion = $conn->prepare($sql_oder);
+$stmt_oder_promotion->execute($data_id);
+$result_oder_promotion = $stmt_oder_promotion->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php
@@ -114,10 +124,22 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                         'id' => $row_oder['ID_Oder'],
                     ];
 
-                    $sql_oder_id = "SELECT * FROM oder_detail as o  JOIN stock as s ON o.ID_Product=s.ID_Product  WHERE ID_Oder=:id";
+                    $sql_oder_id = "SELECT * FROM oder_detail as o
+                    JOIN stock as s ON o.ID_Product=s.ID_Product  
+                    WHERE ID_Oder=:id";
                     $stmt_oder_id = $conn->prepare($sql_oder_id);
                     $stmt_oder_id->execute($data_oder_id);
                     $result_oder_id = $stmt_oder_id->fetchAll(PDO::FETCH_ASSOC);
+
+                    // สินค้าโปรโมชั่น
+                    $sql_oder_id_promotion = "SELECT * FROM oder_detail as o
+                    JOIN stock_promotion as sp ON o.ID_Product=sp.ID_Product_Promotion  
+                    WHERE ID_Oder=:id";
+                    $stmt_oder_id_promotion = $conn->prepare($sql_oder_id_promotion);
+                    $stmt_oder_id_promotion->execute($data_oder_id);
+                    $result_oder_id_promotion = $stmt_oder_id_promotion->fetchAll(PDO::FETCH_ASSOC);
+
+
                     ?>
                     <?php
                     foreach ($result_oder_id as $row_oder_id) { ?>
@@ -126,6 +148,23 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                             <div class="col-md-2"><?php echo $row_oder_id['NAME_Product']; ?></div>
                             <div class="col-md-2"><?php echo $row_oder_id['QTY']; ?></div>
                             <div class="col-md-2"><?php echo $row_oder_id['QTY'] * $row_oder_id['PRICE_Product']; ?> .-บาท</div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <?php
+                        $sum = $row_oder_id['QTY'] * $row_oder_id['PRICE_Product'];
+                        $total = $total + $sum;
+                        ?>
+                    <?php    }  ?>
+
+                    <!-- สินค้าโปรโมชั่น -->
+                    <?php
+                    foreach ($result_oder_id_promotion as $row_oder_id_promotion) { ?>
+                        <div class="row align-items-center mb-5 mt-5 ">
+                            <div class="col-md-2 "><img src="../Asset/img/<?php echo $row_oder_id_promotion['IMG_Product']; ?>" width="100" height="100"></div>
+                            <div class="col-md-2"><?php echo $row_oder_id_promotion['NAME_Product']; ?></div>
+                            <div class="col-md-2"><?php echo $row_oder_id_promotion['QTY']; ?></div>
+                            <div class="col-md-2"><?php echo $row_oder_id_promotion['QTY'] * $row_oder_id_promotion['POINT_Product']; ?> แต้ม</div>
                             <div class="col-md-2">
                             </div>
                         </div>

@@ -12,10 +12,10 @@ if (empty($_SESSION['User'])) {
 else if (isset($_POST['Add_Cart'])) {
 
     $data = [
-        'ID_Product' => $_POST['ID_Product'],
+        'ID_Product_Promotion' => $_POST['ID_Product_Promotion'],
     ];
     // result($data['QTY']);
-    $sql = "SELECT * FROM stock WHERE ID_Product =:ID_Product";
+    $sql = "SELECT * FROM stock_promotion WHERE ID_Product_Promotion =:ID_Product_Promotion";
     $smtm = $conn->prepare($sql);
     $smtm->execute($data);
     $result =  $smtm->fetchAll(PDO::FETCH_ASSOC);
@@ -30,20 +30,20 @@ else if (isset($_POST['Add_Cart'])) {
         }
         if ($data_qty['QTY'] <= $row['QTY_Product']) {
             $data_cart = [
-                'ID_Product' => $_POST['ID_Product'],
+                'ID_Product_Promotion' => $_POST['ID_Product_Promotion'],
                 'ID_Member' => $_SESSION['ID_Member'],
                 'QTY' => $_POST['QTY'],
             ];
-            $sql_cart = "INSERT INTO cart (ID_Product,ID_Member,QTY) VALUES (:ID_Product,:ID_Member,:QTY)";
+            $sql_cart = "INSERT INTO cart (ID_Product,ID_Member,QTY) VALUES (:ID_Product_Promotion,:ID_Member,:QTY)";
             $stmt_cart = $conn->prepare($sql_cart);
             $stmt_cart->execute($data_cart);
             // ตัด stock สินค้าเมื่อมีการหยิบลงตะกร้า
             $data_QTY = [
-                'ID_Product' => $_POST['ID_Product'],
+                'ID_Product_Promotion' => $_POST['ID_Product_Promotion'],
                 'QTY' => $_POST['QTY'],
 
             ];
-            $sql_QTY = "UPDATE stock SET QTY_Product=QTY_Product-:QTY WHERE ID_Product=:ID_Product ";
+            $sql_QTY = "UPDATE stock_promotion SET QTY_Product=QTY_Product-:QTY WHERE ID_Product_Promotion=:ID_Product_Promotion ";
             $stmt_QTY = $conn->prepare($sql_QTY);
             $stmt_QTY->execute($data_QTY);
             $_SESSION['cart'] = 1;

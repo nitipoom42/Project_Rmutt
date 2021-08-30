@@ -61,6 +61,10 @@ if (@$_SESSION['status_onti'] == 1) {
                 <i class="far fa-plus-square"></i>
                 <span>เพิ่มสินค้า</span>
             </a>
+            <a class="nav-link collapsed" href="add_product_promotion.php">
+                <i class="far fa-plus-square"></i>
+                <span>เพิ่มสินค้าโปรโมชั่น</span>
+            </a>
             <a class="nav-link collapsed" href="stock.php">
                 <i class="fas fa-layer-group"></i>
                 <span>สต๊อกสินค้า</span>

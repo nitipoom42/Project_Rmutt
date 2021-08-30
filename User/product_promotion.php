@@ -25,7 +25,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
     $data_type_ID = [
         'id' => $row_result_type_ID['ID_Type_Product'],
     ];
-    $sql_id = "SELECT * FROM stock WHERE TYPE_Product =:id ";
+    $sql_id = "SELECT * FROM stock_promotion WHERE TYPE_Product =:id ";
     $smtm_fetch_id = $conn->prepare($sql_id);
     $smtm_fetch_id->execute($data_type_ID);
     $result_id =  $smtm_fetch_id->fetchAll(PDO::FETCH_ASSOC);
@@ -34,10 +34,10 @@ foreach ($result_type as $row_result_type_ID) { ?>
     <div class="row">
         <?php foreach ($result_id as $row_stock) { ?>
             <div class="col-md-2 col-4">
-                <form action="../sql/db_Add_cart.php" method="post">
+                <form action="../sql/db_Add_cart_promotion.php" method="post">
                     <a <?php if ($row_stock['QTY_Product'] == 0) { ?> onclick=" out_stock() <?php   } ?>" class="box_product" href="" data-bs-toggle="modal" data-bs-target="<?php
                                                                                                                                                                                 if ($row_stock['QTY_Product'] > 0) { ?>
-                    #product_popup<?php echo $row_stock['ID_Product'] ?>
+                    #product_popup<?php echo $row_stock['ID_Product_Promotion'] ?>
                 <?php } ?>">
                         <div class=" mt-1">
                             <div class="box_info_product ">
@@ -49,7 +49,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
                                                             ?> accordion-bodyoverflow-hidden"> <img class=" card-img-top mx-auto" src="../Asset/img/<?php echo $row_stock['IMG_Product']; ?>"></div>
                                 <div class="card-body">
                                     <p class="card-text text-wrap"><?php echo $row_stock['NAME_Product']; ?></p>
-                                    <h5 class="card-text text-success"><?php echo $row_stock['PRICE_Product']; ?>แต้ม</h5>
+                                    <h5 class="card-text text-success"><?php echo $row_stock['POINT_Product']; ?>แต้ม</h5>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
                     </a>
                     <!-- ป็อบอัพหยิบลงกะตร้า -->
                     <!-- Modal -->
-                    <div class="modal fade" id="product_popup<?php echo $row_stock['ID_Product']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="product_popup<?php echo $row_stock['ID_Product_Promotion']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -79,9 +79,9 @@ foreach ($result_type as $row_result_type_ID) { ?>
                                     <div class="row text-center">
                                         <div class="col-md-6 mx-auto text-center ">
                                             <div class="input-group mb-3">
-                                                <a class="btn btn_number me-2" onclick="dec('QTY<?php echo $row_stock['ID_Product']; ?>')"><i class="fas fa-minus"></i></a>
-                                                <input class="form-control text-center" id="QTY<?php echo $row_stock['ID_Product']; ?>" name="QTY" type="number" value="1">
-                                                <a class="btn btn_number ms-2" onclick="inc('QTY<?php echo $row_stock['ID_Product']; ?>')"><i class="fas fa-plus"></i></a>
+                                                <a class="btn btn_number me-2" onclick="dec('QTY<?php echo $row_stock['ID_Product_Promotion']; ?>')"><i class="fas fa-minus"></i></a>
+                                                <input class="form-control text-center" id="QTY<?php echo $row_stock['ID_Product_Promotion']; ?>" name="QTY" type="number" value="1">
+                                                <a class="btn btn_number ms-2" onclick="inc('QTY<?php echo $row_stock['ID_Product_Promotion']; ?>')"><i class="fas fa-plus"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
                         </div>
                     </div>
                     <!-- ปุ่มหยิบสินค้าลงตะกร้า -->
-                    <input type="hidden" name="ID_Product" value="<?php echo $row_stock['ID_Product']; ?>">
+                    <input type="hidden" name="ID_Product_Promotion" value="<?php echo $row_stock['ID_Product_Promotion']; ?>">
                 </form>
             </div>
         <?php } ?>
