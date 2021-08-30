@@ -3,13 +3,11 @@
 
 <!-- เรียกข้อมูลประเภทสินค้าตาราง type_product-->
 <?php
-$sql_fetch_type = "SELECT  * FROM type_product;";
+$sql_fetch_type = "SELECT  * FROM type_product WHERE NOT ID_Type_Product=1;";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute();
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
-
 
 <?php
 // loopข้อมูลประเภทของสินค้า
@@ -29,7 +27,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
         $data_type_ID = [
             'id' => $row_result_type_ID['ID_Type_Product'],
         ];
-        $sql_id = "SELECT * FROM stock WHERE TYPE_Product =:id  LIMIT 4 ";
+        $sql_id = "SELECT * FROM stock WHERE TYPE_Product =:id ";
         $smtm_fetch_id = $conn->prepare($sql_id);
         $smtm_fetch_id->execute($data_type_ID);
         $result_id =  $smtm_fetch_id->fetchAll(PDO::FETCH_ASSOC);
