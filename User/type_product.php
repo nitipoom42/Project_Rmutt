@@ -8,7 +8,6 @@ $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute();
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <?php
 // loopข้อมูลประเภทของสินค้า
 foreach ($result_type as $row_result_type_ID) { ?>
