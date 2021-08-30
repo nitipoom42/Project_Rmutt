@@ -3,7 +3,7 @@
 
 <!-- เรียกข้อมูลประเภทสินค้าตาราง type_product-->
 <?php
-$sql_fetch_type = "SELECT  * FROM type_product WHERE NOT ID_Type_Product=1;";
+$sql_fetch_type = "SELECT  * FROM type_product";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute();
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);

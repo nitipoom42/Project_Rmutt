@@ -69,7 +69,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-
+        <?php require_once('product_promotion.php'); ?>
         <?php require_once('itmes_type.php'); ?>
         <?php require_once('type_product.php'); ?>
 
