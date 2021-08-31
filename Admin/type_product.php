@@ -104,6 +104,14 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                             <div class="modal-body">
                                 <form action="../sql/db_add_type_product.php" enctype="multipart/form-data" method="post">
                                     <div class="card col-md-12 mx-auto p-5 shadow rounded-5">
+                                        <div class="mb-3 text-center">
+                                            <img class="shadow-lg rounded" width="260" height="250" id="output" src="https://hongthaipackaging.com/wp-content/uploads/2019/04/%E0%B8%81%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%9A%E0%B8%AD%E0%B8%A3%E0%B9%8C-I-55x45x40-cm-%E0%B8%A2x%E0%B8%81x%E0%B8%AA.jpg">
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="btn btn-primary mx-auto">
+                                                <i class="fa fa-image"></i> เลือกรูปสินค้า<input type="file" style="display: none;" accept="image/*" onchange="loadFile(event)" name="IMG_Type_Product" required>
+                                            </label>
+                                        </div>
                                         <div class="">
                                             <label class="form-label">ประเภทสินค้า</label>
                                             <input name="NAME_Type_Product" type="text" class="form-control" placeholder="ชื่อประเภทสินค้า...">
@@ -128,6 +136,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                         <table id="type_product" class="display">
                             <thead>
                                 <tr>
+                                    <th>รูป</th>
                                     <th>ชื่อประเภทสินค้า</th>
                                     <th></th>
                                 </tr>
@@ -135,6 +144,9 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                             <tbody>
                                 <?php foreach ($result_type_product as $row_type) { ?>
                                     <tr>
+                                        <td>
+                                            <img src="../Asset/img_type_product/<?php echo $row_type['IMG_Type_Product'] ?>" width="75" height="75">
+                                        </td>
                                         <td><?php echo $row_type['INFO_Type_Product'] ?></td>
                                         <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_type_product<?php echo $row_type['ID_Type_Product'] ?>">แก้ไข</a>
                                             <a onclick="del_type(<?php echo $row_type['ID_Type_Product']  ?>) " class="btn btn-danger btn-sm">ลบ</a>
@@ -209,7 +221,9 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
 
         <script>
             $(document).ready(function() {
+
                 $('#type_product').DataTable({
+
                     "language": {
                         "lengthMenu": "แสดง _MENU_ แถว",
                         "zeroRecords": "ไม่พบข้อมูล",
@@ -217,7 +231,8 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                         "search": "ค้นหา",
                         "infoEmpty": "",
                         "infoFiltered": "",
-                    }
+                    },
+
                 });
             });
         </script>
@@ -237,6 +252,17 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
 
                 })
             }
+        </script>
+
+        <!-- แสดงรูปภาพอัตโนมัติ  โดยใน file ต้องมี accept="image/*" onchange="loadFile(event)" ละที่แสดงรูปโดยอ้างอิง ID output ของ div-->
+        <script>
+            var loadFile = function(event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function() {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
+            };
         </script>
 
 

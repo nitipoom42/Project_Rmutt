@@ -15,7 +15,9 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
     <hr>
     <?php foreach ($result_type as $type_product) { ?>
         <div class="col-md-4 col-3 mb-3">
-            <a class="btn btn-info btn-lg rounded" href="product_full.php?ID_Type_Product=<?php echo $type_product['ID_Type_Product']; ?>   "> <?php echo $type_product['INFO_Type_Product']; ?></a>
+
+
+            <a class="btn btn-info btn-lg rounded" href="product_full.php?ID_Type_Product=<?php echo $type_product['ID_Type_Product']; ?>   "> <img src="../Asset/img_type_product/<?php echo $type_product['IMG_Type_Product'] ?>" width="50" height="50"> <?php echo $type_product['INFO_Type_Product']; ?></a>
         </div>
     <?php } ?>
     <hr>
