@@ -9,6 +9,20 @@ $smtm_fetch_type->execute();
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+
+<!-- เรียกข้อมูลประเภทสินค้าตาราง member-->
+<?php
+
+@$data_member_Point = [
+    'ID_Member' => $_SESSION['ID_Member'],
+];
+
+$sql_member = "SELECT  * FROM member WHERE  ID_Member=:ID_Member;";
+$smtm_member = $conn->prepare($sql_member);
+$smtm_member->execute($data_member_Point);
+$result_member = $smtm_member->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <?php
 foreach ($result_type as $row_result_type_ID) { ?>
     <div class="bg-light p-3 mt-3 rounded">
@@ -88,9 +102,16 @@ foreach ($result_type as $row_result_type_ID) { ?>
                                 </div>
 
                                 <input type="hidden" name="Point_Product" value="<?php echo $row_stock['POINT_Product']; ?>">
+
+
                                 <div class="modal-footer">
+
                                     <button class="btn btn-success" type="submit" name="Add_Cart">หยิบลงตะกร้า</button>
                                 </div>
+
+
+
+
                             </div>
                         </div>
                     </div>

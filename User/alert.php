@@ -124,3 +124,17 @@ if (@$_SESSION['over_stock'] == 1) {
   $_SESSION['over_stock'] = 0;
 }
 ?>
+<?php
+if (@$_SESSION['over_stock_promotion'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'error',
+          title: 'ขออภัยแต้มสะสมไม่เพียงพอ',
+          showConfirmButton: true,
+          confirmButtonColor: '#188752',
+          
+          })
+        </script>";
+  $_SESSION['over_stock_promotion'] = 0;
+}
+?>
