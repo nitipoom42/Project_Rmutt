@@ -99,3 +99,15 @@ if (isset($_GET['ID_bank'])) {
     Header("Location:../Admin/add_bank.php");
 }
 ?>
+<!-- ลบข้อมูล Banner -->
+<?php
+if (isset($_GET['ID_Banner'])) {
+    $data_banner = [
+        'ID_Banner' => $_GET['ID_Banner']
+    ];
+    $sql_banner = ("DELETE FROM banner WHERE ID_Banner=:ID_Banner");
+    $stmt_banner = $conn->prepare($sql_banner);
+    $stmt_banner->execute($data_banner);
+    Header("Location:../Admin/banner_promotion.php");
+}
+?>

@@ -26,9 +26,9 @@ if (@$_SESSION['status_onti'] == 1) {
 }
 ?>
 
-<div id="content">
+<div id="content ">
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " id="accordionSidebar ">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -62,8 +62,12 @@ if (@$_SESSION['status_onti'] == 1) {
                 <span>เพิ่มสินค้า</span>
             </a>
             <a class="nav-link collapsed" href="add_product_promotion.php">
-                <i class="far fa-plus-square"></i>
+                <i class="fab fa-product-hunt"></i>
                 <span>เพิ่มสินค้าโปรโมชั่น</span>
+            </a>
+            <a class="nav-link collapsed" href="banner_promotion.php">
+                <i class="far fa-images"></i>
+                <span>แบนเนอร์โปรโมชั่น</span>
             </a>
             <a class="nav-link collapsed" data-bs-toggle="collapse" href="#collapseExample">
                 <i class="fas fa-cubes"></i>
