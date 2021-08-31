@@ -215,6 +215,7 @@ require_once('../sql/connect.php');
 
         <script>
             $(document).ready(function() {
+                $('#menu').load('menu.php');
                 setInterval(function() {
                     $('#menu').load('menu.php');
                 }, 1000);

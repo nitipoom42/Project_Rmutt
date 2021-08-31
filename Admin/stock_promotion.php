@@ -3,7 +3,7 @@
 
 <!-------------------------------------------------------------------->
 <?php
-$sql_stock = "SELECT * FROM stock as s JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product";
+$sql_stock = "SELECT * FROM stock_promotion as s JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product";
 $stmt_stock = $conn->prepare($sql_stock);
 $stmt_stock->execute();
 $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
@@ -84,7 +84,7 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                 </nav>
                 <!-- End of Topbar -->
                 <div class="alert alert-primary text-center" role="alert">
-                    <h1>สินค้าทั่วไป</h1>
+                    <h1>สินค้าโปรโมชั่น</h1>
                 </div>
                 <div class="row ">
                     <div class="col-md-11 mx-auto card p-2">
@@ -105,18 +105,18 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                     <tr>
                                         <td class="text-center"><img src="../Asset/img/<?php echo $row_stock['IMG_Product'] ?>" width="75" height="75"></td>
                                         <td><?php echo $row_stock['NAME_Product'] ?></td>
-                                        <td><?php echo $row_stock['PRICE_Product'] ?>.-บาท</td>
+                                        <td><?php echo $row_stock['POINT_Product'] ?>แต้ม</td>
                                         <td><?php echo $row_stock['INFO_Type_Product'] ?></td>
                                         <td><?php echo $row_stock['QTY_Product'] ?></td>
-                                        <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Product'] ?>">แก้ไข</a>
-                                            <a onclick="del_product(<?php echo $row_stock['ID_Product'] ?>)" class="btn btn-danger btn-sm">ลบ</a>
+                                        <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Product_Promotion'] ?>">แก้ไข</a>
+                                            <a onclick="del_product(<?php echo $row_stock['ID_Product_Promotion'] ?>)" class="btn btn-danger btn-sm">ลบ</a>
 
                                         </td>
 
                                     </tr>
 
                                     <!-- Modalแก้ไขสินค้า -->
-                                    <div class="modal fade" id="edit_product<?php echo $row_stock['ID_Product'] ?>" tabindex="-1" aria-labelledby="add_type_product" aria-hidden="true">
+                                    <div class="modal fade" id="edit_product<?php echo $row_stock['ID_Product_Promotion'] ?>" tabindex="-1" aria-labelledby="add_type_product" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -124,7 +124,7 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="../sql/db_edit_product.php" method="post">
+                                                    <form action="../sql/db_edit_product_promotion.php" method="post">
                                                         <div class="card col-md-12 mx-auto p-5 shadow rounded-5">
                                                             <div class="text-center">
                                                                 <img src="../Asset/img/<?php echo $row_stock['IMG_Product'] ?>" width="75" height="75">
@@ -134,14 +134,14 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                                                     <input name="NAME_Product" type="text" class="form-control" value="<?php echo $row_stock['NAME_Product'] ?>">
                                                                 </div>
                                                                 <div class="input-group mb-2">
-                                                                    <span class="input-group-text" id="basic-addon1">ราคาสินค้า</span>
-                                                                    <input name="PRICE_Product" type="text" class="form-control" value="<?php echo $row_stock['PRICE_Product'] ?>">
+                                                                    <span class="input-group-text" id="basic-addon1">แต้มสินค้า</span>
+                                                                    <input name="POINT_Product" type="text" class="form-control" value="<?php echo $row_stock['POINT_Product'] ?>">
                                                                 </div>
                                                                 <div class="input-group mb-2">
                                                                     <span class="input-group-text" id="basic-addon1">จำนวนสินค้า</span>
                                                                     <input name="QTY_Product" type="text" class="form-control" value="<?php echo $row_stock['QTY_Product'] ?>">
                                                                 </div>
-                                                                <input type="hidden" name="ID_Product" value="<?php echo $row_stock['ID_Product'] ?>">
+                                                                <input type="hidden" name="ID_Product_Promotion" value="<?php echo $row_stock['ID_Product_Promotion'] ?>">
                                                             </div>
                                                         </div>
                                                 </div>
@@ -220,7 +220,7 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                 Swal.fire({
                     icon: 'error',
                     title: 'คุณจะลบรายการนี้หรือไม่',
-                    confirmButtonText: `<a class="text-light" href="../sql/del.php?ID_Product=${id}">ยืนยัน</a>`,
+                    confirmButtonText: `<a class="text-light" href="../sql/del.php?ID_Product_Promotion=${id}">ยืนยัน</a>`,
                     confirmButtonColor: '#d33',
                     showCancelButton: true,
                     cancelButtonText: `ยกเลิก`,

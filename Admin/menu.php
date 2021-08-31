@@ -65,10 +65,21 @@ if (@$_SESSION['status_onti'] == 1) {
                 <i class="far fa-plus-square"></i>
                 <span>เพิ่มสินค้าโปรโมชั่น</span>
             </a>
-            <a class="nav-link collapsed" href="stock.php">
-                <i class="fas fa-layer-group"></i>
+            <a class="nav-link collapsed" data-bs-toggle="collapse" href="#collapseExample">
+                <i class="fas fa-cubes"></i>
                 <span>สต๊อกสินค้า</span>
             </a>
+
+            <div class="collapse" id="collapseExample">
+                <a class="nav-link collapsed" href="stock.php">
+                    <i class="far fa-plus-square"></i>
+                    <span>สินค้าทั่วไป</span>
+                </a>
+                <a class="nav-link collapsed" href="stock_promotion.php">
+                    <i class="far fa-plus-square"></i>
+                    <span>สินค้าโปรโมชั่น</span>
+                </a>
+            </div>
             <a class="nav-link collapsed" href="type_product.php">
                 <i class="fas fa-cubes"></i>
                 <span>ประเภทสินค้า</span>
@@ -77,6 +88,9 @@ if (@$_SESSION['status_onti'] == 1) {
                 <i class="fas fa-money-bill-wave"></i>
                 <span>ธนาคาร</span>
             </a>
+
+
+
 
 
         </li>

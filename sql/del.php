@@ -13,6 +13,19 @@ if (isset($_GET['ID_Product'])) {
     Header("Location:../Admin/stock.php");
 }
 ?>
+<!-- ลบข้อมูลสินค้าใน stock -->
+<?php
+if (isset($_GET['ID_Product_Promotion'])) {
+    $data_delete_Product_promotion = [
+        'ID_Product_Promotion' => $_GET['ID_Product_Promotion']
+    ];
+    $delete_stmt_Product_promotion = ("DELETE FROM stock_promotion WHERE ID_Product_Promotion=:ID_Product_Promotion");
+    $delete_stmt_Product_promotion = $conn->prepare($delete_stmt_Product_promotion);
+    $delete_stmt_Product_promotion->execute($data_delete_Product_promotion);
+    $_SESSION['dle_product'] = 1;
+    Header("Location:../Admin/stock_promotion.php");
+}
+?>
 <!-- ลบข้อมูลประเภทสินค้า -->
 <?php
 if (isset($_GET['ID_Type_Product'])) {
