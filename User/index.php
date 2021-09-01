@@ -38,12 +38,13 @@
 
 <body>
     <?php require_once('alert.php'); ?>
-    <div class="container overflow-hidden">
+    <!-- banner -->
+
+    <div class="container ">
         <!-- เมนู -->
         <?php require_once('navbar.php'); ?>
         <br>
         <br>
-        <!-- banner -->
         <?php require_once('banner.php'); ?>
         <!-- โปรโมชั่น -->
         <?php require_once('product_promotion.php'); ?>

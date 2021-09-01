@@ -3,7 +3,7 @@
 
 <?php
 
-$data_member = [
+@$data_member = [
     'ID_Member' => $_SESSION['ID_Member'],
 ];
 
