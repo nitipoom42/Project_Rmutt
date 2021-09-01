@@ -39,38 +39,17 @@
 <body>
     <?php require_once('alert.php'); ?>
     <div class="container overflow-hidden">
+        <!-- เมนู -->
         <?php require_once('navbar.php'); ?>
         <br>
         <br>
+        <!-- banner -->
+        <?php require_once('banner.php'); ?>
         <!-- โปรโมชั่น -->
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://images.unsplash.com/photo-1579895989448-9cc51e9a7060?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://images.unsplash.com/photo-1583272468191-9e38292ebb58?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1055&q=80" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
         <?php require_once('product_promotion.php'); ?>
+        <!-- ประเภทสินค้า -->
         <?php require_once('itmes_type.php'); ?>
+        <!-- สินค้าแต่ละประเภท -->
         <?php require_once('type_product.php'); ?>
 
         <!-- สินค้าแต่ละประเภท -->
@@ -91,18 +70,11 @@
     <!-- sweetalert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="../Asset/slick/slick/slick.min.js"></script>
 
-    <script>
-        $('.autoplay').slick({
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            accessibility: true,
-            dots: true,
-            focusOnSelect: false,
-            centerMode: false,
 
-        });
-    </script>
 
     <script>
         $(document).ready(function() {
