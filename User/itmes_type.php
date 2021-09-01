@@ -26,7 +26,6 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
     }
 
     #box_items_typy .swiper-slide {
-
         background: #fff;
         /* Center slide text vertically */
         display: -webkit-box;
@@ -65,7 +64,14 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
     }
 
     #box_items_typy .swiper-pagination {
-        top: 9rem;
+        position: absolute;
+
+
+    }
+
+    #box_items_typy .swiper-pagination_items_type {
+        z-index: 10;
+        top: 1rem;
     }
 </style>
 <div id="box_items_typy">
@@ -76,11 +82,15 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($result_type as $type_product) { ?>
                 <div class="swiper-slide">
                     <a href="product_full.php?ID_Type_Product=<?php echo $type_product['ID_Type_Product']; ?>   "><img src="../Asset/img_type_product/<?php echo $type_product['IMG_Type_Product'] ?>"><?php echo $type_product['INFO_Type_Product'] ?></a>
-                </div> <?php } ?>
+                </div>
+            <?php } ?>
         </div>
+
     </div>
-    <div class="swiper-pagination"></div>
+    <div class="swiper-pagination_items_type"></div>
 </div>
+
+
 
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -92,8 +102,8 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
         spaceBetween: 30,
         freeMode: true,
         pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
+            el: ".swiper-pagination_items_type",
+
         },
     });
 </script>

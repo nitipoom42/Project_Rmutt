@@ -103,7 +103,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                                                             echo "outstock";
                                                         }
 
-                                                        ?> accordion-bodyoverflow-hidden"> <img class=" card-img-top mx-auto" src="../Asset/img/<?php echo $row_stock['IMG_Product']; ?>"></div>
+                                                        ?> accordion-body overflow-hidden"> <img class=" card-img-top mx-auto" src="../Asset/img/<?php echo $row_stock['IMG_Product']; ?>"></div>
                                         <div class="card-body">
                                             <p class="card-text text-wrap"><?php echo $row_stock['NAME_Product']; ?></p>
                                             <h5 class="card-text text-success"><?php echo $row_stock['PRICE_Product']; ?> บาท</h5>
@@ -148,9 +148,11 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                             </script>
                         </div>
                     <?php } ?>
+
                 </div>
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination1"></div>
             </div>
+
             <div class="row">
                 <div class="col">
                     <div class="text-end type_full mt-2">
@@ -170,7 +172,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
             spaceBetween: 10,
             freeMode: true,
             pagination: {
-                el: ".swiper-pagination",
+                el: ".swiper-pagination1",
                 clickable: true,
             },
         });
