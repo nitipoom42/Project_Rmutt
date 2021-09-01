@@ -29,7 +29,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
         <div class="row col-12 mb-2 mt-2 mx-auto">
             <div class="row mt-2  ">
                 <div class="col  text-center ">
-                    <h4 class=" rounded-pill bg-success text-light p-2"> <?php echo $row_result_type_ID['INFO_Type_Product']; ?></h4>
+                    <h4 class=" rounded-pill bg_head_peoduct text-light p-2"> <?php echo $row_result_type_ID['INFO_Type_Product']; ?></h4>
                 </div>
             </div>
         </div>
@@ -124,7 +124,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
     <div class="row">
         <div class="col">
             <div class="text-end type_full mt-2">
-                <a href="product_full.php?ID_Type_Product=<?php echo $row_result_type_ID['ID_Type_Product']; ?>   ">สินค้าเพิ่มเติม...</a>
+                <a href="product_promotion_full.php?ID_Type_Product=<?php echo $row_result_type_ID['ID_Type_Product']; ?>   ">สินค้าเพิ่มเติม...</a>
             </div>
         </div>
     </div>

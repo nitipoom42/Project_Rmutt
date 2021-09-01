@@ -39,7 +39,7 @@ foreach ($result as $row) {
         Header("Location:../User/index.php");
     }
     foreach ($result_member as $row_member) {
-        if ($data_qty['QTY'] * $row['POINT_Product'] > $result_member['Point']) {
+        if ($data_qty['QTY'] * $row['POINT_Product'] > $row_member['Point']) {
             $_SESSION['over_stock_promotion'] = 1;
             Header("Location:../User/index.php");
         } else {
@@ -65,10 +65,10 @@ foreach ($result as $row) {
 
                 $data_promotion = [
                     'ID_Member' => $_SESSION['ID_Member'],
-                    'Point_Product' => $_POST['Point_Product']
+                    'Point_Product' => $_POST['Point_Product'],
+                    'QTY' => $_POST['QTY']
                 ];
-
-                $sql_point = "UPDATE member SET Point=Point-:Point_Product WHERE ID_Member=:ID_Member ";
+                $sql_point = "UPDATE member SET Point=Point-(:QTY*:Point_Product) WHERE ID_Member=:ID_Member ";
                 $stmt_point = $conn->prepare($sql_point);
                 $stmt_point->execute($data_promotion);
                 $_SESSION['cart'] = 1;

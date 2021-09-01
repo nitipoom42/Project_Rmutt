@@ -73,6 +73,10 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
         z-index: 10;
         top: 1rem;
     }
+
+    #box_items_typy .swiper-pagination-bullet-active {
+        background: #008065;
+    }
 </style>
 <div id="box_items_typy">
     <h3>ประเภทสินค้า</h3>

@@ -21,6 +21,8 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
     #box_items_product .swiper {
         width: 100%;
         height: 100%;
+        background: none;
+
     }
 
     #box_items_product .swiper-slide {
@@ -63,6 +65,10 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
         box-shadow: rgba(0, 0, 0, 0.35) 0px 10px 20px;
         border-radius: 1rem;
     }
+
+    #box_items_product .swiper-pagination-bullet-active {
+        background: #008065;
+    }
 </style>
 </head>
 
@@ -70,12 +76,17 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
     <div id="box_items_product">
         <!-- Swiper -->
         <?php foreach ($result_type as $row_result_type_ID) { ?>
-            <div class="row col-12 mb-2 mt-5 mx-auto ">
-                <div class="row mt-2  ">
-                    <div class="col  text-center ">
-                        <h4 class=" rounded-pill bg-success text-light p-2"> <?php echo $row_result_type_ID['INFO_Type_Product']; ?></h4>
+            <div class="row mb-2 mt-5 mx-auto justify-content-between align-items-center">
+
+                <div class="col-2  text-center ">
+                    <h4 class=" rounded-pill bg_head_peoduct text-light p-2"> <?php echo $row_result_type_ID['INFO_Type_Product']; ?></h4>
+                </div>
+                <div class="col">
+                    <div class="text-end type_full mt-2">
+                        <a href="product_full.php?ID_Type_Product=<?php echo $row_result_type_ID['ID_Type_Product']; ?>   ">ดูทั้งหมด <i class="fas fa-angle-double-right"></i></a>
                     </div>
                 </div>
+
             </div>
 
             <?php
@@ -88,10 +99,10 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
             $result_id =  $smtm_fetch_id->fetchAll(PDO::FETCH_ASSOC);
             ?>
 
-            <div class="swiper mySwiper">
+            <div class="swiper mySwiper ">
                 <div class="swiper-wrapper">
                     <?php foreach ($result_id as $row_stock) { ?>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide shadow">
                             <a <?php if ($row_stock['QTY_Product'] > 0) { ?> onclick="stock<?php echo $row_stock['ID_Product']; ?>() <?php   } ?>" <?php if ($row_stock['QTY_Product'] == 0) { ?> onclick=" out_stock() <?php   } ?>" class="box_product" data-bs-target="<?php
                                                                                                                                                                                                                                                                             if ($row_stock['QTY_Product'] > 0) { ?>
                     #product_popup<?php echo $row_stock['ID_Product'] ?>
@@ -147,18 +158,10 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                                 }
                             </script>
                         </div>
-                    <?php } ?>
 
+                    <?php } ?>
                 </div>
                 <div class="swiper-pagination1"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="text-end type_full mt-2">
-                        <a href="product_full.php?ID_Type_Product=<?php echo $row_result_type_ID['ID_Type_Product']; ?>   ">สินค้าเพิ่มเติม...</a>
-                    </div>
-                </div>
             </div>
         <?php } ?>
     </div>
