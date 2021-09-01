@@ -14,11 +14,6 @@ $stmt_cart->execute($data_member);
 $result_cart = $stmt_cart->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-
-
-
-
-
 <div class="fixed-top bg-light d-flex justify-content-between ">
     <h1 class="bg-info mt-2 p-2 banner"> <a href="index.php"> ร้าน - น้องมายด์</a></h1>
 
@@ -30,7 +25,6 @@ $result_cart = $stmt_cart->fetchAll(PDO::FETCH_ASSOC);
             if ($result_cart) { ?>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     <?php echo count($result_cart); ?>
-
                 </span>
             <?php    } ?>
         </button>

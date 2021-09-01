@@ -47,8 +47,20 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../Asset/Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../Asset/css.css">
 
+    <!-- slick -->
+    <link rel="stylesheet" type="text/css" href="../Asset/slick/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="../Asset/slick/slick/slick-theme.css" />
+
     <!-- Font-awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- sweetalert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.js" integrity="sha512-mBSqtiBr4vcvTb6BCuIAgVx4uF3EVlVvJ2j+Z9USL0VwgL9liZ638rTANn5m1br7iupcjjg/LIl5cCYcNae7Yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.js" integrity="sha512-dhEwOlXtyz36+QteITRvQOAWr/d8kQKeHs4D/1yttrjtLxDj8qPIkgxYl3hR7NIRZUfZIqEPgTP1DG5AwNU7Jw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.css">
 
     <title>Home</title>
 
@@ -58,13 +70,12 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class="container">
 
+        <!-- เมนู -->
         <?php require_once('navbar.php'); ?>
         <br>
         <br>
         <br>
         <br>
-
-
         <div class="row">
             <?php
             foreach ($result_member as $row_member) { ?>
@@ -179,9 +190,6 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
     <?php } ?>
-
-
-
 
     <br>
     <br>

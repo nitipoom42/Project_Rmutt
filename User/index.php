@@ -76,8 +76,6 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="../Asset/slick/slick/slick.min.js"></script>
 
-
-
     <script>
         $(document).ready(function() {
             setInterval(function() {
