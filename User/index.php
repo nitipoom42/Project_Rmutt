@@ -41,7 +41,7 @@
     <?php require_once('alert.php'); ?>
     <!-- banner -->
 
-    <div class="container ">
+    <div class="container">
         <!-- เมนู -->
         <?php require_once('navbar.php'); ?>
         <br>

@@ -17,15 +17,28 @@ body {
 .Box_Menu {
   background-color: #fff;
 }
-.Menu_item a {
-  color: rgb(0, 0, 0);
+.info_menu {
+  color: #00b28d;
   text-decoration: none;
   transition: 0.3s ease-in-out;
 }
-.Menu_item a:hover {
-  color: rgb(255, 0, 0);
+.info_menu:hover {
+  color: #fff;
 }
-
+.box_info_menu {
+  transition: 0.3s ease-in-out;
+}
+.box_info_menu:hover {
+  width: 70%;
+  background: #008065;
+  border-radius: 1rem;
+  color: #fff;
+}
+.bg_info_menu {
+  width: 70%;
+  background: #008065;
+  border-radius: 1rem;
+}
 /* banner-navbar */
 .banner {
   border-radius: 0px 15px 15px 0px;
