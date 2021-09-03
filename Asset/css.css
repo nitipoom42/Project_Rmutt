@@ -224,6 +224,7 @@ body {
   border-radius: 0.5rem;
 }
 
+/* ปุ่ม slick */
 button.slick-prev::before,
 button.slick-next::before {
   font-family: "Font Awesome 5 Free";
@@ -240,4 +241,8 @@ button.slick-prev::before {
 button.slick-next::before {
   content: "\f138";
   margin-right: -20px;
+}
+
+.bg_menu_admin {
+  background: #2c57d8;
 }

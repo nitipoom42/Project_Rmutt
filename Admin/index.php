@@ -19,7 +19,7 @@ require_once('../sql/connect.php');
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Asset/css.css">
     <link rel="stylesheet" href="../Asset/Bootstrap/css/bootstrap.min.css">
     <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
 
@@ -53,7 +53,6 @@ require_once('../sql/connect.php');
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>

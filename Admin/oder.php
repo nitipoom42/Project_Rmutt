@@ -5,13 +5,14 @@
 <!-- รายการสั่งซื้อ -->
 <?php
 $sql_oder = "SELECT * FROM oder_detail as od
-JOIN oder as o ON od.ID_Oder = od.ID_Oder
+JOIN oder as o ON o.ID_Oder = od.ID_Oder
+JOIN member as m ON m.ID_Member = o.ID_Member
 JOIN stock as s ON s.ID_Product = od.ID_Product
 WHERE o.oder_status=0 OR o.oder_status=1 OR o.oder_status=2
 GROUP BY o.ID_Oder";
 $stmt_oder = $conn->prepare($sql_oder);
 $stmt_oder->execute();
-$result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
+$result_oder_admin = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- รายการสั่งซื้อที่รอจัดเตรียมสินค้า  _S==1 -->
@@ -50,7 +51,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Asset/Bootstrap/css/bootstrap.min.css">
     <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" href="../Asset/css.css">
     <!-- Font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
@@ -124,16 +125,22 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                             <thead>
                                 <tr>
                                     <th>เลขที่ สั่งซื้อ</th>
+                                    <th>ชื่อลูกค้า</th>
+                                    <th>เบอร์ติดต่อ</th>
                                     <th>สถานะ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $total = 0; ?>
-                                <?php foreach ($result_oder as $row_oder) { ?>
+                                <?php foreach ($result_oder_admin as $row_oder) { ?>
 
                                     <?php if ($row_oder['oder_status'] == 1 or $row_oder['oder_status'] == 2) { ?>
                                         <tr>
                                             <td><?php echo $row_oder['Oder_date']; ?></td>
+                                            <td><?php echo $row_oder['Name']; ?></td>
+                                            <td><?php echo $row_oder['Tel']; ?></td>
+
+
                                             <td>
                                                 <div class="row align-items-center">
                                                     <div class="col-md-3">
@@ -148,7 +155,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                             </div>
                                                         <?php } ?>
                                                     </div>
-                                                    <div class="col-md-2 text-center">
+                                                    <div class="col-md-3 text-center">
                                                         <!-- Button trigger modal -->
                                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#oder<?php echo $row_oder['ID_Oder']; ?>">
                                                             <i class="fas fa-receipt"></i> รายระเอียด
@@ -157,7 +164,6 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
 
                                                     <!-- ปุ่มยืนยันการรับสินค้า -->
                                                     <div class="col-md-3">
-
                                                         <?php if ($row_oder['oder_status'] == 1) { ?>
                                                             <form action="../sql/db_admin_confirm_pay.php" method="post">
                                                                 <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder'] ?>">

@@ -26,7 +26,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Asset/css.css">
     <link rel="stylesheet" href="../Asset/Bootstrap/css/bootstrap.min.css">
     <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
 

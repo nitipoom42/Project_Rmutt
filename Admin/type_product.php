@@ -29,6 +29,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Asset/Bootstrap/css/bootstrap.min.css">
     <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../Asset/css.css">
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

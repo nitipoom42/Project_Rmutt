@@ -26,50 +26,65 @@ if (@$_SESSION['status_onti'] == 1) {
 }
 ?>
 
+<?php
+@$url .= $_SERVER['REQUEST_URI'];
+@$url = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
+?>
+
+
 <div id="content ">
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " id="accordionSidebar ">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-            <div class="sidebar-brand-icon rotate-n-15">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center " href="index.php">
+            <div class="sidebar-brand-icon rotate-n-15 ">
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">ร้านของมายด์</div>
         </a>
 
         <!-- Heading -->
-        <div class="sidebar-heading">
-            เมนู
-        </div>
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="oder.php">
+            <a class="nav-link  collapsed <?php if ($url == 'menu.php') {
+                                                echo "bg_menu_admin";
+                                            } ?>" href="index.php">
+                <i class="fas fa-file-invoice ms-1 me-2"></i>
+                <span> รายงานยอดขาย</span>
+            </a>
+            <a class="nav-link collapsed <?php if ($url == 'oder.php') {
+                                                echo "bg_menu_admin";
+                                            } ?>" href="oder.php">
                 <i class="fas fa-cart-arrow-down"></i>
                 <span>รายการสั่งซื้อ
                     <?php
                     if ($result_oder) { ?>
                         <p class="btn btn-danger btn-sm rounded"> <?php echo count($result_oder); ?></p>
-
                     <?php    }
                     ?>
                 </span>
-
             </a>
-            <a class="nav-link collapsed" href="add_product.php">
+            <hr>
+            <a class="nav-link collapsed <?php if ($url == 'add_product.php') {
+                                                echo "bg_menu_admin";
+                                            } ?>" href="add_product.php">
                 <i class="far fa-plus-square"></i>
                 <span>เพิ่มสินค้า</span>
             </a>
-            <a class="nav-link collapsed" href="add_product_promotion.php">
+            <a class="nav-link collapsed <?php if ($url == 'add_product_promotion.php') {
+                                                echo "bg_menu_admin";
+                                            } ?>" href="add_product_promotion.php">
                 <i class="fab fa-product-hunt"></i>
                 <span>เพิ่มสินค้าโปรโมชั่น</span>
             </a>
-            <a class="nav-link collapsed" href="banner_promotion.php">
+            <a class="nav-link collapsed <?php if ($url == 'banner_promotion.php') {
+                                                echo "bg_menu_admin";
+                                            } ?>" href="banner_promotion.php">
                 <i class="far fa-images"></i>
                 <span>แบนเนอร์โปรโมชั่น</span>
             </a>
-            <a class="nav-link collapsed" data-bs-toggle="collapse" href="#collapseExample">
+            <a class="nav-link collapsed " data-bs-toggle="collapse" href="#collapseExample">
                 <i class="fas fa-cubes"></i>
                 <span>สต๊อกสินค้า</span>
             </a>
@@ -84,11 +99,15 @@ if (@$_SESSION['status_onti'] == 1) {
                     <span>สินค้าโปรโมชั่น</span>
                 </a>
             </div>
-            <a class="nav-link collapsed" href="type_product.php">
+            <a class="nav-link collapsed <?php if ($url == 'type_product.php') {
+                                                echo "bg_menu_admin";
+                                            } ?>" href="type_product.php">
                 <i class="fas fa-cubes"></i>
                 <span>ประเภทสินค้า</span>
             </a>
-            <a class="nav-link collapsed" href="add_bank.php">
+            <a class="nav-link collapsed <?php if ($url == 'add_bank.php') {
+                                                echo "bg_menu_admin";
+                                            } ?>" href="add_bank.php">
                 <i class="fas fa-money-bill-wave"></i>
                 <span>ธนาคาร</span>
             </a>

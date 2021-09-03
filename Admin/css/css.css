@@ -15,3 +15,7 @@ span {
 input[type="file"] {
   height: 50px;
 }
+
+.bg_menu_admin {
+  background: #000000;
+}

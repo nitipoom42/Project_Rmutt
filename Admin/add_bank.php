@@ -32,6 +32,7 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Asset/Bootstrap/css/bootstrap.min.css">
     <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../Asset/css.css">
 
 
     <!-- ajax -->
