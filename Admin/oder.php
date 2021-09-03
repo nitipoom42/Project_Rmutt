@@ -91,9 +91,9 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2 text-center">
                                         <div class="text-xs font-weight-bold text-danger mb-1">
-                                            <h3><i class="fas fa-exclamation-triangle"></i> จัดเตรียมสินค้า</h3>
+                                            <h4><i class="fas fa-exclamation-triangle"></i> จัดเตรียมสินค้า</h4>
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <?php echo $stmt_oder_s1->rowCount() ?> รายการ</div>
+                                        <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_oder_s1->rowCount() ?> รายการ</div>
                                     </div>
                                 </div>
                             </div>
@@ -106,9 +106,9 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2 text-center">
                                         <div class="text-xs font-weight-bold text-warning mb-1">
-                                            <h3><i class="fas fa-exclamation-circle"></i> รอลูกค้ามารับสินค้า</h3>
+                                            <h4><i class="fas fa-exclamation-circle"></i> รอลูกค้ามารับสินค้า</h4>
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <?php echo $stmt_oder_s2->rowCount() ?> รายการ</div>
+                                        <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_oder_s2->rowCount() ?> รายการ</div>
                                     </div>
                                 </div>
                             </div>

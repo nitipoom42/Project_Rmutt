@@ -1,6 +1,41 @@
 <?php
 require_once('../sql/connect.php');
 ?>
+<!-- รายการสั่งซื้อที่รอจัดเตรียมสินค้า  _S==1 -->
+<?php
+$sql_oder_s1 = "SELECT * FROM oder WHERE oder_status=1";
+$stmt_oder_s1 = $conn->prepare($sql_oder_s1);
+$stmt_oder_s1->execute();
+$result_oder_s1 = $stmt_oder_s1->fetchAll(PDO::FETCH_ASSOC);
+?>
+<!-- รายการสั่งซื้อที่รอลูกค้ามารับสินค้า _S==2 -->
+<?php
+$sql_oder_s2 = "SELECT * FROM oder WHERE oder_status=2";
+$stmt_oder_s2 = $conn->prepare($sql_oder_s2);
+$stmt_oder_s2->execute();
+$result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
+?>
+<!-- ยอดขายที่ได้ได้จากการสั่งออนไลน์ -->
+<?php
+$sql_oder_s3 = "SELECT *  ,SUM(od.QTY) as sumQTY FROM oder as o
+JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
+JOIN stock as s ON od.ID_Product=s.ID_Product 
+WHERE o.oder_status=3
+GROUP BY od.ID_Product;
+";
+$stmt_oder_s3 = $conn->prepare($sql_oder_s3);
+$stmt_oder_s3->execute();
+$result_oder_s3 = $stmt_oder_s3->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!-- สินค้าใกล้หมด-->
+<?php
+$sql_stock_out = "SELECT * FROM stock WHERE QTY_Product<20;";
+$stmt_stock_out = $conn->prepare($sql_stock_out);
+$stmt_stock_out->execute();
+$result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,17 +46,15 @@ require_once('../sql/connect.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>SB Admin 2 - Dashboard</title>
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Asset/css.css">
     <link rel="stylesheet" href="../Asset/Bootstrap/css/bootstrap.min.css">
-    <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../Asset/css.css">
 
     <!-- ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -48,9 +81,7 @@ require_once('../sql/connect.php');
 
             <!-- Main Content -->
             <div id="content">
-
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
@@ -58,61 +89,110 @@ require_once('../sql/connect.php');
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
 
-                        <!-- Earnings (Monthly) Card Example -->
+                    <!-- ป้ายแจ้งเตือนจำนวนรายการ -->
+                    <div class="row mt-5">
+                        <!-- ยอดขายออนไลน์ -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card border-left-success border-bottom-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        <div class="col mr-2 text-center">
+                                            <div class="text-xs font-weight-bold text-success mb-1">
+                                                <h4>&#3647; ยอดขายออนไลน์</h4>
+                                            </div>
+                                            <?php $sell_total_online = 0; ?>
+                                            <div class="h4 mb-0 text-gray-800">
+                                                <?php foreach ($result_oder_s3 as $total_sell) { ?>
+                                                    <?php
+                                                    $sum_total_online = $total_sell['sumQTY'] * $total_sell['PRICE_Product'];
+                                                    $sell_total_online = $sell_total_online + $sum_total_online;
+                                                    ?>
+                                                <?php } ?> <?php echo $sell_total_online; ?>.-บาท</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <!-- ยอดขายหน้าร้าน -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success border-bottom-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2 text-center">
+                                            <div class="text-xs font-weight-bold text-success mb-1">
+                                                <h4>&#3647; ยอดขายหน้าร้าน</h4>
+                                            </div>
+                                            <?php $sell_total = 0; ?>
+                                            <div class="h4 mb-0 text-gray-800">
+                                                0.-บาท</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- จัดเตรียมสินค้า -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger border-bottom-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2 text-center">
+                                            <div class="text-xs font-weight-bold text-danger mb-1">
+                                                <h4><i class="fas fa-exclamation-triangle"></i> จัดเตรียมสินค้า</h4>
+                                            </div>
+                                            <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_oder_s1->rowCount() ?> รายการ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- รอลูกค้ามารับสินค้า -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2 text-center">
+                                            <div class="text-xs font-weight-bold text-warning mb-1">
+                                                <h4><i class="fas fa-exclamation-circle"></i> รอลูกค้ามารับสินค้า</h4>
+                                            </div>
+                                            <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_oder_s2->rowCount() ?> รายการ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- สินค้าใกล้หมด -->
+                        <div class="col-xl-3 col-md-6 mb-4 btn-group dropend">
+                            <!-- Default dropend button -->
+                            <div class="btn " data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2 text-center">
+                                                <div class="text-xs font-weight-bold text-warning mb-1">
+                                                    <h4><i class="fas fa-exclamation-circle"></i> สินค้าใกล้หมด</h4>
+                                                </div>
+                                                <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_stock_out->rowCount() ?> รายการ</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($result_stock_out as $row_stock_out) { ?>
+                                    <div class="row">
+                                        <div class="col ms-3">
+                                            <small><?php echo $row_stock_out['NAME_Product'] ?></small>
+
+                                        </div>
+                                    </div>
+
+
+                                <?php   } ?>
+                            </ul>
                         </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Content Row -->
@@ -164,20 +244,17 @@ require_once('../sql/connect.php');
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
+        <script src="../Asset/Bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
+        <script src=" vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
-
         <!-- Page level plugins -->
         <script src="vendor/chart.js/Chart.min.js"></script>
-
         <!-- Page level custom scripts -->
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
-
         <!-- sweetalert2 -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
