@@ -2,19 +2,33 @@
 <?php require_once('../sql/connect.php') ?>
 
 <!-------------------------------------------------------------------->
+<!-- รายการสั่งซื้อ -->
 <?php
-
 $sql_oder = "SELECT * FROM oder_detail as od
 JOIN oder as o ON od.ID_Oder = od.ID_Oder
-
 JOIN stock as s ON s.ID_Product = od.ID_Product
 WHERE o.oder_status=0 OR o.oder_status=1 OR o.oder_status=2
 GROUP BY o.ID_Oder";
 $stmt_oder = $conn->prepare($sql_oder);
 $stmt_oder->execute();
 $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
+
+<!-- รายการสั่งซื้อที่รอจัดเตรียมสินค้า  _S==1 -->
+<?php
+$sql_oder_s1 = "SELECT * FROM oder WHERE oder_status=1";
+$stmt_oder_s1 = $conn->prepare($sql_oder_s1);
+$stmt_oder_s1->execute();
+$result_oder_s1 = $stmt_oder_s1->fetchAll(PDO::FETCH_ASSOC);
+?>
+<!-- รายการสั่งซื้อที่รอลูกค้ามารับสินค้า _S==2 -->
+<?php
+$sql_oder_s2 = "SELECT * FROM oder WHERE oder_status=2";
+$stmt_oder_s2 = $conn->prepare($sql_oder_s2);
+$stmt_oder_s2->execute();
+$result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,31 +81,39 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Main Content -->
             <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+
+                <!-- ป้ายแจ้งเตือนจำนวนรายการ -->
+                <div class="row mt-5 ms-5">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-danger border-bottom-danger shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2 text-center">
+                                        <div class="text-xs font-weight-bold text-danger mb-1">
+                                            <h3><i class="fas fa-exclamation-triangle"></i> จัดเตรียมสินค้า</h3>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <?php echo $stmt_oder_s1->rowCount() ?> รายการ</div>
+                                    </div>
+                                </div>
                             </div>
-                        </li>
-                    </ul>
-                </nav>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2 text-center">
+                                        <div class="text-xs font-weight-bold text-warning mb-1">
+                                            <h3><i class="fas fa-exclamation-circle"></i> รอลูกค้ามารับสินค้า</h3>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <?php echo $stmt_oder_s2->rowCount() ?> รายการ</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- End of Topbar -->

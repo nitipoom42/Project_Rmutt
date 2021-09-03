@@ -12,32 +12,32 @@ body {
   background-color: #fafafa;
   font-family: "K2D", sans-serif;
 }
-
 /* menu */
 .Box_Menu {
-  background-color: #fff;
+  background-color: rgb(233, 233, 233);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .info_menu {
-  color: #00b28d;
-  text-decoration: none;
+  color: rgb(0, 0, 0);
   transition: 0.3s ease-in-out;
+  text-decoration: none;
+  width: 100%;
+}
+.box_info_menu {
+  transition: 0.3s ease-in-out;
+  width: 70%;
+  border-radius: 0.5rem;
+  background-color: #fff;
+}
+.box_info_menu:hover {
+  background-color: #008065;
+  color: #fff;
 }
 .info_menu:hover {
   color: #fff;
 }
-.box_info_menu {
-  transition: 0.3s ease-in-out;
-}
-.box_info_menu:hover {
-  width: 70%;
-  background: #008065;
-  border-radius: 1rem;
-  color: #fff;
-}
 .bg_info_menu {
-  width: 70%;
-  background: #008065;
-  border-radius: 1rem;
+  background-color: #008065;
 }
 /* banner-navbar */
 .banner {

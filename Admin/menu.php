@@ -5,7 +5,7 @@
 $sql_oder = "SELECT * FROM oder_detail as od
 JOIN oder as o ON od.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
-WHERE o.oder_status=0 OR o.oder_status=1 OR o.oder_status=2
+WHERE o.oder_status=1 OR o.oder_status=2
 GROUP BY o.ID_Oder";
 $stmt_oder = $conn->prepare($sql_oder);
 $stmt_oder->execute();
