@@ -3,11 +3,10 @@
 
 
 <?php
-if (!$_SESSION['User']) {
+if ($_SESSION['User'] != "admin") {
     Header("Location:../User/login.php");
 }
 ?>
-
 <!-------------------------------------------------------------------->
 <?php
 $sql = "SELECT * FROM banner";
