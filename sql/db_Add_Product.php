@@ -23,7 +23,6 @@ if (isset($_POST['Add_Product'])) {
             VALUES (:IMG_Product,:NAME_Product,:ID_Product,:PRICE_Product,:QTY_Product,:Type_Product)";
             $stmt_Add_Product = $conn->prepare($sql_Add_Product);
             $stmt_Add_Product->execute($data_Product);
-
             $_SESSION['add_product'] = 1;
             Header("Location:../Admin/add_product.php");
         } catch (PDOException $e) {

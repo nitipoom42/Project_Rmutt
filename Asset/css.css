@@ -249,5 +249,11 @@ button.slick-next::before {
 .box_sell_product {
   padding: 0.5rem;
   height: 80vh;
-  background: #ebebeb;
+  border: 0.15rem solid rgb(192, 192, 192);
+  border-radius: 1rem;
+}
+.box_payment {
+  position: absolute;
+  top: 44rem;
+  left: 60rem;
 }

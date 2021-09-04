@@ -37,6 +37,9 @@ else if (isset($_POST['Add_Cart'])) {
             $sql_cart = "INSERT INTO cart (ID_Product,ID_Member,QTY) VALUES (:ID_Product,:ID_Member,:QTY)";
             $stmt_cart = $conn->prepare($sql_cart);
             $stmt_cart->execute($data_cart);
+
+
+
             // ตัด stock สินค้าเมื่อมีการหยิบลงตะกร้า
             $data_QTY = [
                 'ID_Product' => $_POST['ID_Product'],

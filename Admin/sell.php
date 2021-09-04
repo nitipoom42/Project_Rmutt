@@ -54,6 +54,7 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.js" integrity="sha512-dhEwOlXtyz36+QteITRvQOAWr/d8kQKeHs4D/1yttrjtLxDj8qPIkgxYl3hR7NIRZUfZIqEPgTP1DG5AwNU7Jw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.css">
 
+
 </head>
 
 <body id="page-top">
@@ -69,26 +70,28 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
             <!-- Main Content -->
             <div id="content">
                 <div id="sell">
-                    <div class="row ms-2 mt-2">
-                        <div class="col">
-                            <input autofocus name="ID_Product" id="Select_ID_Product">
+                    <div class="row ms-2 mt-5">
+                        <div class="col-5 input-group">
+                            <span class="input-group-text">รหัสสินค้า</span>
+                            <input class="form-control col-4" autofocus name="ID_Product" id="Select_ID_Product" placeholder="รหัสสินค้า...">
                         </div>
                     </div>
-                    <div class="row ms-2 mt-2 box_sell_product  ">
-
-                        <div class="col-md-8 ">
-                            <div class="row mb-4 justify-content-center text-center">
-                                <div class="col-2">รูป</div>
-                                <div class="col-2 text-start">ชื่อสินค้า</div>
-                                <div class="col-2">จำนวน</div>
-                                <div class="col-2">ราคา</div>
+                    <div class="row ms-2 mt-2">
+                        <div class="col-5 ms-2 mt-3 box_sell_product">
+                            <div class="row mb-4 mt-2 justify-content-center text-center">
+                                <div class="col-1 h4">ลำดับ</div>
+                                <div class="col-3 h4">รูป</div>
+                                <div class="col-4 h4 text-start">ชื่อสินค้า</div>
+                                <div class="col-2 h4">จำนวน</div>
+                                <div class="col-2 h4">ราคา</div>
                             </div>
                             <?php
                             $total = 0;
                             foreach ($result_cart_sell as $row_cart_sell) { ?>
                                 <div class="row justify-content-center text-center align-items-center mt-2 ">
-                                    <div class="col-2"> <img width="65" height="65" src="../Asset/img/<?php echo $row_cart_sell['IMG_Product']; ?>"></div>
-                                    <div class="col-2 text-start"> <?php echo $row_cart_sell['NAME_Product']; ?> </div>
+                                    <div class="col-1"></div>
+                                    <div class="col-3"> <img width="65" height="65" src="../Asset/img/<?php echo $row_cart_sell['IMG_Product']; ?>"></div>
+                                    <div class="col-4 text-start"> <?php echo $row_cart_sell['NAME_Product']; ?> </div>
                                     <div class="col-2"> <?php echo $row_cart_sell['QTY']; ?> </div>
                                     <div class="col-2"> <?php echo $row_cart_sell['QTY'] *  $row_cart_sell['PRICE_Product'] ?>.-บาท </div>
                                 </div>
@@ -97,13 +100,13 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                                 $total = $total + $sum;
                                 ?>
                             <?php } ?>
-
                         </div>
-                        <div class="col-md-4 border-start">
-                            <h1>ราคาทั้งหมด <?php echo $total; ?>.-บาท</h1>
-                            <button class="btn btn-success btn-lg">ชำระเงิน</button>
+                        <div class="col-2 text-center box_payment">
+                            <h4 class="text-start">ราคาทั้งหมด <?php echo $total; ?>.-บาท</h4>
+                            <button class="btn btn-success btn-lg col-12 confirm_sell">ชำระเงิน</button>
                         </div>
                     </div>
+
                 </div>
 
 
@@ -136,9 +139,6 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
             $(document).ready(function() {
                 $('#menu').load('menu.php');
                 $("#Select_ID_Product").focus();
-                setInterval(function() {
-                    $('#menu').load('menu.php');
-                }, 1000);
 
                 $('#Select_ID_Product').change(function() {
                     var ID_Product = $('#Select_ID_Product').val();
@@ -157,8 +157,28 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                         }
                     });
                 });
+
+                $('.confirm_sell').click(function() {
+                    $.ajax({
+                        url: "../sql/confirm_sell.php",
+                        success() {
+                            $('#sell').load('sell.php');
+
+                            Swal.fire({
+                                title: 'ทำรายการสำเร็จ',
+                                icon: 'success',
+                                timer: 1000,
+                                showConfirmButton: false,
+
+                            })
+
+                        }
+                    });
+                });
             });
         </script>
+
+
 
 </body>
 
