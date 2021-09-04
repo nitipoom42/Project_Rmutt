@@ -74,25 +74,34 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                             <input autofocus name="ID_Product" id="Select_ID_Product">
                         </div>
                     </div>
-                    <div class="row ms-2 mt-2 box_sell_product ">
+                    <div class="row ms-2 mt-2 box_sell_product  ">
+
                         <div class="col-md-8 ">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-2"> รูป </div>
-                                <div class="col-2"> ชื่อสินค้า </div>
-                                <div class="col-3"> จำนวน </div>
+                            <div class="row mb-4 justify-content-center text-center">
+                                <div class="col-2">รูป</div>
+                                <div class="col-2 text-start">ชื่อสินค้า</div>
+                                <div class="col-2">จำนวน</div>
+                                <div class="col-2">ราคา</div>
                             </div>
                             <?php
+                            $total = 0;
                             foreach ($result_cart_sell as $row_cart_sell) { ?>
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="col-2"> <img width="100" height="100" src="../Asset/img/<?php echo $row_cart_sell['IMG_Product']; ?>"></div>
-                                    <div class="col-2"> <?php echo $row_cart_sell['NAME_Product']; ?> </div>
-                                    <div class="col-3"> <?php echo $row_cart_sell['QTY']; ?> </div>
+                                <div class="row justify-content-center text-center align-items-center mt-2 ">
+                                    <div class="col-2"> <img width="65" height="65" src="../Asset/img/<?php echo $row_cart_sell['IMG_Product']; ?>"></div>
+                                    <div class="col-2 text-start"> <?php echo $row_cart_sell['NAME_Product']; ?> </div>
+                                    <div class="col-2"> <?php echo $row_cart_sell['QTY']; ?> </div>
+                                    <div class="col-2"> <?php echo $row_cart_sell['QTY'] *  $row_cart_sell['PRICE_Product'] ?>.-บาท </div>
                                 </div>
-
+                                <?php
+                                $sum = $row_cart_sell['QTY'] *  $row_cart_sell['PRICE_Product'];
+                                $total = $total + $sum;
+                                ?>
                             <?php } ?>
+
                         </div>
-                        <div class="col-md-4">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni quis sint suscipit quos ducimus eum tempora iste voluptatem. Dolores perspiciatis maiores totam quaerat quo amet. Labore amet libero perspiciatis reiciendis voluptatum ipsa blanditiis vero repellendus, sit dicta assumenda saepe iure ad aperiam, quibusdam dolore. Eaque earum labore quaerat, nam dolor quibusdam temporibus quis! Voluptatum dolorem doloribus sunt ab saepe. Unde, repellat accusamus doloribus, quod omnis labore reiciendis velit molestias aut quas sunt assumenda quam fuga illo laborum eius. Aperiam iste sunt consectetur pariatur error fugit distinctio corrupti magni est veritatis. Ea odit id deleniti labore, omnis placeat reiciendis ipsam necessitatibus.
+                        <div class="col-md-4 border-start">
+                            <h1>ราคาทั้งหมด <?php echo $total; ?>.-บาท</h1>
+                            <button class="btn btn-success btn-lg">ชำระเงิน</button>
                         </div>
                     </div>
                 </div>
