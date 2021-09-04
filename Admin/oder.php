@@ -2,7 +2,7 @@
 <?php require_once('../sql/connect.php') ?>
 
 <?php
-if (!$_SESSION['User']) {
+if ($_SESSION['User'] != "admin") {
     Header("Location:../User/login.php");
 }
 ?>
