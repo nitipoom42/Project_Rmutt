@@ -163,7 +163,6 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                         url: "../sql/confirm_sell.php",
                         success() {
                             $('#sell').load('sell.php');
-
                             Swal.fire({
                                 title: 'ทำรายการสำเร็จ',
                                 icon: 'success',
@@ -171,7 +170,6 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                                 showConfirmButton: false,
 
                             })
-
                         }
                     });
                 });

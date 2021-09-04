@@ -14,7 +14,7 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $count = $stmt->rowCount();
 $data_oder = [
     'ID_Member' => $_SESSION['ID_Member'],
-    'oder_status' => 3,
+    'oder_status' => 4,
 ];
 // insert ข้อมูลลงในตาราง oder โดยเลือกข้อมูล ID_Product,ID_Member,QTY จากตาราง cart โดยต้องมี ID_Member ที่ตรงกัน
 $sql_oder = "INSERT INTO oder (ID_Member,oder_status) VALUES (:ID_Member,:oder_status)";

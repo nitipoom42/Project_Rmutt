@@ -20,7 +20,7 @@ $stmt_oder_s2 = $conn->prepare($sql_oder_s2);
 $stmt_oder_s2->execute();
 $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<!-- ยอดขายที่ได้ได้จากการสั่งออนไลน์ -->
+<!-- ยอดขายที่ได้จากการสั่งออนไลน์ -->
 <?php
 $sql_oder_s3 = "SELECT *  ,SUM(od.QTY) as sumQTY FROM oder as o
 JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
@@ -31,6 +31,18 @@ GROUP BY od.ID_Product;
 $stmt_oder_s3 = $conn->prepare($sql_oder_s3);
 $stmt_oder_s3->execute();
 $result_oder_s3 = $stmt_oder_s3->fetchAll(PDO::FETCH_ASSOC);
+?>
+<!-- ยอดขายที่ได้จากหน้าร้าน-->
+<?php
+$sql_oder_s4 = "SELECT *  ,SUM(od.QTY) as sumQTY FROM oder as o
+JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
+JOIN stock as s ON od.ID_Product=s.ID_Product 
+WHERE o.oder_status=4 
+GROUP BY od.ID_Product;
+";
+$stmt_oder_s4 = $conn->prepare($sql_oder_s4);
+$stmt_oder_s4->execute();
+$result_oder_s4 = $stmt_oder_s4->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- สินค้าใกล้หมด-->
@@ -128,9 +140,14 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="text-xs font-weight-bold text-success mb-1">
                                                 <h4>&#3647; ยอดขายหน้าร้าน</h4>
                                             </div>
-                                            <?php $sell_total = 0; ?>
+                                            <?php $sell_total_sell = 0; ?>
                                             <div class="h4 mb-0 text-gray-800">
-                                                0.-บาท</div>
+                                                <?php foreach ($result_oder_s4 as $total_sell_s4) { ?>
+                                                    <?php
+                                                    $sum_total_sell = $total_sell_s4['sumQTY'] * $total_sell_s4['PRICE_Product'];
+                                                    $sell_total_sell = $sell_total_sell + $sum_total_sell;
+                                                    ?>
+                                                <?php } ?> <?php echo $sell_total_sell; ?>.-บาท</div>
                                         </div>
                                     </div>
                                 </div>
