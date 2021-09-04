@@ -246,3 +246,8 @@ button.slick-next::before {
 .bg_menu_admin {
   background: #2c57d8;
 }
+.box_sell_product {
+  padding: 0.5rem;
+  height: 80vh;
+  background: #ffffff;
+}

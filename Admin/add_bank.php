@@ -6,14 +6,12 @@ if (!$_SESSION['User']) {
     Header("Location:../User/login.php");
 }
 ?>
-
 <!-------------------------------------------------------------------->
 <?php
 $sql_bank = "SELECT * FROM bank";
 $stmt_bank = $conn->prepare($sql_bank);
 $stmt_bank->execute();
 $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
