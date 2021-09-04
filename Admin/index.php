@@ -1,6 +1,11 @@
 <?php
 require_once('../sql/connect.php');
 ?>
+<?php
+if (!$_SESSION['User']) {
+    Header("Location:../User/login.php");
+}
+?>
 <!-- รายการสั่งซื้อที่รอจัดเตรียมสินค้า  _S==1 -->
 <?php
 $sql_oder_s1 = "SELECT * FROM oder WHERE oder_status=1";

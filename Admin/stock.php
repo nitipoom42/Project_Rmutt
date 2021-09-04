@@ -1,6 +1,12 @@
 <!-- ต่อฐานข้อมูล -->
 <?php require_once('../sql/connect.php') ?>
 
+<?php
+if (!$_SESSION['User']) {
+    Header("Location:../User/login.php");
+}
+?>
+
 <!-------------------------------------------------------------------->
 <?php
 $sql_stock = "SELECT * FROM stock as s JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product";

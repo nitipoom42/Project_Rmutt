@@ -1,6 +1,13 @@
 <!-- ต่อฐานข้อมูล -->
 <?php require_once('../sql/connect.php') ?>
 
+
+<?php
+if (!$_SESSION['User']) {
+    Header("Location:../User/login.php");
+}
+?>
+
 <!-------------------------------------------------------------------->
 <?php
 $sql = "SELECT * FROM banner";

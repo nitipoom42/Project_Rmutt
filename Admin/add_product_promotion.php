@@ -1,5 +1,11 @@
 <?php require_once('../sql/connect.php') ?>
 
+<?php
+if (!$_SESSION['User']) {
+    Header("Location:../User/login.php");
+}
+?>
+
 <!-- เรียกข้อมูลประเภทสินค้าจาก ฐานข้อมูล type_product -->
 <?php
 $sql_fetch_type = "SELECT * FROM type_product WHERE ID_Type_Product=1";

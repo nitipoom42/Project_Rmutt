@@ -1,5 +1,6 @@
 <!-- ต่อฐานข้อมูล -->
 <?php require_once('../sql/connect.php') ?>
+
 <?php
 
 $sql_oder = "SELECT * FROM oder_detail as od
@@ -111,11 +112,10 @@ if (@$_SESSION['status_onti'] == 1) {
                 <i class="fas fa-money-bill-wave"></i>
                 <span>ธนาคาร</span>
             </a>
-
-
-
-
-
+            <a class="nav-link collapsed" href="../sql/db_Logout.php">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>ออกจากระบบ</span>
+            </a>
         </li>
     </ul>
     <!-- End of Sidebar -->

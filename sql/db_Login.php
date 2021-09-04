@@ -14,12 +14,18 @@ if (isset($_POST['Login'])) {
         $stmt_login->execute($data_login);
         $result_login = $stmt_login->fetch(PDO::FETCH_ASSOC);
 
+
         if ($stmt_login->rowCount() == 1) {
             $_SESSION['User'] = $result_login['User'];
             $_SESSION['Pass'] = $result_login['Pass'];
             $_SESSION['ID_Member'] = $result_login['ID_Member'];
             $_SESSION['status'] = 1;
-            Header("Location:../User/index.php");
+
+            if ($_SESSION['User'] == "admin" & $_SESSION['Pass'] == "admin") {
+                Header("Location:../Admin/index.php");
+            } else {
+                Header("Location:../User/index.php");
+            }
         } else {
             $_SESSION['login_fall'] = 1;
             Header("Location:../User/login.php");
