@@ -178,7 +178,7 @@
                         </div>
                         <div class="col-md-3 col-2">
                             <?php $sum_point = $row_cart_promotion['QTY'] * $row_cart_promotion['POINT_Product']; ?>
-                            <p><?php echo $sum_point ?> แต้ม</p>
+                            <p><?php echo ("$sum_point") ?> แต้ม</p>
                         </div>
 
                         <div class="col-md-1 col-2">
@@ -201,7 +201,7 @@
                         $potin = $total;
                         $Point =  $potin / 20;
                         ?>
-                        <h5>ได้รับแต้ม <?php echo $Point; ?> แต้ม</h5>
+                        <h5>ได้รับแต้ม <?php echo number_format($Point) ?> แต้ม</h5>
                         <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท </h5>
                     </div>
                 </div>

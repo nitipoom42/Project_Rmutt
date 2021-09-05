@@ -71,7 +71,7 @@ if (@$_SESSION['status_onti'] == 1) {
                                                 echo "bg_menu_admin";
                                             } ?>" href="sell.php">
                 <i class="far fa-plus-square"></i>
-                <span>หน้าร้าน</span>
+                <span>หน้าร้าน <?php echo $url ?></span>
             </a>
             <hr>
 

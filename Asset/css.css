@@ -214,14 +214,15 @@ body {
   color: rgb(0, 0, 0);
 }
 .banner_promotion {
+  margin-top: 3rem;
   width: 10rem;
   height: 42rem;
 }
 
 .banner_promotion img {
+  border-radius: 1rem;
   width: 100%;
   height: 100%;
-  border-radius: 0.5rem;
 }
 
 /* ปุ่ม slick */

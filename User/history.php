@@ -181,7 +181,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                             $potin = $total;
                             $Point =  $potin / 20;
                             ?>
-                            <h5>ได้รับแต้ม <?php echo $Point; ?> แต้ม</h5>
+                            <h5>ได้รับแต้ม <?php echo number_format($Point) ?> แต้ม</h5>
                             <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท</h5>
                         </div>
                     </div>
