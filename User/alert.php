@@ -138,3 +138,16 @@ if (@$_SESSION['over_stock_promotion'] == 1) {
   $_SESSION['over_stock_promotion'] = 0;
 }
 ?>
+<?php
+if (@$_SESSION['scan_false'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'error',
+          title: 'รหัสสินค้าไม่ถูกต้อง',
+          timer: 1500,
+          showConfirmButton: false,
+          })
+        </script>";
+  $_SESSION['scan_false'] = 0;
+}
+?>
