@@ -111,3 +111,26 @@ if (isset($_GET['ID_Banner'])) {
     Header("Location:../Admin/banner_promotion.php");
 }
 ?>
+
+
+
+<?php
+if ($_POST['action'] == "del_sell") {
+    $data_del_cart_sell = [
+        'ID_Cart' => $_POST['ID_Cart']
+    ];
+    $sql_del_cart_sell = ("DELETE FROM cart WHERE ID_Cart=:ID_Cart");
+    $stmt_del_cart_sell  = $conn->prepare($sql_del_cart_sell);
+    $stmt_del_cart_sell->execute($data_del_cart_sell);
+
+    // ตัด stock 
+    $data_stock_sell = [
+        'Cart_ID_Product' => $_POST['Cart_ID_Product'],
+        'QTY' => 1,
+    ];
+    $sql_stock_sell = "UPDATE stock SET QTY_Product=QTY_Product+:QTY WHERE ID_Product=:Cart_ID_Product";
+    $stmt_stock_sell = $conn->prepare($sql_stock_sell);
+    $stmt_stock_sell->execute($data_stock_sell);
+}
+
+?>
