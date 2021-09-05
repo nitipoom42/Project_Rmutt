@@ -7,22 +7,6 @@ if ($_SESSION['User'] != "admin") {
 }
 ?>
 
-<?php
-
-$data_cart_sell = [
-    'ID_Member' => $_SESSION['ID_Member']
-];
-
-$sql_cart_sell = "SELECT * ,SUM(c.QTY) as QTY FROM cart as c
-JOIN stock as s ON  c.ID_Product=s.ID_Product
-JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product
-WHERE ID_Member=:ID_Member
-GROUP BY c.ID_Product";
-$stmt_cart_sell = $conn->prepare($sql_cart_sell);
-$stmt_cart_sell->execute($data_cart_sell);
-$result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

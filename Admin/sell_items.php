@@ -19,8 +19,11 @@ $stmt_cart_sell = $conn->prepare($sql_cart_sell);
 $stmt_cart_sell->execute($data_cart_sell);
 $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<div id="sell_items">
 
+
+
+
+<div id="sell_items">
     <div class="row ms-2 mt-2">
 
         <div class="col-5 box_sell_product">
@@ -38,50 +41,69 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 <div class="col-1 h4"></div>
             </div>
             <?php
-            $total = 0;
-            foreach ($result_cart_sell as $row_cart_sell) { ?>
-                <div class="row justify-content-center text-center align-items-center mt-2 ">
-                    <div class="col-2"> <img width="65" height="65" src="../Asset/img/<?php echo $row_cart_sell['IMG_Product']; ?>"></div>
-                    <div class="col-4 text-start"> <?php echo $row_cart_sell['NAME_Product']; ?> </div>
-                    <div class="col-2"> <?php echo $row_cart_sell['QTY']; ?> </div>
-                    <div class="col-2"> <?php echo $row_cart_sell['QTY'] *  $row_cart_sell['PRICE_Product'] ?>.-บาท </div>
-                    <div class="col-1 btn btn-danger btn-sm del_sell<?php echo $row_cart_sell['ID_Product']; ?>"><i class=" fas fa-trash-alt"></i></div>
-                    <input type="hidden" id="ID_Cart<?php echo $row_cart_sell['ID_Cart']; ?>" value="<?php echo $row_cart_sell['ID_Cart']; ?>">
-                    <input type="hidden" id="Cart_ID_Product<?php echo $row_cart_sell['ID_Cart']; ?>" value="<?php echo $row_cart_sell['ID_Product']; ?>">
+            if (!$result_cart_sell) { ?>
+                <div class="row mt-5">
+                    <div class="col text-center mt-5">
+                        <h1><i class="far fa-times-circle"></i></h1>
+                        <h1>ไม่มีรายการสินค้า</h1>
+                    </div>
                 </div>
+            <?php  } ?>
+
+            <?php
+            if ($result_cart_sell) { ?>
                 <?php
-                $sum = $row_cart_sell['QTY'] *  $row_cart_sell['PRICE_Product'];
-                $total = $total + $sum;
-                ?>
+                $total = 0;
+                foreach ($result_cart_sell as $row_cart_sell) { ?>
 
-                <script>
-                    // ปุ่มสินค้า
-                    $(document).ready(function() {
-                        $('.del_sell<?php echo $row_cart_sell['ID_Product']; ?>').click(function() {
-                            var ID_Cart = $('#ID_Cart<?php echo $row_cart_sell['ID_Cart']; ?>').val();
-                            var Cart_ID_Product = $('#Cart_ID_Product<?php echo $row_cart_sell['ID_Cart']; ?>').val();
-                            $.ajax({
-                                url: "../sql/del.php",
-                                method: "post",
-                                data: {
-                                    action: 'del_sell',
-                                    ID_Cart: ID_Cart,
-                                    Cart_ID_Product: Cart_ID_Product,
-                                },
-                                success() {
-                                    $('#sell_items').load('sell_items.php');
-                                },
+                    <div class="row justify-content-center text-center align-items-center mt-2 ">
 
+                        <div class="col-2"> <img width="65" height="65" src="../Asset/img/<?php echo $row_cart_sell['IMG_Product']; ?>"></div>
+                        <div class="col-4 text-start"> <?php echo $row_cart_sell['NAME_Product']; ?> </div>
+                        <div class="col-2"> <?php echo $row_cart_sell['QTY']; ?> </div>
+                        <div class="col-2"> <?php echo $row_cart_sell['QTY'] *  $row_cart_sell['PRICE_Product'] ?>.-บาท </div>
+                        <div class="col-1 btn btn-danger btn-sm del_sell<?php echo $row_cart_sell['ID_Product']; ?>"><i class=" fas fa-trash-alt"></i></div>
+                        <input type="hidden" id="ID_Cart<?php echo $row_cart_sell['ID_Cart']; ?>" value="<?php echo $row_cart_sell['ID_Cart']; ?>">
+                        <input type="hidden" id="Cart_ID_Product<?php echo $row_cart_sell['ID_Cart']; ?>" value="<?php echo $row_cart_sell['ID_Product']; ?>">
+                    </div>
+                    <?php
+                    $sum = $row_cart_sell['QTY'] *  $row_cart_sell['PRICE_Product'];
+                    $total = $total + $sum;
+                    ?>
+
+                    <script>
+                        // ปุ่มสินค้า
+                        $(document).ready(function() {
+                            $('.del_sell<?php echo $row_cart_sell['ID_Product']; ?>').click(function() {
+                                var ID_Cart = $('#ID_Cart<?php echo $row_cart_sell['ID_Cart']; ?>').val();
+                                var Cart_ID_Product = $('#Cart_ID_Product<?php echo $row_cart_sell['ID_Cart']; ?>').val();
+                                $.ajax({
+                                    url: "../sql/del.php",
+                                    method: "post",
+                                    data: {
+                                        action: 'del_sell',
+                                        ID_Cart: ID_Cart,
+                                        Cart_ID_Product: Cart_ID_Product,
+                                    },
+                                    success() {
+                                        $('#sell_items').load('sell_items.php');
+                                    },
+
+                                });
                             });
                         });
-                    });
-                </script>
-            <?php } ?>
+                    </script>
+                <?php } ?>
         </div>
         <div class="col-2 text-center box_payment">
             <h4 class="text-start">ราคาทั้งหมด <?php echo $total; ?>.-บาท</h4>
             <button class="btn btn-success btn-lg col-12 confirm_sell">ชำระเงิน</button>
         </div>
+    <?php  } ?>
+
+
+
+
     </div>
 </div>
 
