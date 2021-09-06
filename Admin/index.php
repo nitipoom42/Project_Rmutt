@@ -95,7 +95,6 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
         <div id="menu"></div>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
                 <!-- End of Topbar -->
