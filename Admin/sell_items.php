@@ -57,7 +57,6 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($result_cart_sell as $row_cart_sell) { ?>
 
                     <div class="row justify-content-center text-center align-items-center mt-2 ">
-
                         <div class="col-2"> <img width="65" height="65" src="../Asset/img/<?php echo $row_cart_sell['IMG_Product']; ?>"></div>
                         <div class="col-4 text-start"> <?php echo $row_cart_sell['NAME_Product']; ?> </div>
                         <div class="col-2"> <?php echo $row_cart_sell['QTY']; ?> </div>
@@ -95,16 +94,67 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                     </script>
                 <?php } ?>
         </div>
-        <div class="col-2 text-center box_payment">
-            <h4 class="text-start">ราคาทั้งหมด <?php echo $total; ?>.-บาท</h4>
-            <button class="btn btn-success btn-lg col-12 confirm_sell">ชำระเงิน</button>
-        </div>
-    <?php  } ?>
+        <!-- ใบเสร็จ -->
+        <div class="col-5 box_bill ">
+            <div class="row justify-content-center">
+                <h4 class="text-center">ร้านน้องมายด์</h4>
+                <small class="text-center mb-3">ใบเสร็จรับเงิน</small>
+                <?php
+                $total_bill = 0;
+                foreach ($result_cart_sell as $row_bill) { ?>
+                    <div class="row">
+                        <div class="col-1">
+                            <p><?php echo $row_bill['QTY']; ?></p>
+                        </div>
+                        <div class="col-7">
+                            <p> <?php echo $row_bill['NAME_Product']; ?></p>
+                        </div>
+                        <div class="col-3 text-end">
+                            <p> <?php echo number_format($row_bill['QTY'] * $row_bill['PRICE_Product'], 2)  ?></p>
+                        </div>
+                    </div>
+                    <?php
+                    $sum_bill = $row_bill['QTY'] *  $row_bill['PRICE_Product'];
+                    $total_bill = $total_bill + $sum_bill;
+                    ?>
+                <?php } ?>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-9 text-end">
+                        <div class="">
+                            <p>ยอดเงินทั้งหมด <?php echo number_format($total_bill, 2)  ?> </p>
+                        </div>
+                        <div class="">
+                            <p>รับเงินมา <?php echo number_format(100, 2)  ?></p>
+                        </div>
+                        <div class="">
+                            <p>เงินทอน <?php echo number_format(4, 2)  ?></p>
+                        </div>
 
+                    </div>
+                    <div class="row">
+                        <hr>
+                        <small>400/880 ซอย 2/6 หมู่บ้านเอื้ออาทร หมู่ 9 ตำบลตาลเดี่ยว อำเภอแก่งคอย จังหวัดสระบุรี 18110 </small>
+                        <small>โทร.091-234-5678</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
 
 
     </div>
+    <div class="col-2 text-center box_payment">
+        <h4 class="text-start">ราคาทั้งหมด <?php echo $total; ?>.-บาท</h4>
+        <button class="btn btn-success btn-lg col-12 confirm_sell">ชำระเงิน</button>
+    </div>
+<?php  } ?>
+
+
+
+
+</div>
 </div>
 
 
