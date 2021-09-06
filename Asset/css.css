@@ -247,23 +247,24 @@ button.slick-next::before {
 .bg_menu_admin {
   background: #2c57d8;
 }
+
 .box_sell_product {
   margin-top: 1rem;
-  margin-left: 1rem;
+  margin-left: 2rem;
   padding: 1rem;
-  height: 80vh;
+  height: 100%;
   border: 0.15rem solid rgb(192, 192, 192);
   border-radius: 1rem;
 }
-.box_payment {
+/* .box_payment {
   position: absolute;
   top: 44rem;
-  left: 60rem;
-}
+  left: 65rem;
+} */
 
 .box_bill {
   margin-top: 1rem;
-  margin-left: 5rem;
+  margin-left: 2rem;
   padding: 1rem;
   height: 100%;
   width: 25rem;

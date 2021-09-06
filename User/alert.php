@@ -151,3 +151,16 @@ if (@$_SESSION['scan_false'] == 1) {
   $_SESSION['scan_false'] = 0;
 }
 ?>
+<?php
+if (@$_SESSION['potint_front_sell'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'error',
+          title: 'ไม่พบเบอร์ของลูกค้า',
+          timer: 1500,
+          showConfirmButton: false,
+          })
+        </script>";
+  $_SESSION['potint_front_sell'] = 0;
+}
+?>
