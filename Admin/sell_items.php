@@ -2,6 +2,7 @@
 require_once('../sql/connect.php');
 ?>
 
+
 <?php require_once('../User/alert.php') ?>
 
 <?php
@@ -19,17 +20,12 @@ $stmt_cart_sell = $conn->prepare($sql_cart_sell);
 $stmt_cart_sell->execute($data_cart_sell);
 $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
-
-
-
 <div id="sell_items">
     <div class="row ms-2 mt-2">
-
         <div class="col-5 box_sell_product">
             <div class="row mb-2">
                 <div class="col-12 input-group">
-                    <span class="input-group-text"><i class="fas fa-barcode me-2"></i>รหัสสินค้า</span>
+                    <span class="input-group-text"><i class="fas fa-barcode me-2"></i></span>
                     <input class="form-control col-12" autofocus name="ID_Product" id="Select_ID_Product" placeholder="รหัสสินค้า...">
                 </div>
             </div>
@@ -55,7 +51,6 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 <?php
                 $total = 0;
                 foreach ($result_cart_sell as $row_cart_sell) { ?>
-
                     <div class="row justify-content-center text-center align-items-center mt-2 ">
                         <div class="col-2"> <img width="65" height="65" src="../Asset/img/<?php echo $row_cart_sell['IMG_Product']; ?>"></div>
                         <div class="col-4 text-start"> <?php echo $row_cart_sell['NAME_Product']; ?> </div>
@@ -69,7 +64,6 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                     $sum = $row_cart_sell['QTY'] *  $row_cart_sell['PRICE_Product'];
                     $total = $total + $sum;
                     ?>
-
                     <script>
                         // ปุ่มสินค้า
                         $(document).ready(function() {
@@ -122,15 +116,26 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-2"></div>
                     <div class="col-9 text-end">
                         <div class="">
-                            <p>ยอดเงินทั้งหมด <?php echo number_format($total_bill, 2)  ?> </p>
-                        </div>
-                        <div class="">
-                            <p>รับเงินมา <?php echo number_format(100, 2)  ?></p>
-                        </div>
-                        <div class="">
-                            <p>เงินทอน <?php echo number_format(4, 2)  ?></p>
-                        </div>
+                            <div id="" class="">ยอดเงินทั้งหมด <?php echo $total_bill  ?>.00 </div>
+                            <input id="total_bill" type="hidden" value="<?php echo $total_bill  ?>">
 
+                        </div>
+                        <div class="">
+                            <div id="default_money" class="">รับเงินมา 00.00 </div>
+                            <div id="show_get_money"></div>
+
+
+                        </div>
+                        <div class="">
+
+                            <div id="show_change"></div>
+                            <div id="show_point"></div>
+
+
+                            <input type="hidden" name="" id="show_change1" value="">
+
+
+                        </div>
                     </div>
                     <div class="row">
                         <hr>
@@ -138,17 +143,30 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                         <small>โทร.091-234-5678</small>
                     </div>
                 </div>
+
             </div>
 
         </div>
 
+        <div class="col-3 box_payment mt-5 ms-5">
+            <!-- จำนวนเงินที่รับมา -->
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fab fa-bitcoin"></i></span>
+                <input id="Tel_member" type="text" class="form-control" placeholder="เบอร์สมาชิก...">
+            </div>
+            <!-- สะสมแต้ม -->
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="far fa-money-bill-alt"></i></span>
+                <input id="get_money" type="number" min="0" class="form-control" placeholder="จำนวนเงิน...">
+            </div>
 
+            <button class="btn btn-warning btn-lg col-12 cal">คำนวนเงิน</button>
+            <hr>
+            <button class="btn btn-success btn-lg col-12 confirm_sell">ทำรายการสำเร็จ</button>
+        </div>
 
     </div>
-    <div class="col-2 text-center box_payment">
-        <h4 class="text-start">ราคาทั้งหมด <?php echo $total; ?>.-บาท</h4>
-        <button class="btn btn-success btn-lg col-12 confirm_sell">ชำระเงิน</button>
-    </div>
+
 <?php  } ?>
 
 
@@ -189,5 +207,60 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 }
             });
         });
+        // คำนวน
+        $('.cal').click(function() {
+            var get_money = parseInt(document.getElementById('get_money').value);
+            var total_bill = parseInt(document.getElementById('total_bill').value);
+
+
+            var change = (get_money - total_bill);
+            // คำนวนเงิน
+            if (get_money >= total_bill) {
+                $('#show_get_money').html('รับเงินมา ' + get_money + '.00');
+                $('#show_change').html('เงินทอน ' + change + '.00');
+                $('#default_money').hide();
+            } else {
+                Swal.fire({
+                    title: 'ยอดเงินไม่เพียงพอ',
+                    icon: 'warning',
+                    timer: 2500,
+                    showConfirmButton: false,
+                })
+            }
+            // สะสมแต้ม
+            if (Tel_member != "") {
+                var Tel_member = document.getElementById('Tel_member').value;
+                $.ajax({
+                    url: "../sql/db_point_front_sell.php",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        Tel_member: Tel_member
+                    },
+                    success(data) {
+                        $('#show_change1').val(data);
+                        var show_change1 = document.getElementById('show_change1').value;
+                        if (show_change1 == 1) {
+
+                            var cal_point = total_bill /
+                                $('#show_point').html('แต้มสะสม' + cal_point);
+
+                        }
+                        if (show_change1 == 0) {
+                            Swal.fire({
+                                title: 'ไม่พบข้อมูล',
+                                icon: 'warning',
+                                timer: 2500,
+                                showConfirmButton: false,
+                            })
+                        }
+                    },
+
+
+                });
+            }
+        });
+
+
     });
 </script>
