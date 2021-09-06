@@ -97,11 +97,6 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="col bar_code text-center">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPgAAAB+CAMAAAA+5iz8AAAABlBMVEX///8AAABVwtN+AAAAt0lEQVR4nO3P0QqAIBBFwb3//9OR2pLQaxAxhwhby5gqSZIkSdKHSyp1XuOWZI3OxRhnrrPe6p21V/2cNetD52g/7L55O/fxhev72g5L/zU9nktwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHDwn8MlSZIkSdJrHRRqIoEP7kgIAAAAAElFTkSuQmCC" alt="">
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col loguot text-center ">

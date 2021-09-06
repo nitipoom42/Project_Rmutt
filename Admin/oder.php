@@ -273,7 +273,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                 foreach ($result_oder_id_promotion as $row_oder_id_promotion) { ?>
                                                                     <div class="row mb-4 justify-content align-items-center">
                                                                         <div class="col-3">
-                                                                            <img class="img-fluid" src="../Asset/img/<?php echo $row_oder_id_promotion['IMG_Product']; ?>" alt="">
+                                                                            <img class="img-fluid" src="../Asset/img_promotion/<?php echo $row_oder_id_promotion['IMG_Product']; ?>" alt="">
                                                                         </div>
                                                                         <div class="col-3">
                                                                             <?php echo $row_oder_id_promotion['NAME_Product']; ?>

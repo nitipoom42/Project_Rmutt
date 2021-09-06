@@ -60,7 +60,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
                                                                 echo "outstock";
                                                             }
 
-                                                            ?> accordion-bodyoverflow-hidden"> <img class=" card-img-top mx-auto" src="../Asset/img/<?php echo $row_stock['IMG_Product']; ?>"></div>
+                                                            ?> accordion-bodyoverflow-hidden"> <img class="mx-auto" src="../Asset/img_promotion/<?php echo $row_stock['IMG_Product']; ?>"></div>
                                 <div class="card-body">
                                     <p class="card-text text-wrap"><?php echo $row_stock['NAME_Product']; ?></p>
                                     <h5 class="card-text text-success"><?php echo $row_stock['POINT_Product']; ?>แต้ม</h5>
@@ -84,7 +84,7 @@ foreach ($result_type as $row_result_type_ID) { ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <img class="card-img-top mx-auto" src="../Asset/img/<?php echo $row_stock['IMG_Product']; ?>">
+                                    <img class="card-img-top mx-auto" src="../Asset/img_promotion/<?php echo $row_stock['IMG_Product']; ?>">
                                     <div class="text-center">
                                         <p><?php echo $row_stock['NAME_Product']; ?></p>
                                         <p>สินค้าคงเหลือ <?php echo $row_stock['QTY_Product']; ?></p>

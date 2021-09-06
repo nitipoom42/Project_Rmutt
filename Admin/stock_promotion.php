@@ -109,7 +109,7 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                 <?php
                                 foreach ($result_stock as $row_stock) { ?>
                                     <tr>
-                                        <td class="text-center"><img src="../Asset/img/<?php echo $row_stock['IMG_Product'] ?>" width="75" height="75"></td>
+                                        <td class="text-center"><img src="../Asset/img_promotion/<?php echo $row_stock['IMG_Product'] ?>" width="75" height="75"></td>
                                         <td><?php echo $row_stock['NAME_Product'] ?></td>
                                         <td><?php echo $row_stock['POINT_Product'] ?>แต้ม</td>
                                         <td><?php echo $row_stock['INFO_Type_Product'] ?></td>

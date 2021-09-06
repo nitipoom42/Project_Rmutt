@@ -128,7 +128,7 @@
 
                     <div class="row text-center mt-3 p-2 box_cart  shadow align-items-center">
                         <div class="col-md-2 col-4 ">
-                            <img class="rounded" src="../Asset/img/<?php echo $row_cart_promotion['IMG_Product']; ?>" width="70" height="70">
+                            <img class="rounded" src="../Asset/img_promotion/<?php echo $row_cart_promotion['IMG_Product']; ?>" width="70" height="70">
                         </div>
                         <div class="col-md-3 col-2">
                             <p><?php echo $row_cart_promotion['NAME_Product']; ?> </p>
