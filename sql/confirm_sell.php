@@ -3,7 +3,19 @@
 require_once('connect.php');
 ?>
 
+
+
+
 <?php
+$data_member = [
+    'Tel' => $_POST['Tel'],
+    'point' => $_POST['point'],
+];
+$sql_member_sell = "UPDATE member SET Point=Point+:point WHERE Tel=:Tel";
+$smtm_member_sell = $conn->prepare($sql_member_sell);
+$smtm_member_sell->execute($data_member);
+
+
 $date = new DateTime();
 ?>
 <?php

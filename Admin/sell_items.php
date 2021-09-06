@@ -185,7 +185,7 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 url: "../sql/db_Add_cart_sell.php",
                 method: "post",
                 data: {
-                    ID_Product: ID_Product
+                    ID_Product: ID_Product,
                 },
                 success() {
                     ID_Product = $('#Select_ID_Product').val("");
@@ -194,8 +194,16 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
             });
         });
         $('.confirm_sell').click(function() {
+            var total_bill = parseInt(document.getElementById('total_bill').value);
+            var point = (total_bill / 30).toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var Tel = document.getElementById('Tel_member').value;
             $.ajax({
                 url: "../sql/confirm_sell.php",
+                method: "post",
+                data: {
+                    Tel: Tel,
+                    point: point,
+                },
                 success() {
                     $('#sell').load('sell.php');
                     Swal.fire({
@@ -242,8 +250,9 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                         var show_change1 = document.getElementById('show_change1').value;
                         if (show_change1 == 1) {
 
-                            var cal_point = total_bill /
-                                $('#show_point').html('แต้มสะสม' + cal_point);
+                            var cal_point = (total_bill / 30).toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+                            $('#show_point').html('ได้รับแต้ม ' + cal_point);
 
                         }
                         if (show_change1 == 0) {
@@ -255,8 +264,6 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                             })
                         }
                     },
-
-
                 });
             }
         });
