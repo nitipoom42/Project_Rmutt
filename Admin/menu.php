@@ -66,12 +66,11 @@ if (@$_SESSION['status_onti'] == 1) {
                     ?>
                 </span>
             </a>
-
             <a class="nav-link collapsed <?php if ($url == 'sell.php') {
                                                 echo "bg_menu_admin";
                                             } ?>" href="sell.php">
                 <i class="far fa-plus-square"></i>
-                <span>หน้าร้าน <?php echo $url ?></span>
+                <span>หน้าร้าน</span>
             </a>
             <hr>
 
