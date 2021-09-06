@@ -45,7 +45,6 @@ if ($_SESSION['User'] != "admin") {
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <div id="menu"></div>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -56,7 +55,6 @@ if ($_SESSION['User'] != "admin") {
             <!-- End of Content Wrapper -->
         </div>
         <!-- End of Page Wrapper -->
-
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
