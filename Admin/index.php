@@ -101,14 +101,8 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    </div>
-
-
                     <!-- ป้ายแจ้งเตือนจำนวนรายการ -->
-                    <div class="row mt-5">
+                    <div class="row mt-2">
                         <!-- ยอดขายออนไลน์ -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success border-bottom-success shadow h-100 py-2">
