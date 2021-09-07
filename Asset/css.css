@@ -271,3 +271,8 @@ button.slick-next::before {
   border: 0.15rem solid rgb(192, 192, 192);
   border-radius: 1rem;
 }
+
+#chart {
+  width: 50rem;
+  height: 10rem;
+}

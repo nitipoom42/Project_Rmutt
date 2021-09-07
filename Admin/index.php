@@ -53,6 +53,28 @@ $stmt_stock_out->execute();
 $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<!-- กราฟเวลาวันนี้  -->
+
+<?php
+
+
+$data_date_now = [
+    'date_now' => date("Y-m-d"),
+];
+
+$sql_oder_date_now = "SELECT *,SUM(od.QTY) as sumQTY FROM oder_detail as od
+JOIN oder as o ON o.ID_Oder = od.ID_Oder
+JOIN stock as s ON s.ID_Product = od.ID_Product
+JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
+WHERE date(o.Oder_date) =:date_now
+GROUP BY od.ID_Product";
+$stmt_oder_date_now = $conn->prepare($sql_oder_date_now);
+$stmt_oder_date_now->execute($data_date_now);
+$result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,7 +96,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../Asset/css.css">
 
     <!-- ajax -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -83,6 +105,9 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.js" integrity="sha512-mBSqtiBr4vcvTb6BCuIAgVx4uF3EVlVvJ2j+Z9USL0VwgL9liZ638rTANn5m1br7iupcjjg/LIl5cCYcNae7Yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.js" integrity="sha512-dhEwOlXtyz36+QteITRvQOAWr/d8kQKeHs4D/1yttrjtLxDj8qPIkgxYl3hR7NIRZUfZIqEPgTP1DG5AwNU7Jw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.css">
+
+    <!-- กราฟ -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
 
@@ -215,18 +240,149 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                     <!-- Content Row -->
 
                     <div class="row">
+                        <hr>
                         <!-- กราฟ -->
                         <div class="row">
-                            <div class="col-2"><input type="text" name="dates" id="date_select" /></div>
+                            <div class="col-3">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-week"></i></span>
+                                    <input type="text" class="form-control" name="dates" id="date_select" />
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col">
+                            <div class="col-12">
+
+                                <div id="date_now">
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            <p>ยอดขายทั้งหมด</p>
+                                            <div id="chart_sales_now">
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <p>จำนวนการขายแต่ละประเภท</p>
+                                            <div id="chart_sales_type_now">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- กราฟรายงานยอดขาย -->
+                                    <script>
+                                        var options = {
+                                            series: [{
+                                                name: 'จำนวนการขาย',
+                                                data: [<?php
+                                                        foreach ($result_oder_date_now as $row_oder_date_now) { ?>
+                                                        <?php echo $row_oder_date_now['sumQTY']; ?>,
+                                                    <?php }
+                                                    ?>
+                                                ]
+                                            }],
+                                            chart: {
+                                                type: 'bar',
+                                                height: 350
+                                            },
+                                            plotOptions: {
+                                                bar: {
+                                                    horizontal: false,
+                                                    columnWidth: '55%',
+                                                    endingShape: 'rounded'
+                                                },
+                                            },
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            stroke: {
+                                                show: true,
+                                                width: 2,
+                                                colors: ['transparent']
+                                            },
+                                            xaxis: {
+                                                categories: [<?php
+                                                                foreach ($result_oder_date_now as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['INFO_Type_Product']; ?>',
+                                                    <?php } ?>
+                                                ],
+                                            },
+                                            yaxis: {
+                                                title: {
+                                                    text: 'ชิ้น'
+                                                }
+                                            },
+                                            fill: {
+                                                opacity: 1
+                                            },
+                                            tooltip: {
+                                                y: {
+                                                    formatter: function(val) {
+                                                        return val + " ชิ้น"
+                                                    }
+                                                }
+                                            }
+                                        };
+                                        var chart_sales_type_now = new ApexCharts(document.querySelector("#chart_sales_type_now"), options);
+                                        chart_sales_type_now.render();
+                                    </script>
+                                    <!-- กราฟรายงานยอดขาย -->
+                                    <script>
+                                        var options = {
+                                            series: [{
+                                                name: 'จำนวนการขาย',
+                                                data: [<?php
+                                                        foreach ($result_oder_date_now as $row_oder_date_now) { ?>
+                                                        <?php echo $row_oder_date_now['sumQTY']; ?>,
+                                                    <?php }
+                                                    ?>
+                                                ]
+                                            }],
+                                            chart: {
+                                                type: 'bar',
+                                                height: 350
+                                            },
+                                            plotOptions: {
+                                                bar: {
+                                                    horizontal: false,
+                                                    columnWidth: '55%',
+                                                    endingShape: 'rounded'
+                                                },
+                                            },
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            stroke: {
+                                                show: true,
+                                                width: 2,
+                                                colors: ['transparent']
+                                            },
+                                            xaxis: {
+                                                categories: [<?php
+                                                                foreach ($result_oder_date_now as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['NAME_Product']; ?>',
+                                                    <?php } ?>
+                                                ],
+                                            },
+                                            yaxis: {
+                                                title: {
+                                                    text: 'ชิ้น'
+                                                }
+                                            },
+                                            fill: {
+                                                opacity: 1
+                                            },
+                                            tooltip: {
+                                                y: {
+                                                    formatter: function(val) {
+                                                        return val + " ชิ้น"
+                                                    }
+                                                }
+                                            }
+                                        };
+                                        var chart_sales_now = new ApexCharts(document.querySelector("#chart_sales_now"), options);
+                                        chart_sales_now.render();
+                                    </script>
+                                </div>
+
                                 <div id="result_date"></div>
                             </div>
                         </div>
-
-
-
                     </div>
                     <!-- /.container-fluid -->
                 </div>
@@ -235,8 +391,6 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
             <!-- End of Content Wrapper -->
         </div>
         <!-- End of Page Wrapper -->
-
-
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
@@ -265,7 +419,6 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-
         <script>
             $(document).ready(function() {
                 $('#menu').load('menu.php');
@@ -275,7 +428,24 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
 
                 $('#date_select').change(function() {
                     var date_select = $('#date_select').val();
-                    console.log(date_select);
+
+                    // เรียกวันที่ปัจจุบัน
+                    function formatDate(date) {
+                        var d = new Date(date),
+                            month = '' + (d.getMonth() + 1),
+                            day = '' + d.getDate(),
+                            year = d.getFullYear();
+
+                        if (month.length < 2) month = '0' + month;
+                        if (day.length < 2) day = '0' + day;
+
+                        return [year, month, day].join('/');
+                    }
+                    var date_now = new Date();
+
+                    if (formatDate(date_now) != date_select.substring(11)) {
+                        $('#date_now').hide();
+                    }
                     $.ajax({
                         url: "../sql/db_slect_graph.php",
                         method: "post",
