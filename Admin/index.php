@@ -84,6 +84,11 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.js" integrity="sha512-dhEwOlXtyz36+QteITRvQOAWr/d8kQKeHs4D/1yttrjtLxDj8qPIkgxYl3hR7NIRZUfZIqEPgTP1DG5AwNU7Jw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.css">
 
+
+
+
+
+
 </head>
 
 <body id="page-top">
@@ -199,11 +204,8 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="row">
                                         <div class="col ms-3">
                                             <small><?php echo $row_stock_out['NAME_Product'] ?></small>
-
                                         </div>
                                     </div>
-
-
                                 <?php   } ?>
                             </ul>
                         </div>
@@ -213,34 +215,17 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                     <!-- Content Row -->
 
                     <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-12">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
+                        <!-- กราฟ -->
+                        <div class="row">
+                            <div class="col-2"><input type="text" name="dates" id="date_select" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div id="result_date"></div>
                             </div>
                         </div>
+
+
 
                     </div>
                     <!-- /.container-fluid -->
@@ -274,15 +259,48 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+        <!-- time -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
         <script>
             $(document).ready(function() {
                 $('#menu').load('menu.php');
                 setInterval(function() {
                     $('#menu').load('menu.php');
                 }, 1000);
+
+                $('#date_select').change(function() {
+                    var date_select = $('#date_select').val();
+                    console.log(date_select);
+                    $.ajax({
+                        url: "../sql/db_slect_graph.php",
+                        method: "post",
+                        data: {
+                            date_select: date_select,
+                        },
+                        success(data) {
+                            $('#result_date').html(data);
+                        }
+                    });
+                });
             });
         </script>
 
+        <script>
+            $(function() {
+                $('input[name="dates"]').daterangepicker({
+                    "locale": {
+                        "format": "YYYY/MM/DD",
+                        "separator": " ",
+                    },
+                    "singleDatePicker": false,
+                });
+            });
+        </script>
 </body>
 
 </html>

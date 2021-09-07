@@ -48,10 +48,10 @@
         <?php require_once('navbar.php'); ?>
         <br>
         <br>
+
+        <?php require_once('banner.php'); ?>
         <!-- โปรโมชั่น -->
         <?php require_once('product_promotion.php'); ?>
-        <?php require_once('banner.php'); ?>
-
         <!-- ประเภทสินค้า -->
         <?php require_once('itmes_type.php'); ?>
         <!-- สินค้าแต่ละประเภท -->
