@@ -14,7 +14,7 @@ JOIN oder as o ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE o.Oder_date BETWEEN :date_start AND :date_end
-GROUP BY od.ID_Product";
+GROUP BY s.TYPE_Product";
 $stmt_oder_date = $conn->prepare($sql_oder_date);
 $stmt_oder_date->execute($data_date);
 $result_oder_date = $stmt_oder_date->fetchAll(PDO::FETCH_ASSOC);
@@ -148,6 +148,6 @@ if ($result_oder_date) { ?>
             }
         }
     };
-    var chart = new ApexCharts(document.querySelector("#chart_sales"), options);
-    chart.render();
+    var chart_sales = new ApexCharts(document.querySelector("#chart_sales"), options);
+    chart_sales.render();
 </script>

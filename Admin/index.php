@@ -67,7 +67,7 @@ JOIN oder as o ON o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) =:date_now
-GROUP BY od.ID_Product";
+GROUP BY s.TYPE_Product";
 $stmt_oder_date_now = $conn->prepare($sql_oder_date_now);
 $stmt_oder_date_now->execute($data_date_now);
 $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
@@ -443,7 +443,7 @@ $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
                     }
                     var date_now = new Date();
 
-                    if (formatDate(date_now) != date_select.substring(11)) {
+                    if (formatDate(date_now) != date_select.substring(11) || formatDate(date_now) < date_select.substring(11)) {
                         $('#date_now').hide();
                     }
                     $.ajax({
