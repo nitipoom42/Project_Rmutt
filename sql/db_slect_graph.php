@@ -32,23 +32,49 @@ GROUP BY tp.ID_Type_Product";
 $stmt_oder_date_type = $conn->prepare($sql_oder_date_type);
 $stmt_oder_date_type->execute($data_date);
 $result_oder_date_type = $stmt_oder_date_type->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+$sql_total_money_his = "SELECT *  ,SUM(od.QTY*s.PRICE_Product) as sumQTY FROM oder as o
+JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
+JOIN stock as s ON od.ID_Product=s.ID_Product 
+WHERE o.Oder_date BETWEEN :date_start AND :date_end AND  o.oder_status >= 3 
+GROUP BY o.oder_status
+";
+$stmt_total_money_his = $conn->prepare($sql_total_money_his);
+$stmt_total_money_his->execute($data_date);
+$result_total_money_his = $stmt_total_money_his->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 ?>
 
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<link rel="stylesheet" href="../Asset/css.css">
+
 <?php
 if ($result_oder_date) { ?>
     <div class="row">
         <div class="col-6 text-center">
-            <p>ยอดขายทั้งหมด</p>
-            <div id="chart_sales">
+            <p>ยอดขาย</p>
+            <div id="chart_sales_his">
             </div>
         </div>
         <div class="col-6 text-center">
             <p>จำนวนการขายแต่ละประเภท</p>
             <div id="chart_sales_type">
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center">
+                <p>จำนวนการขายทั้งหมด</p>
+                <div id="chart_sales">
+                </div>
             </div>
         </div>
     </div>
@@ -180,4 +206,48 @@ if ($result_oder_date) { ?>
     };
     var chart_sales = new ApexCharts(document.querySelector("#chart_sales"), options);
     chart_sales.render();
+</script>
+
+
+<script>
+    var options = {
+        series: [<?php
+                    foreach ($result_total_money_his as $row_total_money_his) { ?>
+
+                <?php echo $row_total_money_his['sumQTY'] ?>,
+            <?php }
+            ?>
+        ],
+        colors: [<?php
+                    for ($x = 0; $x <= $stmt_total_money_his->rowCount(); $x++) {
+                        printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
+                    }
+                    ?>],
+        chart: {
+            width: 380,
+            type: 'pie',
+        },
+        tooltip: {
+            y: {
+                formatter: function(val) {
+                    return val + " บาท"
+                }
+            }
+        },
+        labels: ['หน้าร้าน', 'ออนไลน์'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart_sales_his"), options);
+    chart.render();
 </script>

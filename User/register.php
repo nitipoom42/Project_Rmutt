@@ -59,6 +59,9 @@
                             <input name="Lastname" type="text" class="form-control" placeholder="นามสกุล...">
                         </div>
                         <div class="mb-3">
+                            <input name="Tel" type="text" class="form-control" placeholder="เบอร์...">
+                        </div>
+                        <div class="mb-3">
                             <div name="Pass" id="emailHelp" class="form-text ms-2 mb-2">รูปโปรไฟล์</div>
 
                             <input name="IMG_User" type="file" class="form-control" accept="image/*" onchange="loadFile(event)" name="IMG_Product" placeholder=""> <br>

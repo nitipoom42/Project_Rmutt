@@ -96,6 +96,19 @@ if (@$_SESSION['edit_product'] == 1) {
   $_SESSION['edit_product'] = 0;
 }
 ?>
+<?php
+if (@$_SESSION['edit_member'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'success',
+          title: 'แก้ไขข้อมูลสำเร็จ',
+          showConfirmButton: false,
+          timer: 1700
+          })
+        </script>";
+  $_SESSION['edit_member'] = 0;
+}
+?>
 
 <?php
 if (@$_SESSION['login_fall'] == 1) {
