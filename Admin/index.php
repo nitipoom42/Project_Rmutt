@@ -80,8 +80,23 @@ GROUP BY tp.ID_Type_Product";
 $stmt_oder_date_now_type = $conn->prepare($sql_oder_date_now_type);
 $stmt_oder_date_now_type->execute($data_date_now);
 $result_oder_date_now_type = $stmt_oder_date_now_type->fetchAll(PDO::FETCH_ASSOC);
+
+
+$sql_total_money = "SELECT *  ,SUM(od.QTY*s.PRICE_Product) as sumQTY FROM oder as o
+JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
+JOIN stock as s ON od.ID_Product=s.ID_Product 
+WHERE date(o.Oder_date) =:date_now AND  o.oder_status >= 3 
+GROUP BY o.oder_status
+";
+$stmt_total_money = $conn->prepare($sql_total_money);
+$stmt_total_money->execute($data_date_now);
+$result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+
+
+
+<?php ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -134,291 +149,185 @@ $result_oder_date_now_type = $stmt_oder_date_now_type->fetchAll(PDO::FETCH_ASSOC
     <div id="wrapper">
 
 
-        <div id="menu"></div>
+        <div class="box_menu_admin">
+            <div id="menu"></div>
+        </div>
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
-            <div id="content">
+            <div id="content ">
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <!-- ป้ายแจ้งเตือนจำนวนรายการ -->
-                    <div class="row mt-2">
-                        <!-- ยอดขายออนไลน์ -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success border-bottom-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2 text-center">
-                                            <div class="text-xs font-weight-bold text-success mb-1">
-                                                <h4>&#3647; ยอดขายออนไลน์</h4>
-                                            </div>
-                                            <?php $sell_total_online = 0; ?>
-                                            <div class="h4 mb-0 text-gray-800">
-                                                <?php foreach ($result_oder_s3 as $total_sell) { ?>
-                                                    <?php
-                                                    $sum_total_online = $total_sell['sumQTY'] * $total_sell['PRICE_Product'];
-                                                    $sell_total_online = $sell_total_online + $sum_total_online;
-                                                    ?>
-                                                <?php } ?> <?php echo $sell_total_online; ?>.-บาท</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ยอดขายหน้าร้าน -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success border-bottom-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2 text-center">
-                                            <div class="text-xs font-weight-bold text-success mb-1">
-                                                <h4>&#3647; ยอดขายหน้าร้าน</h4>
-                                            </div>
-                                            <?php $sell_total_sell = 0; ?>
-                                            <div class="h4 mb-0 text-gray-800">
-                                                <?php foreach ($result_oder_s4 as $total_sell_s4) { ?>
-                                                    <?php
-                                                    $sum_total_sell = $total_sell_s4['sumQTY'] * $total_sell_s4['PRICE_Product'];
-                                                    $sell_total_sell = $sell_total_sell + $sum_total_sell;
-                                                    ?>
-                                                <?php } ?> <?php echo $sell_total_sell; ?>.-บาท</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- จัดเตรียมสินค้า -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-danger border-bottom-danger shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2 text-center">
-                                            <div class="text-xs font-weight-bold text-danger mb-1">
-                                                <h4><i class="fas fa-exclamation-triangle"></i> จัดเตรียมสินค้า</h4>
-                                            </div>
-                                            <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_oder_s1->rowCount() ?> รายการ</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- รอลูกค้ามารับสินค้า -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2 text-center">
-                                            <div class="text-xs font-weight-bold text-warning mb-1">
-                                                <h4><i class="fas fa-exclamation-circle"></i> รอลูกค้ามารับสินค้า</h4>
-                                            </div>
-                                            <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_oder_s2->rowCount() ?> รายการ</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- สินค้าใกล้หมด -->
-                        <div class="col-xl-3 col-md-6 mb-4 btn-group dropend">
-                            <!-- Default dropend button -->
-                            <div class="btn " data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2 text-center">
-                                                <div class="text-xs font-weight-bold text-warning mb-1">
-                                                    <h4><i class="fas fa-exclamation-circle"></i> สินค้าใกล้หมด</h4>
+                <div class="row">
+                    <div class="col-1 me-5"></div>
+                    <div class="col-10 ms-2">
+                        <div class="container-fluid">
+                            <!-- ป้ายแจ้งเตือนจำนวนรายการ -->
+                            <div class="row mt-2">
+                                <!-- ยอดขายออนไลน์ -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success border-bottom-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2 text-center">
+                                                    <div class="text-xs font-weight-bold text-success mb-1">
+                                                        <h4>&#3647; ยอดขายออนไลน์</h4>
+                                                    </div>
+                                                    <?php $sell_total_online = 0; ?>
+                                                    <div class="h4 mb-0 text-gray-800">
+                                                        <?php foreach ($result_oder_s3 as $total_sell) { ?>
+                                                            <?php
+                                                            $sum_total_online = $total_sell['sumQTY'] * $total_sell['PRICE_Product'];
+                                                            $sell_total_online = $sell_total_online + $sum_total_online;
+                                                            ?>
+                                                        <?php } ?> <?php echo $sell_total_online; ?>.-บาท</div>
                                                 </div>
-                                                <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_stock_out->rowCount() ?> รายการ</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                            </div>
-                            <ul class="dropdown-menu">
-                                <?php foreach ($result_stock_out as $row_stock_out) { ?>
-                                    <div class="row">
-                                        <div class="col ms-3">
-                                            <small><?php echo $row_stock_out['NAME_Product'] ?></small>
+                                <!-- ยอดขายหน้าร้าน -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success border-bottom-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2 text-center">
+                                                    <div class="text-xs font-weight-bold text-success mb-1">
+                                                        <h4>&#3647; ยอดขายหน้าร้าน</h4>
+                                                    </div>
+                                                    <?php $sell_total_sell = 0; ?>
+                                                    <div class="h4 mb-0 text-gray-800">
+                                                        <?php foreach ($result_oder_s4 as $total_sell_s4) { ?>
+                                                            <?php
+                                                            $sum_total_sell = $total_sell_s4['sumQTY'] * $total_sell_s4['PRICE_Product'];
+                                                            $sell_total_sell = $sell_total_sell + $sum_total_sell;
+                                                            ?>
+                                                        <?php } ?> <?php echo $sell_total_sell; ?>.-บาท</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                <?php   } ?>
-                            </ul>
+                                </div>
+                                <!-- จัดเตรียมสินค้า -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-danger border-bottom-danger shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2 text-center">
+                                                    <div class="text-xs font-weight-bold text-danger mb-1">
+                                                        <h4><i class="fas fa-exclamation-triangle"></i> จัดเตรียมสินค้า</h4>
+                                                    </div>
+                                                    <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_oder_s1->rowCount() ?> รายการ</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- รอลูกค้ามารับสินค้า -->
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2 text-center">
+                                                    <div class="text-xs font-weight-bold text-warning mb-1">
+                                                        <h4><i class="fas fa-exclamation-circle"></i> รอลูกค้ามารับสินค้า</h4>
+                                                    </div>
+                                                    <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_oder_s2->rowCount() ?> รายการ</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- สินค้าใกล้หมด -->
+                                <div class="col-xl-3 col-md-6 mb-4 btn-group dropend">
+                                    <!-- Default dropend button -->
+                                    <div class="btn " data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2 text-center">
+                                                        <div class="text-xs font-weight-bold text-warning mb-1">
+                                                            <h4><i class="fas fa-exclamation-circle"></i> สินค้าใกล้หมด</h4>
+                                                        </div>
+                                                        <div class="h4 mb-0 text-gray-800"> <?php echo $stmt_stock_out->rowCount() ?> รายการ</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <ul class="dropdown-menu">
+                                        <?php foreach ($result_stock_out as $row_stock_out) { ?>
+                                            <div class="row">
+                                                <div class="col ms-3">
+                                                    <small><?php echo $row_stock_out['NAME_Product'] ?></small>
+                                                </div>
+                                            </div>
+                                        <?php   } ?>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <!-- Content Row -->
+
+                            <div class="row">
+                                <hr>
+                                <!-- กราฟ -->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-week"></i></span>
+                                            <input type="text" class="form-control" name="dates" id="date_select" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="date_now">
+                                            <div class="row">
+                                                <div class="col-6 text-center">
+                                                    <p>ยอดขาย</p>
+                                                    <div id="chart_sales_total_money">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-6 text-center">
+                                                    <p>จำนวนการขายแต่ละประเภท</p>
+                                                    <div id="chart_sales_type_now">
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="text-center">
+                                                        <p>จำนวนการขายทั้งหมด</p>
+                                                        <div id="chart_sales_now">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div id="result_date"></div>
+
+                                </div>
+                            </div>
+                            <!-- /.container-fluid -->
                         </div>
 
                     </div>
-
-                    <!-- Content Row -->
-
-                    <div class="row">
-                        <hr>
-                        <!-- กราฟ -->
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-week"></i></span>
-                                    <input type="text" class="form-control" name="dates" id="date_select" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-
-                                <div id="date_now">
-                                    <div class="row">
-                                        <div class="col-6 text-center">
-                                            <p>ยอดขายทั้งหมด</p>
-                                            <div id="chart_sales_now">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 text-center">
-                                            <p>จำนวนการขายแต่ละประเภท</p>
-                                            <div id="chart_sales_type_now">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- กราฟรายงานยอดขายประเภทสินค้า -->
-                                    <script>
-                                        var options = {
-                                            plotOptions: {
-                                                bar: {
-                                                    distributed: true,
-                                                    borderRadius: 10,
-                                                },
-                                            },
-                                            colors: [<?php
-                                                        for ($x = 0; $x <= $stmt_oder_date_now_type->rowCount(); $x++) {
-                                                            printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
-                                                        }
-                                                        ?>],
-                                            series: [{
-                                                name: 'จำนวนการขาย',
-                                                data: [<?php
-                                                        foreach ($result_oder_date_now_type as $row_oder_date_now) { ?>
-                                                        <?php echo $row_oder_date_now['sumQTY']; ?>,
-                                                    <?php }
-                                                    ?>
-                                                ]
-                                            }],
-                                            chart: {
-                                                type: 'bar',
-                                                height: 350
-                                            },
-
-                                            dataLabels: {
-                                                enabled: false
-                                            },
-                                            stroke: {
-                                                show: true,
-                                                width: 2,
-                                                colors: ['transparent']
-                                            },
-                                            xaxis: {
-                                                categories: [<?php
-                                                                foreach ($result_oder_date_now_type as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['INFO_Type_Product']; ?>',
-                                                    <?php } ?>
-                                                ],
-                                            },
-                                            yaxis: {
-                                                title: {
-                                                    text: 'ชิ้น'
-                                                }
-                                            },
-                                            fill: {
-                                                opacity: 1
-                                            },
-                                            tooltip: {
-                                                y: {
-                                                    formatter: function(val) {
-                                                        return val + " ชิ้น"
-                                                    }
-                                                }
-                                            }
-                                        };
-                                        var chart_sales_type_now = new ApexCharts(document.querySelector("#chart_sales_type_now"), options);
-                                        chart_sales_type_now.render();
-                                    </script>
-                                    <!-- กราฟรายงานยอดขาย -->
-
-
-                                    <script>
-                                        var options = {
-                                            plotOptions: {
-                                                bar: {
-                                                    distributed: true,
-                                                    borderRadius: 10,
-                                                },
-                                            },
-                                            colors: [<?php
-                                                        for ($x = 0; $x <= $stmt_oder_date_now->rowCount(); $x++) {
-                                                            printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
-                                                        }
-                                                        ?>],
-                                            series: [{
-                                                name: 'จำนวนการขาย',
-                                                data: [<?php
-                                                        foreach ($result_oder_date_now as $row_oder_date_now) { ?>
-                                                        <?php echo $row_oder_date_now['sumQTY']; ?>,
-                                                    <?php }
-                                                    ?>
-                                                ]
-                                            }],
-                                            chart: {
-                                                type: 'bar',
-                                                height: 350
-                                            },
-
-                                            dataLabels: {
-                                                enabled: false
-                                            },
-                                            stroke: {
-                                                show: true,
-                                                width: 2,
-                                                colors: ['transparent']
-                                            },
-                                            xaxis: {
-                                                categories: [<?php
-                                                                foreach ($result_oder_date_now as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['NAME_Product']; ?>',
-                                                    <?php } ?>
-                                                ],
-                                            },
-                                            yaxis: {
-                                                title: {
-                                                    text: 'ชิ้น'
-                                                }
-                                            },
-                                            fill: {
-                                                opacity: 1
-                                            },
-                                            tooltip: {
-                                                y: {
-                                                    formatter: function(val) {
-                                                        return val + " ชิ้น"
-                                                    }
-                                                }
-                                            }
-                                        };
-                                        var chart_sales_now = new ApexCharts(document.querySelector("#chart_sales_now"), options);
-                                        chart_sales_now.render();
-                                    </script>
-                                </div>
-
-                                <div id="result_date"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.container-fluid -->
                 </div>
+
                 <!-- End of Main Content -->
             </div>
             <!-- End of Content Wrapper -->
         </div>
-        <!-- End of Page Wrapper -->
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -452,7 +361,6 @@ $result_oder_date_now_type = $stmt_oder_date_now_type->fetchAll(PDO::FETCH_ASSOC
 
                 $('#date_select').change(function() {
                     var date_select = $('#date_select').val();
-
                     // เรียกวันที่ปัจจุบัน
                     function formatDate(date) {
                         var d = new Date(date),
@@ -494,6 +402,174 @@ $result_oder_date_now_type = $stmt_oder_date_now_type->fetchAll(PDO::FETCH_ASSOC
                     "singleDatePicker": false,
                 });
             });
+        </script>
+
+
+        <!-- รายงานยอดขาย หน้าร้าน กับ ออนไลน์ -->
+
+        <script>
+            var options = {
+                series: [<?php
+                            foreach ($result_total_money as $row_total_money) { ?>
+                        <?php echo $row_total_money['sumQTY'] ?>,
+                    <?php }
+                    ?>
+                ],
+                colors: [<?php
+                            for ($x = 0; $x <= $stmt_total_money->rowCount(); $x++) {
+                                printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
+                            }
+                            ?>],
+                chart: {
+                    width: 380,
+                    type: 'pie',
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val + " บาท"
+                        }
+                    }
+                },
+                labels: ['หน้าร้าน', 'ออนไลน์'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart_sales_total_money"), options);
+            chart.render();
+        </script>
+
+        <!-- กราฟรายงานยอดขายประเภทสินค้า -->
+        <script>
+            var options = {
+                plotOptions: {
+                    bar: {
+                        distributed: true,
+                        borderRadius: 10,
+                    },
+                },
+                colors: [<?php
+                            for ($x = 0; $x <= $stmt_oder_date_now_type->rowCount(); $x++) {
+                                printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
+                            }
+                            ?>],
+                series: [{
+                    name: 'จำนวนการขาย',
+                    data: [<?php
+                            foreach ($result_oder_date_now_type as $row_oder_date_now) { ?>
+                            <?php echo $row_oder_date_now['sumQTY']; ?>,
+                        <?php }
+                        ?>
+                    ]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: [<?php
+                                    foreach ($result_oder_date_now_type as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['INFO_Type_Product']; ?>',
+                        <?php } ?>
+                    ],
+                },
+                yaxis: {
+                    title: {
+                        text: 'ชิ้น'
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val + " ชิ้น"
+                        }
+                    }
+                }
+            };
+            var chart_sales_type_now = new ApexCharts(document.querySelector("#chart_sales_type_now"), options);
+            chart_sales_type_now.render();
+        </script>
+        <!-- กราฟรายงานยอดขาย -->
+        <script>
+            var options = {
+                plotOptions: {
+                    bar: {
+                        distributed: true,
+                        borderRadius: 10,
+                    },
+                },
+                colors: [<?php
+                            for ($x = 0; $x <= $stmt_oder_date_now->rowCount(); $x++) {
+                                printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
+                            }
+                            ?>],
+                series: [{
+                    name: 'จำนวนการขาย',
+                    data: [<?php
+                            foreach ($result_oder_date_now as $row_oder_date_now) { ?>
+                            <?php echo $row_oder_date_now['sumQTY']; ?>,
+                        <?php }
+                        ?>
+                    ]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: [<?php
+                                    foreach ($result_oder_date_now as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['NAME_Product']; ?>',
+                        <?php } ?>
+                    ],
+                },
+                yaxis: {
+                    title: {
+                        text: 'ชิ้น'
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val + " ชิ้น"
+                        }
+                    }
+                }
+            };
+            var chart_sales_now = new ApexCharts(document.querySelector("#chart_sales_now"), options);
+            chart_sales_now.render();
         </script>
 </body>
 

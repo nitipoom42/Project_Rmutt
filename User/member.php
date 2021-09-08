@@ -69,7 +69,7 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <div class="container">
-
+        <?php require_once('alert.php'); ?>
         <!-- เมนู -->
         <?php require_once('navbar.php'); ?>
         <br>
@@ -83,17 +83,78 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
                     <img class="shadow-lg img-fluid rounded-circle"" src=" ../Asset/img_member/<?php echo $row_member['IMG_User']; ?>">
                 </div>
         </div>
-        <div class="box_member mt-2 mb-4">
+        <div class="mt-2 mb-4">
+
             <div class="row">
-                <div class="col mt-3  text-center">
-                    <h1> <?php echo $row_member['Name']  ?> </h1>
+                <div class="mt-3  ">
+                    <div class="col-xl-6 col-md-6 mb-2 mx-auto ">
+                        <div class="card shadow  box_info_member">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5>ชื่อผู้ใช้งาน</h5>
+                                        <p class="text-success"> คุณ <?php echo $row_member['Name']  ?> <?php echo $row_member['Lastname']  ?> </p>
+                                        <h5>เบอร์โทร</h5>
+                                        <p class="text-success"><?php echo $row_member['Tel']  ?> </p>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="far fa-edit"></i>
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูล</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="../sql/db_edit_member.php" method="post">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">ชื่อผู้ใช้งาน</span>
+                                                                <input type="text" class="form-control" name="Name" value="<?php echo $row_member['Name']  ?>">
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">นามสกุล</span>
+                                                                <input type="text" class="form-control" name="Lastname" value="<?php echo $row_member['Lastname']  ?>">
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon1">เบอร์โทร</span>
+                                                                <input type="text" class="form-control" name="Tel" value="<?php echo $row_member['Tel']  ?>">
+                                                            </div>
+                                                            <input type="hidden" class="form-control" name="ID_Member" value="<?php echo $row_member['ID_Member']  ?>">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                                        <button type="submit" name="edit_member" class="btn btn-primary">บันทึก</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col  text-center">
-                    <p>คะแนนสะสมทั้งหมด</p>
-                    <h1><?php echo number_format($row_member['Point'])  ?></h1>
-                    <h3>คะแนน</h3>
+                <div class="">
+                    <div class="col-xl-6 col-md-6 mb-4 mx-auto ">
+                        <div class="card shadow box_info_member ">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <h5>แต้มสะสมทั้งหมด</h5>
+                                        <h1><?php echo number_format($row_member['Point'])  ?></h1>
+                                        <h5>แต้ม</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -105,6 +166,8 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
         </div>
+
+
     <?php } ?>
     <h1>ประวัติการสั่งซื้อ</h1>
 
