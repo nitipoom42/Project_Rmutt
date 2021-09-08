@@ -56,22 +56,30 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
 <!-- กราฟเวลาวันนี้  -->
 
 <?php
-
-
 $data_date_now = [
     'date_now' => date("Y-m-d"),
 ];
-
 $sql_oder_date_now = "SELECT *,SUM(od.QTY) as sumQTY FROM oder_detail as od
 JOIN oder as o ON o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) =:date_now
-GROUP BY s.TYPE_Product";
+GROUP BY od.ID_Product
+ORDER BY sumQTY DESC";
 $stmt_oder_date_now = $conn->prepare($sql_oder_date_now);
 $stmt_oder_date_now->execute($data_date_now);
 $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
 
+// ประเถทสินค้า
+$sql_oder_date_now_type = "SELECT *,SUM(od.QTY) as sumQTY FROM oder_detail as od
+JOIN oder as o ON o.ID_Oder = od.ID_Oder
+JOIN stock as s ON s.ID_Product = od.ID_Product
+JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
+WHERE date(o.Oder_date) =:date_now
+GROUP BY tp.ID_Type_Product";
+$stmt_oder_date_now_type = $conn->prepare($sql_oder_date_now_type);
+$stmt_oder_date_now_type->execute($data_date_now);
+$result_oder_date_now_type = $stmt_oder_date_now_type->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -118,9 +126,13 @@ $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
 
 <body id="page-top">
 
+
+
+
     <?php require_once('../User/alert.php') ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
+
 
         <div id="menu"></div>
         <!-- Content Wrapper -->
@@ -266,13 +278,24 @@ $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- กราฟรายงานยอดขาย -->
+                                    <!-- กราฟรายงานยอดขายประเภทสินค้า -->
                                     <script>
                                         var options = {
+                                            plotOptions: {
+                                                bar: {
+                                                    distributed: true,
+                                                    borderRadius: 10,
+                                                },
+                                            },
+                                            colors: [<?php
+                                                        for ($x = 0; $x <= $stmt_oder_date_now_type->rowCount(); $x++) {
+                                                            printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
+                                                        }
+                                                        ?>],
                                             series: [{
                                                 name: 'จำนวนการขาย',
                                                 data: [<?php
-                                                        foreach ($result_oder_date_now as $row_oder_date_now) { ?>
+                                                        foreach ($result_oder_date_now_type as $row_oder_date_now) { ?>
                                                         <?php echo $row_oder_date_now['sumQTY']; ?>,
                                                     <?php }
                                                     ?>
@@ -282,13 +305,7 @@ $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
                                                 type: 'bar',
                                                 height: 350
                                             },
-                                            plotOptions: {
-                                                bar: {
-                                                    horizontal: false,
-                                                    columnWidth: '55%',
-                                                    endingShape: 'rounded'
-                                                },
-                                            },
+
                                             dataLabels: {
                                                 enabled: false
                                             },
@@ -299,7 +316,7 @@ $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
                                             },
                                             xaxis: {
                                                 categories: [<?php
-                                                                foreach ($result_oder_date_now as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['INFO_Type_Product']; ?>',
+                                                                foreach ($result_oder_date_now_type as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['INFO_Type_Product']; ?>',
                                                     <?php } ?>
                                                 ],
                                             },
@@ -323,8 +340,21 @@ $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
                                         chart_sales_type_now.render();
                                     </script>
                                     <!-- กราฟรายงานยอดขาย -->
+
+
                                     <script>
                                         var options = {
+                                            plotOptions: {
+                                                bar: {
+                                                    distributed: true,
+                                                    borderRadius: 10,
+                                                },
+                                            },
+                                            colors: [<?php
+                                                        for ($x = 0; $x <= $stmt_oder_date_now->rowCount(); $x++) {
+                                                            printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
+                                                        }
+                                                        ?>],
                                             series: [{
                                                 name: 'จำนวนการขาย',
                                                 data: [<?php
@@ -338,13 +368,7 @@ $result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
                                                 type: 'bar',
                                                 height: 350
                                             },
-                                            plotOptions: {
-                                                bar: {
-                                                    horizontal: false,
-                                                    columnWidth: '55%',
-                                                    endingShape: 'rounded'
-                                                },
-                                            },
+
                                             dataLabels: {
                                                 enabled: false
                                             },

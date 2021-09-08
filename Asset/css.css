@@ -272,7 +272,11 @@ button.slick-next::before {
   border-radius: 1rem;
 }
 
-#chart {
+#chart_sales_now {
+  width: 50rem;
+  height: 10rem;
+}
+#chart_sales_type_now {
   width: 50rem;
   height: 10rem;
 }
