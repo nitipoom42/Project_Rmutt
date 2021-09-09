@@ -8,11 +8,20 @@ if ($_SESSION['User'] != "admin") {
 ?>
 
 <!-------------------------------------------------------------------->
+<!-- ข้อมูลสิค้าใน stock -->
 <?php
 $sql_stock = "SELECT * FROM stock as s JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product";
 $stmt_stock = $conn->prepare($sql_stock);
 $stmt_stock->execute();
 $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!-- สถานะสินค้า -->
+<?php
+$sql_status_product = "SELECT * FROM status_product";
+$smtm_status_product = $conn->prepare($sql_status_product);
+$smtm_status_product->execute();
+$result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,6 +111,7 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                     <th>ราคา</th>
                                     <th>ประเภทสินค้า</th>
                                     <th>จำนวน</th>
+                                    <th>สถานะ</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -114,6 +124,19 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                         <td><?php echo $row_stock['PRICE_Product'] ?>.-บาท</td>
                                         <td><?php echo $row_stock['INFO_Type_Product'] ?></td>
                                         <td><?php echo $row_stock['QTY_Product'] ?></td>
+                                        <td>
+                                            <?php if ($row_stock['Status_Product'] == 1) { ?>
+                                                <div class="alert alert-success" role="alert">
+                                                    พร้อมขาย
+                                                </div>
+                                            <?php } ?>
+                                            <?php if ($row_stock['Status_Product'] == 2) { ?>
+                                                <div class="alert alert-danger text-center" role="alert">
+                                                    ยกเลิกการขาย
+                                                </div>
+                                            <?php } ?>
+
+                                        </td>
                                         <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Product'] ?>">แก้ไข</a>
                                             <a onclick="del_product(<?php echo $row_stock['ID_Product'] ?>)" class="btn btn-danger btn-sm">ลบ</a>
 
@@ -147,6 +170,20 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                                                     <span class="input-group-text" id="basic-addon1">จำนวนสินค้า</span>
                                                                     <input name="QTY_Product" type="text" class="form-control" value="<?php echo $row_stock['QTY_Product'] ?>">
                                                                 </div>
+
+
+                                                                <div class="form-group row">
+                                                                    <!-- ประเภทสินค้า -->
+                                                                    <label class="form-label me-2">สินค้าประเภท :</label>
+                                                                    <select name="Status_Product" class="form-control ">
+                                                                        <!-- loop ข้อมูลของประเภทของสินค้าจากตาราง type_product มาแเสงใน List รายการ -->
+                                                                        <?php
+                                                                        foreach ($result_status_product as $row_status_product) { ?>
+                                                                            <option class="form-control" value="<?php echo $row_status_product['ID_Status_Product'] ?>"><?php echo $row_status_product['INFO_Status_Product'] ?></option>
+                                                                        <?php  } ?>
+                                                                    </select>
+                                                                </div>
+
                                                                 <input type="hidden" name="ID_Product" value="<?php echo $row_stock['ID_Product'] ?>">
                                                             </div>
                                                         </div>
@@ -154,7 +191,6 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                                 <div class="modal-footer">
                                                     <button onclick="edit_product()" type="submit" name="edit_product" class="btn btn-success">ตกลง</button>
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
-
                                                 </div>
                                             </div>
                                             </form>
@@ -231,7 +267,6 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                     showCancelButton: true,
                     cancelButtonText: `ยกเลิก`,
                     cancelButtonColor: '#188754'
-
                 })
             }
         </script>

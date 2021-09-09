@@ -406,9 +406,9 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
 
 
         <!-- รายงานยอดขาย หน้าร้าน กับ ออนไลน์ -->
-
         <script>
             var options = {
+
                 series: [<?php
                             foreach ($result_total_money as $row_total_money) { ?>
                         <?php echo $row_total_money['sumQTY'] ?>,
@@ -421,8 +421,15 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
                             }
                             ?>],
                 chart: {
-                    width: 380,
                     type: 'pie',
+                    width: 380,
+
+                    toolbar: {
+                        show: true,
+                        offsetX: 100,
+                        offsetY: -35,
+                    }
+
                 },
                 tooltip: {
                     y: {
@@ -432,21 +439,11 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
                     }
                 },
                 labels: ['หน้าร้าน', 'ออนไลน์'],
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
+
             };
 
-            var chart = new ApexCharts(document.querySelector("#chart_sales_total_money"), options);
-            chart.render();
+            var chart_sales_total_money = new ApexCharts(document.querySelector("#chart_sales_total_money"), options);
+            chart_sales_total_money.render();
         </script>
 
         <!-- กราฟรายงานยอดขายประเภทสินค้า -->
@@ -475,6 +472,7 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
                 chart: {
                     type: 'bar',
                     height: 350
+
                 },
 
                 dataLabels: {

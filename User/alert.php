@@ -70,16 +70,16 @@ if (@$_SESSION['add_type'] == 1) {
 
 
 <?php
-if (@$_SESSION['dle_product'] == 1) {
+if (@$_SESSION['Status_Product'] == 1) {
   echo "<script>
         Swal.fire({
           icon: 'success',
-          title: 'ลบสินค้าสำเร็จ',
+          title: 'ปรับปรุงสถานะสำเร็จ',
           showConfirmButton: false,
           timer: 1700
           })
         </script>";
-  $_SESSION['dle_product'] = 0;
+  $_SESSION['Status_Product'] = 0;
 }
 ?>
 
