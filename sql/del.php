@@ -1,15 +1,16 @@
 <?php require_once('connect.php') ?>
 
-<!-- ลบข้อมูลสินค้าใน stock -->
+<!-- ปรัปปรุ่งสถานะสินค้าใน stock -->
 <?php
 if (isset($_GET['ID_Product'])) {
-    $data_delete_Product = [
-        'ID_Product' => $_GET['ID_Product']
+    $data_status_Product = [
+        'ID_Product' => $_GET['ID_Product'],
+        'Status_Product' => 2
     ];
-    $delete_stmt_Product = ("DELETE FROM stock WHERE ID_Product=:ID_Product");
-    $delete_stmt_Product = $conn->prepare($delete_stmt_Product);
-    $delete_stmt_Product->execute($data_delete_Product);
-    $_SESSION['dle_product'] = 1;
+    $sql_status_Product = ("UPDATE  stock set Status_Product=:Status_Product WHERE ID_Product=:ID_Product");
+    $stmt_status_Product = $conn->prepare($sql_status_Product);
+    $stmt_status_Product->execute($data_status_Product);
+    $_SESSION['Status_Product'] = 1;
     Header("Location:../Admin/stock.php");
 }
 ?>
