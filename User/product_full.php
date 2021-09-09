@@ -12,7 +12,7 @@ $data = [
 ];
 $sql_fetch_type = "SELECT  * FROM type_product as t
 JOIN stock as s ON t.ID_Type_Product = s.TYPE_Product
-WHERE ID_Type_Product=:id";
+WHERE ID_Type_Product=:id  AND s.Status_Product=1";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute($data);
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);

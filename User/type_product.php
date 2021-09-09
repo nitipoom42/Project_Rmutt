@@ -98,7 +98,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
             $data_type_ID = [
                 'id' => $row_result_type_ID['ID_Type_Product'],
             ];
-            $sql_id = "SELECT * FROM stock WHERE TYPE_Product =:id ";
+            $sql_id = "SELECT * FROM stock WHERE TYPE_Product =:id  AND Status_Product=1";
             $smtm_fetch_id = $conn->prepare($sql_id);
             $smtm_fetch_id->execute($data_type_ID);
             $result_id =  $smtm_fetch_id->fetchAll(PDO::FETCH_ASSOC);

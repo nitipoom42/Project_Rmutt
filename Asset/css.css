@@ -16,6 +16,7 @@ body {
 .Box_Menu {
   background-color: rgb(233, 233, 233);
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: none;
 }
 .info_menu {
   color: rgb(0, 0, 0);
@@ -285,4 +286,32 @@ button.slick-next::before {
   position: relative;
   top: 2rem;
   left: 12rem;
+}
+.box_menu_top {
+  background: #e9e9e9;
+}
+.info_menu {
+  color: rgb(0, 0, 0);
+  transition: 0.4s ease-in-out;
+  font-size: 1.1rem;
+}
+.info_menu:hover {
+  color: rgb(0, 0, 0);
+  background: #008065;
+  border-radius: 1rem;
+  color: #fff;
+}
+.bg_menu_active {
+  background: #008065;
+  border-radius: 1rem;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .Box_Menu {
+    display: flex;
+  }
+  .item_menu_top {
+    display: none;
+  }
 }

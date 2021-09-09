@@ -72,31 +72,7 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
 
             <!-- Main Content -->
             <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
+
                 <!-- End of Topbar -->
                 <div class="alert alert-primary text-center" role="alert">
                     <h1>สินค้าทั่วไป</h1>
@@ -119,11 +95,27 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                 <?php
                                 foreach ($result_stock as $row_stock) { ?>
                                     <tr>
-                                        <td class="text-center"><img src="../Asset/img/<?php echo $row_stock['IMG_Product'] ?>" width="75" height="75"></td>
+                                        <td><img src="../Asset/img/<?php echo $row_stock['IMG_Product'] ?>" width="75" height="75"></td>
                                         <td><?php echo $row_stock['NAME_Product'] ?></td>
                                         <td><?php echo $row_stock['PRICE_Product'] ?>.-บาท</td>
                                         <td><?php echo $row_stock['INFO_Type_Product'] ?></td>
-                                        <td><?php echo $row_stock['QTY_Product'] ?></td>
+                                        <td class="text-center">
+                                            <?php if ($row_stock['QTY_Product'] < 20) { ?>
+                                                <div class="col-7 mx-auto">
+                                                    <div class="alert alert-danger" role="alert">
+
+                                                        <small> สินค้าใกล้หมด <?php echo $row_stock['QTY_Product'] ?></small>
+
+
+                                                    </div>
+                                                </div>
+
+                                            <?php   } ?>
+                                            <?php if ($row_stock['QTY_Product'] >= 20) { ?>
+                                                <?php echo $row_stock['QTY_Product'] ?>
+                                            <?php   } ?>
+
+                                        </td>
                                         <td>
                                             <?php if ($row_stock['Status_Product'] == 1) { ?>
                                                 <div class="alert alert-success" role="alert">
@@ -138,7 +130,6 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
 
                                         </td>
                                         <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Product'] ?>">แก้ไข</a>
-                                            <a onclick="del_product(<?php echo $row_stock['ID_Product'] ?>)" class="btn btn-danger btn-sm">ลบ</a>
 
                                         </td>
 
@@ -257,19 +248,6 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
             });
         </script>
 
-        <script>
-            function del_product(id) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'คุณจะลบรายการนี้หรือไม่',
-                    confirmButtonText: `<a class="text-light" href="../sql/del.php?ID_Product=${id}">ยืนยัน</a>`,
-                    confirmButtonColor: '#d33',
-                    showCancelButton: true,
-                    cancelButtonText: `ยกเลิก`,
-                    cancelButtonColor: '#188754'
-                })
-            }
-        </script>
 
 </body>
 

@@ -14,21 +14,54 @@ $stmt_cart->execute($data_member);
 $result_cart = $stmt_cart->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<div class="fixed-top bg-light d-flex justify-content-between ">
-    <h1 class="bg-info mt-2 p-2 banner"> <a href="index.php"> ร้าน - น้องมายด์</a></h1>
 
-    <div class="banner_photo mt-4 me-4">
-        <button type="button" id="test" class="btn btn-primary position-relative" data-bs-backdrop="false" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
-            <i class="fas fa-shopping-cart"></i>
-            <!-- แสดงตัวเลขของสินค้าในตะกร้าสินค้า -->
-            <?php
-            if ($result_cart) { ?>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    <?php echo count($result_cart); ?>
-                </span>
-            <?php    } ?>
-        </button>
+<?php
+@$url .= $_SERVER['REQUEST_URI'];
+@$url = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
+?>
+
+<div class="fixed-top bg-light justify-content-between ">
+    <div class="row box_menu_top">
+        <div class="col-6 col-md-2">
+            <h1 class="bg-info mt-2 p-1 banner"> <a href="index.php"> ร้าน - น้องมายด์</a></h1>
+        </div>
+        <div class="col-1 col-md-4">
+            <ul class="nav item_menu_top">
+                <li class="nav-item mt-3 ms-5">
+                    <a class="nav-link info_menu <?php if ($url == 'index.php') {
+                                                        echo "bg_menu_active";
+                                                    } ?>" href="index.php">หน้าแรก</a>
+                </li>
+                <li class="nav-item mt-3 ms-5">
+                    <a class="nav-link info_menu <?php if ($url == 'member.php') {
+                                                        echo "bg_menu_active";
+                                                    } ?>" href="member.php">สมาชิก</a>
+                </li>
+                <li class="nav-item mt-3 ms-5">
+                    <a class="nav-link info_menu <?php if ($url == 'history.php') {
+                                                        echo "bg_menu_active";
+                                                    } ?>" href="history.php">แจ้งชำระเงิน</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-5  col-md-6 text-end">
+            <div class="banner_photo mt-3 me-4">
+                <button type="button" id="test" class="btn btn-primary position-relative" data-bs-backdrop="false" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
+                    <i class="fas fa-shopping-cart"></i>
+                    <!-- แสดงตัวเลขของสินค้าในตะกร้าสินค้า -->
+                    <?php
+                    if ($result_cart) { ?>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <?php echo count($result_cart); ?>
+                        </span>
+                    <?php    } ?>
+                </button>
+            </div>
+        </div>
     </div>
+
+
+
 </div>
 <!-- ตะกร้าสินค้า -->
 <div class="offcanvas offcanvas-end" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
