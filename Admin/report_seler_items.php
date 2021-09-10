@@ -4,13 +4,14 @@ $data_date = [
     'date_start' => $_POST['date_start'],
     'date_end' => $_POST['date_end']
 ];
-$sql_report_seler = "SELECT *,SUM(od.QTY) as sumQTY, SUM(od.QTY*s.PRICE_Product) as sumPrice FROM oder_detail as od
+$sql_report_seler = " SELECT * ,SUM(s.PRICE_Product*od.QTY)as sumPrice 
+,SUM(od.QTY)as sumQTY 
+FROM oder_detail as od
 JOIN oder as o ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
-GROUP BY date(o.Oder_date)
-ORDER BY sumQTY DESC
+GROUP BY s.ID_Product
 ";
 $stmt_report_seler = $conn->prepare($sql_report_seler);
 $stmt_report_seler->execute($data_date);
@@ -44,7 +45,7 @@ $result_report_seler = $stmt_report_seler->fetchAll(PDO::FETCH_ASSOC);
                         ?></td>
                     <td><?php echo $row_report['NAME_Product']; ?></td>
                     <td class="text-center"><?php echo number_format($row_report['sumQTY']); ?></td>
-                    <td class="text-center"><?php echo number_format($row_report['sumPrice'], 2); ?>.-บาท</td>
+                    <td class="text-center"><?php echo number_format($row_report['sumPrice'], 2); ?>บาท</td>
                 </tr>
             <?php } ?>
         </tbody>
