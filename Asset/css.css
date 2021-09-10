@@ -320,6 +320,10 @@ tr {
   page-break-inside: avoid;
   page-break-after: 90%;
 }
+.img_payment {
+  width: 35rem;
+  height: 11rem;
+}
 @media screen and (max-width: 768px) {
   .Box_Menu {
     display: flex;

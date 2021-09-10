@@ -105,12 +105,9 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
     <?php require_once('../User/alert.php') ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
-
-
         <div class="box_menu_admin">
             <div id="menu"></div>
         </div>
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
@@ -239,7 +236,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                         <form id="from_date" action="report_seler.php" method="post">
                                             <div class="row">
                                                 <div class="col">
-                                                    <p id="report" class="btn btn-success" name="report">รายงานยอดขาย</p>
+                                                    <p id="report" class="btn btn-success" name="report">ออกรายงาน</p>
                                                 </div>
                                             </div>
                                             <div class="row">

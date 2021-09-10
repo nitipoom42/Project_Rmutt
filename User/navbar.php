@@ -25,7 +25,7 @@ $result_cart = $stmt_cart->fetchAll(PDO::FETCH_ASSOC);
         <div class="col-6 col-md-2">
             <h1 class="bg-info mt-2 p-1 banner"> <a href="index.php"> ร้าน - น้องมายด์</a></h1>
         </div>
-        <div class="col-1 col-md-4">
+        <div class="col-1 col-md-5">
             <ul class="nav item_menu_top">
                 <li class="nav-item mt-3 ms-5">
                     <a class="nav-link info_menu <?php if ($url == 'index.php') {
@@ -42,9 +42,14 @@ $result_cart = $stmt_cart->fetchAll(PDO::FETCH_ASSOC);
                                                         echo "bg_menu_active";
                                                     } ?>" href="history.php">แจ้งชำระเงิน</a>
                 </li>
+                <li class="nav-item mt-3 ms-5">
+                    <a class="nav-link info_menu <?php if ($url == 'payment.php') {
+                                                        echo "bg_menu_active";
+                                                    } ?>" href="payment.php">ช่องทางการชำระเงิน</a>
+                </li>
             </ul>
         </div>
-        <div class="col-5  col-md-6 text-end">
+        <div class="col-5  col-md-5 text-end">
             <div class="banner_photo mt-3 me-4">
                 <button type="button" id="test" class="btn btn-primary position-relative" data-bs-backdrop="false" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
                     <i class="fas fa-shopping-cart"></i>

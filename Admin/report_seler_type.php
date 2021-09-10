@@ -14,8 +14,6 @@ GROUP BY date(o.Oder_date)";
 $stmt_seler_type = $conn->prepare($sql_seler_type);
 $stmt_seler_type->execute($data_date);
 $result_seler_type = $stmt_seler_type->fetchAll(PDO::FETCH_ASSOC);
-
-
 ?>
 <div class="box_report_page mx-auto my-3">
     <div class="row mt-2">
@@ -25,7 +23,6 @@ $result_seler_type = $stmt_seler_type->fetchAll(PDO::FETCH_ASSOC);
             <p>ประจำวันที่ <?php echo date("d/m/Y", strtotime($data_date['date_start'])) ?> - <?php echo  date("d/m/Y", strtotime($data_date['date_end'])) ?></p>
         </div>
     </div>
-
     <table class="table table-bordered">
         <thead>
             <tr class="text-center">
@@ -33,7 +30,6 @@ $result_seler_type = $stmt_seler_type->fetchAll(PDO::FETCH_ASSOC);
                 <th scope="col">วันที่</th>
                 <th scope="col">ชื่อสินค้า</th>
                 <th scope="col">จำนวนการขาย</th>
-
             </tr>
         </thead>
         <tbody>

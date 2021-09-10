@@ -39,6 +39,14 @@
             <p>แจ้งชำระเงิน</p>
             </a>
         </div>
-
+        <div class="mx-auto box_info_menu <?php if ($page == 'payment') {
+                                                echo "bg_info_menu";
+                                            } ?>"">
+            <a class=" info_menu <?php if ($page == '') {
+                                        echo "text-light";
+                                    } ?>" href="payment.php"><i class="fas fa-hand-holding-usd"></i>
+            <p>ช่องทางการชำระเงิน</p>
+            </a>
+        </div>
     </div>
 </div>
