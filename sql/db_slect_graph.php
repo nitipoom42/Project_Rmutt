@@ -13,7 +13,7 @@ $sql_oder_date = "SELECT *,SUM(od.QTY) as sumQTY  FROM oder_detail as od
 JOIN oder as o ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
-WHERE o.Oder_date BETWEEN :date_start AND :date_end
+WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
 GROUP BY od.ID_Product
 ORDER BY sumQTY DESC
 ";
@@ -27,7 +27,7 @@ $sql_oder_date_type = "SELECT *,SUM(od.QTY) as sumQTY  FROM oder_detail as od
 JOIN oder as o ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
-WHERE o.Oder_date BETWEEN :date_start AND :date_end
+WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
 GROUP BY tp.ID_Type_Product";
 $stmt_oder_date_type = $conn->prepare($sql_oder_date_type);
 $stmt_oder_date_type->execute($data_date);
@@ -38,7 +38,7 @@ $result_oder_date_type = $stmt_oder_date_type->fetchAll(PDO::FETCH_ASSOC);
 $sql_total_money_his = "SELECT *  ,SUM(od.QTY*s.PRICE_Product) as sumQTY FROM oder as o
 JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
 JOIN stock as s ON od.ID_Product=s.ID_Product 
-WHERE o.Oder_date BETWEEN :date_start AND :date_end AND  o.oder_status >= 3 
+WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end AND  o.oder_status >= 3 
 GROUP BY o.oder_status
 ";
 $stmt_total_money_his = $conn->prepare($sql_total_money_his);

@@ -53,45 +53,7 @@ $stmt_stock_out->execute();
 $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!-- กราฟเวลาวันนี้  -->
 
-<?php
-$data_date_now = [
-    'date_now' => date("Y-m-d"),
-];
-$sql_oder_date_now = "SELECT *,SUM(od.QTY) as sumQTY FROM oder_detail as od
-JOIN oder as o ON o.ID_Oder = od.ID_Oder
-JOIN stock as s ON s.ID_Product = od.ID_Product
-JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
-WHERE date(o.Oder_date) =:date_now
-GROUP BY od.ID_Product
-ORDER BY sumQTY DESC";
-$stmt_oder_date_now = $conn->prepare($sql_oder_date_now);
-$stmt_oder_date_now->execute($data_date_now);
-$result_oder_date_now = $stmt_oder_date_now->fetchAll(PDO::FETCH_ASSOC);
-
-// ประเถทสินค้า
-$sql_oder_date_now_type = "SELECT *,SUM(od.QTY) as sumQTY FROM oder_detail as od
-JOIN oder as o ON o.ID_Oder = od.ID_Oder
-JOIN stock as s ON s.ID_Product = od.ID_Product
-JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
-WHERE date(o.Oder_date) =:date_now
-GROUP BY tp.ID_Type_Product";
-$stmt_oder_date_now_type = $conn->prepare($sql_oder_date_now_type);
-$stmt_oder_date_now_type->execute($data_date_now);
-$result_oder_date_now_type = $stmt_oder_date_now_type->fetchAll(PDO::FETCH_ASSOC);
-
-
-$sql_total_money = "SELECT *  ,SUM(od.QTY*s.PRICE_Product) as sumQTY FROM oder as o
-JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
-JOIN stock as s ON od.ID_Product=s.ID_Product 
-WHERE date(o.Oder_date) =:date_now AND  o.oder_status >= 3 
-GROUP BY o.oder_status
-";
-$stmt_total_money = $conn->prepare($sql_total_money);
-$stmt_total_money->execute($data_date_now);
-$result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
-?>
 
 
 
@@ -131,10 +93,6 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- กราฟ -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-
-
-
 
 
 </head>
@@ -276,43 +234,30 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
                                 <hr>
                                 <!-- กราฟ -->
                                 <div class="row">
+                                    <!-- ปุ่มเลือกวันที่ -->
                                     <div class="col-3">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-week"></i></span>
-                                            <input type="text" class="form-control" name="dates" id="date_select" />
-                                        </div>
+                                        <form id="from_date" action="report_seler.php" method="post">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p id="report" class="btn btn-success" name="report">รายงานยอดขาย</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-week"></i></span>
+                                                        <input type="text" class="form-control col-md-7" name="dates" id="date_select" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
                                     </div>
+                                    <!-- ปุ่มกดดูรายงาน PDF -->
+
                                 </div>
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div id="date_now">
-                                            <div class="row">
-                                                <div class="col-6 text-center">
-                                                    <p>ยอดขาย</p>
-                                                    <div id="chart_sales_total_money">
-                                                    </div>
-                                                </div>
 
-                                                <div class="col-6 text-center">
-                                                    <p>จำนวนการขายแต่ละประเภท</p>
-                                                    <div id="chart_sales_type_now">
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="text-center">
-                                                        <p>จำนวนการขายทั้งหมด</p>
-                                                        <div id="chart_sales_now">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
 
                                     <div id="result_date"></div>
 
@@ -357,27 +302,10 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
                 $('#menu').load('menu.php');
                 setInterval(function() {
                     $('#menu').load('menu.php');
-                }, 1000);
+                }, 1000)
 
                 $('#date_select').change(function() {
                     var date_select = $('#date_select').val();
-                    // เรียกวันที่ปัจจุบัน
-                    function formatDate(date) {
-                        var d = new Date(date),
-                            month = '' + (d.getMonth() + 1),
-                            day = '' + d.getDate(),
-                            year = d.getFullYear();
-
-                        if (month.length < 2) month = '0' + month;
-                        if (day.length < 2) day = '0' + day;
-
-                        return [year, month, day].join('/');
-                    }
-                    var date_now = new Date();
-
-                    if (formatDate(date_now) != date_select.substring(11) || formatDate(date_now) < date_select.substring(11)) {
-                        $('#date_now').hide();
-                    }
                     $.ajax({
                         url: "../sql/db_slect_graph.php",
                         method: "post",
@@ -388,6 +316,9 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
                             $('#result_date').html(data);
                         }
                     });
+                });
+                $("#report").click(function() {
+                    $("#from_date").submit();
                 });
             });
         </script>
@@ -402,172 +333,6 @@ $result_total_money = $stmt_total_money->fetchAll(PDO::FETCH_ASSOC);
                     "singleDatePicker": false,
                 });
             });
-        </script>
-
-
-        <!-- รายงานยอดขาย หน้าร้าน กับ ออนไลน์ -->
-        <script>
-            var options = {
-
-                series: [<?php
-                            foreach ($result_total_money as $row_total_money) { ?>
-                        <?php echo $row_total_money['sumQTY'] ?>,
-                    <?php }
-                    ?>
-                ],
-                colors: [<?php
-                            for ($x = 0; $x <= $stmt_total_money->rowCount(); $x++) {
-                                printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
-                            }
-                            ?>],
-                chart: {
-                    type: 'pie',
-                    width: 380,
-
-                    toolbar: {
-                        show: true,
-                        offsetX: 100,
-                        offsetY: -35,
-                    }
-
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(val) {
-                            return val + " บาท"
-                        }
-                    }
-                },
-                labels: ['หน้าร้าน', 'ออนไลน์'],
-
-            };
-
-            var chart_sales_total_money = new ApexCharts(document.querySelector("#chart_sales_total_money"), options);
-            chart_sales_total_money.render();
-        </script>
-
-        <!-- กราฟรายงานยอดขายประเภทสินค้า -->
-        <script>
-            var options = {
-                plotOptions: {
-                    bar: {
-                        distributed: true,
-                        borderRadius: 10,
-                    },
-                },
-                colors: [<?php
-                            for ($x = 0; $x <= $stmt_oder_date_now_type->rowCount(); $x++) {
-                                printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
-                            }
-                            ?>],
-                series: [{
-                    name: 'จำนวนการขาย',
-                    data: [<?php
-                            foreach ($result_oder_date_now_type as $row_oder_date_now) { ?>
-                            <?php echo $row_oder_date_now['sumQTY']; ?>,
-                        <?php }
-                        ?>
-                    ]
-                }],
-                chart: {
-                    type: 'bar',
-                    height: 350
-
-                },
-
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ['transparent']
-                },
-                xaxis: {
-                    categories: [<?php
-                                    foreach ($result_oder_date_now_type as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['INFO_Type_Product']; ?>',
-                        <?php } ?>
-                    ],
-                },
-                yaxis: {
-                    title: {
-                        text: 'ชิ้น'
-                    }
-                },
-                fill: {
-                    opacity: 1
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(val) {
-                            return val + " ชิ้น"
-                        }
-                    }
-                }
-            };
-            var chart_sales_type_now = new ApexCharts(document.querySelector("#chart_sales_type_now"), options);
-            chart_sales_type_now.render();
-        </script>
-        <!-- กราฟรายงานยอดขาย -->
-        <script>
-            var options = {
-                plotOptions: {
-                    bar: {
-                        distributed: true,
-                        borderRadius: 10,
-                    },
-                },
-                colors: [<?php
-                            for ($x = 0; $x <= $stmt_oder_date_now->rowCount(); $x++) {
-                                printf("'#%06X',\n", mt_rand(0, 0xFFFFFF));
-                            }
-                            ?>],
-                series: [{
-                    name: 'จำนวนการขาย',
-                    data: [<?php
-                            foreach ($result_oder_date_now as $row_oder_date_now) { ?>
-                            <?php echo $row_oder_date_now['sumQTY']; ?>,
-                        <?php }
-                        ?>
-                    ]
-                }],
-                chart: {
-                    type: 'bar',
-                    height: 350
-                },
-
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ['transparent']
-                },
-                xaxis: {
-                    categories: [<?php
-                                    foreach ($result_oder_date_now as $row_oder_date_now) { ?> '<?php echo $row_oder_date_now['NAME_Product']; ?>',
-                        <?php } ?>
-                    ],
-                },
-                yaxis: {
-                    title: {
-                        text: 'ชิ้น'
-                    }
-                },
-                fill: {
-                    opacity: 1
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(val) {
-                            return val + " ชิ้น"
-                        }
-                    }
-                }
-            };
-            var chart_sales_now = new ApexCharts(document.querySelector("#chart_sales_now"), options);
-            chart_sales_now.render();
         </script>
 </body>
 

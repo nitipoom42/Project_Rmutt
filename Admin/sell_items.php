@@ -249,19 +249,8 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                         $('#show_change1').val(data);
                         var show_change1 = document.getElementById('show_change1').value;
                         if (show_change1 == 1) {
-
                             var cal_point = (total_bill / 30).toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
                             $('#show_point').html('ได้รับแต้ม ' + cal_point);
-
-                        }
-                        if (show_change1 == 0) {
-                            Swal.fire({
-                                title: 'ไม่พบข้อมูล',
-                                icon: 'warning',
-                                timer: 2500,
-                                showConfirmButton: false,
-                            })
                         }
                     },
                 });
