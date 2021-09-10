@@ -3,15 +3,20 @@
 
 <!-- เรียกข้อมูลประเภทสินค้าตาราง type_product-->
 <?php
-$sql_fetch_promotion = "SELECT  * FROM stock_promotion as sp
-JOIN type_product as tp ON sp.TYPE_Product = tp.ID_Type_Product";
-$smtm_fetch_promotion = $conn->prepare($sql_fetch_promotion);
-$smtm_fetch_promotion->execute();
-$result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
+$sql_fetch_type = "SELECT  * FROM type_product as tp
+INNER JOIN stock as s ON tp.ID_Type_Product = s.TYPE_Product
+WHERE NOT ID_Type_Product=1
+ORDER BY ID_Pro DESC";
+$smtm_fetch_type = $conn->prepare($sql_fetch_type);
+$smtm_fetch_type->execute();
+$result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
+<!-- sweetalert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.js" integrity="sha512-mBSqtiBr4vcvTb6BCuIAgVx4uF3EVlVvJ2j+Z9USL0VwgL9liZ638rTANn5m1br7iupcjjg/LIl5cCYcNae7Yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.js" integrity="sha512-dhEwOlXtyz36+QteITRvQOAWr/d8kQKeHs4D/1yttrjtLxDj8qPIkgxYl3hR7NIRZUfZIqEPgTP1DG5AwNU7Jw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.css">
 <style>
     #box_items_product .box_items_product {
         position: relative;
@@ -76,70 +81,69 @@ $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div id="box_items_product">
         <!-- Swiper -->
-        <?php foreach ($result_promotion as $row_promotion) { ?>
-            <div class="row mb-2 mt-5 mx-auto justify-content-between align-items-center">
+        <div class="row mb-2 mt-5 mx-auto justify-content-between align-items-center">
 
-                <div class="col-2  text-center ">
-                    <h4 class=" rounded-pill bg_head_peoduct text-light p-2"> <?php echo $row_promotion['INFO_Type_Product']; ?></h4>
-                </div>
-                <div class="col">
-                    <div class="text-end type_full mt-2">
-                        <a href="product_full.php?ID_Type_Product=<?php echo $row_promotion['ID_Type_Product']; ?>   ">ดูทั้งหมด <i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                </div>
-
+            <div class="col-2  text-center ">
+                <h4 class=" rounded-pill bg_head_peoduct text-light p-2">สินค้ามาใหม่</h4>
             </div>
-            <div class="swiper mySwiper ">
-                <div class="swiper-wrapper">
-
+            <div class="col">
+                <div class="text-end type_full mt-2">
+                    <a href="product_new_full.php">ดูทั้งหมด <i class="fas fa-angle-double-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper mySwiper mb-3 ">
+            <div class="swiper-wrapper">
+                <?php foreach ($result_type as $row_stock) { ?>
                     <div class="swiper-slide shadow">
-                        <a <?php if ($row_promotion['QTY_Product'] > 0) { ?> onclick="stock<?php echo $row_promotion['ID_Product_Promotion']; ?>() <?php   } ?>" <?php if ($row_promotion['QTY_Product'] == 0) { ?> onclick=" out_stock() <?php   } ?>" class="box_product" data-bs-target="<?php
-                                                                                                                                                                                                                                                                                            if ($row_promotion['QTY_Product'] > 0) { ?>
-                    #product_popup<?php echo $row_promotion['ID_Product_Promotion'] ?>
+                        <a <?php if ($row_stock['QTY_Product'] > 0) { ?> onclick="stock<?php echo $row_stock['ID_Product']; ?>() <?php   } ?>" <?php if ($row_stock['QTY_Product'] == 0) { ?> onclick=" out_stock() <?php   } ?>" class="box_product" data-bs-target="<?php
+                                                                                                                                                                                                                                                                        if ($row_stock['QTY_Product'] > 0) { ?>
+                    #product_popup<?php echo $row_stock['ID_Product'] ?>
                 <?php } ?>">
                             <div class=" mt-1">
                                 <div class="">
                                     <div class=" <?php
-                                                    if ($row_promotion['QTY_Product'] == 0) {
+                                                    if ($row_stock['QTY_Product'] == 0) {
                                                         echo "outstock";
                                                     }
 
-                                                    ?> accordion-body overflow-hidden"> <img class=" card-img-top mx-auto" src="../Asset/img_promotion/<?php echo $row_promotion['IMG_Product']; ?>"></div>
+                                                    ?> accordion-body overflow-hidden"> <img class=" card-img-top mx-auto" src="../Asset/img/<?php echo $row_stock['IMG_Product']; ?>"></div>
                                     <div class="card-body">
-                                        <p class="card-text text-wrap"><?php echo $row_promotion['NAME_Product']; ?></p>
-                                        <h5 class="card-text text-success"><?php echo $row_promotion['POINT_Product']; ?> แต้ม</h5>
+                                        <p class="card-text text-wrap"><?php echo $row_stock['NAME_Product']; ?></p>
+                                        <h5 class="card-text text-success"><?php echo $row_stock['PRICE_Product']; ?> บาท</h5>
                                     </div>
                                 </div>
                             </div>
-                            <?php if ($row_promotion['QTY_Product'] == 0) { ?>
+                            <?php if ($row_stock['QTY_Product'] == 0) { ?>
                                 <div class="info_outstock">
                                     <h5 class="mt-2">ขออภัยสินค้าหมด</h5>
                                 </div>
                             <?php    } ?>
+
                         </a>
                         <script>
-                            function stock<?php echo $row_promotion['ID_Product_Promotion']; ?>() {
+                            function stock<?php echo $row_stock['ID_Product']; ?>() {
                                 Swal.fire({
-                                    html: `<form action="../sql/db_Add_cart_Promotion.php" method="post">
+                                    html: `<form action="../sql/db_Add_cart.php" method="post">
                                 <div class="overflow-hidden">
-                                <img class="card-img-top mx-auto " src="../Asset/img_promotion/<?php echo $row_promotion['IMG_Product']; ?> ">
+                                <img class="card-img-top mx-auto " src="../Asset/img/<?php echo $row_stock['IMG_Product']; ?> ">
                                         <div class="text-center">
-                                            <p><?php echo $row_promotion['NAME_Product']; ?></p>
-                                            <p>สินค้าคงเหลือ <?php echo $row_promotion['QTY_Product']; ?></p>
+                                            <p><?php echo $row_stock['NAME_Product']; ?></p>
+                                            <p>สินค้าคงเหลือ <?php echo $row_stock['QTY_Product']; ?></p>
                                         </div>
                                         <div class="row text-center">
                                             <div class="col-md-6 mx-auto text-center ">
                                                 <div class="input-group mb-3">
-                                                    <a class="btn btn_number me-2" onclick="dec('QTY<?php echo $row_promotion['ID_Product_Promotion']; ?>')"><i class="fas fa-minus"></i></a>
-                                                    <input class="form-control text-center" id="QTY<?php echo $row_promotion['ID_Product_Promotion']; ?>" name="QTY" type="number" value="1">
-                                                    <a class="btn btn_number ms-2" onclick="inc('QTY<?php echo $row_promotion['ID_Product_Promotion']; ?>')"><i class="fas fa-plus"></i></a>
+                                                    <a class="btn btn_number me-2" onclick="dec('QTY<?php echo $row_stock['ID_Product']; ?>')"><i class="fas fa-minus"></i></a>
+                                                    <input class="form-control text-center" id="QTY<?php echo $row_stock['ID_Product']; ?>" name="QTY" type="number" value="1">
+                                                    <a class="btn btn_number ms-2" onclick="inc('QTY<?php echo $row_stock['ID_Product']; ?>')"><i class="fas fa-plus"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                         <button class="btn btn-success" type="submit" name="Add_Cart">หยิบลงตะกร้า</button>
                                     </div>
-                                    <input type="hidden" name="ID_Product_Promotion" value="<?php echo $row_promotion['ID_Product_Promotion']; ?>">
+                                    <input type="hidden" name="ID_Product" value="<?php echo $row_stock['ID_Product']; ?>">
                                     </div>
                                     </form>`,
                                     showConfirmButton: false,
@@ -147,15 +151,18 @@ $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
                             }
                         </script>
                     </div>
-
-
-                </div>
-                <div class="swiper-pagination1"></div>
+                <?php } ?>
             </div>
-        <?php } ?>
+            <div class="swiper-pagination1"></div>
+        </div>
     </div>
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+
+    <!-- sweetalert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Initialize Swiper -->
     <script>

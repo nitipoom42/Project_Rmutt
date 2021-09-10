@@ -52,6 +52,10 @@
         <?php require_once('banner.php'); ?>
         <!-- โปรโมชั่น -->
         <?php require_once('product_promotion.php'); ?>
+        <!-- สินค้ามาขายดี-->
+        <?php require_once('product_top_sell.php'); ?>
+        <!-- สินค้ามาใหม่-->
+        <?php require_once('product_new.php'); ?>
         <!-- ประเภทสินค้า -->
         <?php require_once('itmes_type.php'); ?>
         <!-- สินค้าแต่ละประเภท -->
