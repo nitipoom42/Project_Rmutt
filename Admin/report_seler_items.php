@@ -4,14 +4,15 @@ $data_date = [
     'date_start' => $_POST['date_start'],
     'date_end' => $_POST['date_end']
 ];
-$sql_report_seler = " SELECT * ,SUM(s.PRICE_Product*od.QTY)as sumPrice 
+$sql_report_seler = "SELECT * ,SUM(s.PRICE_Product*od.QTY)as sumPrice 
 ,SUM(od.QTY)as sumQTY 
-FROM oder_detail as od
-JOIN oder as o ON  o.ID_Oder = od.ID_Oder
+FROM oder as o
+JOIN oder_detail as od ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
-GROUP BY s.ID_Product
+GROUP BY date(o.Oder_date) ,s.ID_Product;
+
 ";
 $stmt_report_seler = $conn->prepare($sql_report_seler);
 $stmt_report_seler->execute($data_date);

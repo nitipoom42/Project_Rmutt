@@ -6,12 +6,13 @@ $data_date = [
 ];
 $sql_report_on_off = " SELECT * ,SUM(od.QTY) as sumQTY,
 SUM(s.PRICE_Product*od.QTY) as sumPrice
-FROM oder_detail as od
-JOIN oder as o ON  o.ID_Oder = od.ID_Oder
+FROM oder as o
+JOIN oder_detail as od ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
-GROUP BY o.oder_status;
+GROUP BY date(o.Oder_date), o.oder_status;
+
 ";
 $stmt_report_on_off = $conn->prepare($sql_report_on_off);
 $stmt_report_on_off->execute($data_date);
