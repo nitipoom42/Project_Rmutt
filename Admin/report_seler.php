@@ -49,7 +49,7 @@ $data_date = [
                 <div class="row ms-5">
                     <div class="col-md-2 ">
                         <input class="form-check-input checkmark" type="radio" name="checker" id="seler" value="seler_items" checked>
-                        <label for="seler">ยอดขายทั้งหมด</label>
+                        <label for="seler">ยอดขายสินค้า</label>
                     </div>
                     <div class="col-md-3 ms-1">
                         <input class="form-check-input checkmark" type="radio" name="checker" id="seler_on_off" value="seler_on_off">

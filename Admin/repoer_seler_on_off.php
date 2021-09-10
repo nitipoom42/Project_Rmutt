@@ -23,7 +23,7 @@ $result_report_on_off = $stmt_report_on_off->fetchAll(PDO::FETCH_ASSOC);
     <div class="row mt-2">
         <div class="col text-center">
             <h5>ร้านของมายด์</h5>
-            <h5>รายงานยอดขาย</h5>
+            <h5>รายงานยอดขาย หน้าร้าน - ออนไลน์</h5>
             <p>ประจำวันที่ <?php echo date("d/m/Y", strtotime($data_date['date_start'])) ?> - <?php echo  date("d/m/Y", strtotime($data_date['date_end'])) ?></p>
         </div>
     </div>

@@ -23,7 +23,7 @@ $result_seler_type = $stmt_seler_type->fetchAll(PDO::FETCH_ASSOC);
     <div class="row mt-2">
         <div class="col text-center">
             <h5>ร้านของมายด์</h5>
-            <h5>รายงานยอดขาย</h5>
+            <h5>รายงานยอดขาย สินค้าแต่ละประเภท</h5>
             <p>ประจำวันที่ <?php echo date("d/m/Y", strtotime($data_date['date_start'])) ?> - <?php echo  date("d/m/Y", strtotime($data_date['date_end'])) ?></p>
         </div>
     </div>
@@ -44,9 +44,9 @@ $result_seler_type = $stmt_seler_type->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php
                         echo  date("d/m/Y", strtotime(substr($row_report['Oder_date'], 0, 10)));
                         ?></td>
-                    <td class="text-center"><?php echo $row_report['INFO_Type_Product']; ?></td>
-                    <td class="text-center"><?php echo number_format($row_report['sumPrice'], 2); ?>บาท</td>
-                    <td class="text-center"><?php echo number_format($row_report['sumQTY']); ?>ชิ้น</td>
+                    <td class="text-start"><?php echo $row_report['INFO_Type_Product']; ?></td>
+                    <td class="text-end"><?php echo number_format($row_report['sumPrice'], 2); ?>บาท</td>
+                    <td class="text-end"><?php echo number_format($row_report['sumQTY']); ?> ชิ้น</td>
                 </tr>
             <?php } ?>
         </tbody>
