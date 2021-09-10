@@ -14,7 +14,7 @@ $sql_oder = "SELECT * FROM oder_detail as od
 JOIN oder as o ON o.ID_Oder = od.ID_Oder
 JOIN member as m ON m.ID_Member = o.ID_Member
 JOIN stock as s ON s.ID_Product = od.ID_Product
-WHERE o.oder_status=0 OR o.oder_status=1 OR o.oder_status=2
+WHERE o.oder_status=0 AND s.Status_Product = 1 OR o.oder_status=1 OR o.oder_status=2
 GROUP BY o.ID_Oder";
 $stmt_oder = $conn->prepare($sql_oder);
 $stmt_oder->execute();
@@ -237,7 +237,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                             'id' => $row_oder['ID_Oder'],
                                                         ];
 
-                                                        $sql_oder_id = "SELECT * FROM oder_detail as o  JOIN stock as s ON o.ID_Product=s.ID_Product  WHERE ID_Oder=:id";
+                                                        $sql_oder_id = "SELECT * FROM oder_detail as o  JOIN stock as s ON o.ID_Product=s.ID_Product  WHERE ID_Oder=:id AND s.Status_Product = 1";
                                                         $stmt_oder_id = $conn->prepare($sql_oder_id);
                                                         $stmt_oder_id->execute($data_oder_id);
                                                         $result_oder_id = $stmt_oder_id->fetchAll(PDO::FETCH_ASSOC);

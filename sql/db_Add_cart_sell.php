@@ -5,7 +5,7 @@
 $data_sell = [
     'ID_Product' => $_POST['ID_Product'],
 ];
-$sql_sell = "SELECT * FROM stock WHERE ID_Product =:ID_Product";
+$sql_sell = "SELECT * FROM stock WHERE ID_Product =:ID_Product AND Status_Product = 1";
 $stmt_sell = $conn->prepare($sql_sell);
 $stmt_sell->execute($data_sell);
 $result_sell = $stmt_sell->fetchAll(PDO::FETCH_ASSOC);

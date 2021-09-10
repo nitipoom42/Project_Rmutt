@@ -15,11 +15,10 @@ else if (isset($_POST['Add_Cart'])) {
         'ID_Product' => $_POST['ID_Product'],
     ];
     // result($data['QTY']);
-    $sql = "SELECT * FROM stock WHERE ID_Product =:ID_Product";
+    $sql = "SELECT * FROM stock WHERE ID_Product =:ID_Product AND Status_Product = 1";
     $smtm = $conn->prepare($sql);
     $smtm->execute($data);
-    $result =  $smtm->fetchAll(PDO::FETCH_ASSOC);
-
+    $result = $smtm->fetchAll(PDO::FETCH_ASSOC);
     $data_qty = [
         'QTY' => $_POST['QTY'],
     ];
@@ -39,14 +38,13 @@ else if (isset($_POST['Add_Cart'])) {
             $stmt_cart->execute($data_cart);
 
 
-
             // ตัด stock สินค้าเมื่อมีการหยิบลงตะกร้า
             $data_QTY = [
                 'ID_Product' => $_POST['ID_Product'],
                 'QTY' => $_POST['QTY'],
 
             ];
-            $sql_QTY = "UPDATE stock SET QTY_Product=QTY_Product-:QTY WHERE ID_Product=:ID_Product ";
+            $sql_QTY = "UPDATE stock SET QTY_Product=QTY_Product-:QTY WHERE ID_Product=:ID_Product AND Status_Product = 1";
             $stmt_QTY = $conn->prepare($sql_QTY);
             $stmt_QTY->execute($data_QTY);
             $_SESSION['cart'] = 1;

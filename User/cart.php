@@ -10,7 +10,7 @@
     $sql_cart = "SELECT * ,SUM(c.QTY) as QTY FROM cart  as c
     JOIN stock as s ON c.ID_Product=s.ID_Product
     JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product
-    WHERE c.ID_Member = :ID_Member
+    WHERE c.ID_Member = :ID_Member  AND s.Status_Product = 1
     GROUP BY c.ID_Product";
     $stmt_cart = $conn->prepare($sql_cart);
     $stmt_cart->execute($data_member);

@@ -50,7 +50,7 @@ if (isset($_GET['Cart_ID_Product'])) {
         'QTY' => $_GET['QTY']
 
     ];
-    $sql_QTY = "UPDATE stock SET QTY_Product=QTY_Product+:QTY WHERE ID_Product=:Cart_ID_Product";
+    $sql_QTY = "UPDATE stock SET QTY_Product=QTY_Product+:QTY WHERE ID_Product=:Cart_ID_Product AND Status_Product = 1";
     $stmt_QTY = $conn->prepare($sql_QTY);
     $stmt_QTY->execute($data_QTY);
 
@@ -83,9 +83,6 @@ if (isset($_GET['Cart_ID_Product'])) {
     $delete_stmt_Product->execute($data_delete_Product);
     Header("Location:../User/index.php");
 }
-
-
-
 ?>
 
 <!-- ลบข้อมูล bank -->
@@ -112,8 +109,6 @@ if (isset($_GET['ID_Banner'])) {
     Header("Location:../Admin/banner_promotion.php");
 }
 ?>
-
-
 
 <?php
 if ($_POST['action'] == "del_sell") {
