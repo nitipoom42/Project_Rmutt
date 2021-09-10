@@ -109,7 +109,22 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                             ?>
                         </h5>
                         <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder']; ?>">
-                        <button class="btn btn-outline-danger btn_del_oder" type="submit" name="cancel_oder"><i class="fas fa-trash-alt"></i></button>
+                        <p onclick="del_oder(<?php echo $row_oder['ID_Oder'] ?>)" class="btn btn-outline-danger btn_del_oder"><i class="fas fa-trash-alt"></i></p>
+                        <script>
+                            function del_oder(id) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: `คุณจะยกเลิกรายการนี้หรือไม่`,
+                                    confirmButtonText: `<a class="text-light" href="../sql/cancel_oder.php?cancel_oder=${id}">ยืนยัน</a>`,
+                                    confirmButtonColor: '#d33',
+                                    showCancelButton: true,
+                                    cancelButtonText: `ยกเลิก`,
+                                    cancelButtonColor: '#188754'
+                                });
+                            }
+                        </script>
+
+
                     </div>
 
                     <div class="row bg-light text-center  ">
@@ -144,7 +159,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                         ?>
                         <?php
                         foreach ($result_oder_id as $row_oder_id) { ?>
-                            <div class="row align-items-center mb-5 mt-5 ">
+                            <div class="row align-items-center mb-1 mt-1 ">
                                 <div class="col-md-2 "><img src="../Asset/img/<?php echo $row_oder_id['IMG_Product']; ?>" width="100" height="100"></div>
                                 <div class="col-md-2"><?php echo $row_oder_id['NAME_Product']; ?></div>
                                 <div class="col-md-2"><?php echo $row_oder_id['QTY']; ?></div>
@@ -161,7 +176,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                         <!-- สินค้าโปรโมชั่น -->
                         <?php
                         foreach ($result_oder_id_promotion as $row_oder_id_promotion) { ?>
-                            <div class="row align-items-center mb-5 mt-5 ">
+                            <div class="row align-items-center mb-2 mt-2 ">
                                 <div class="col-md-2 "><img src="../Asset/img_promotion/<?php echo $row_oder_id_promotion['IMG_Product']; ?>" width="100" height="100"></div>
                                 <div class="col-md-2"><?php echo $row_oder_id_promotion['NAME_Product']; ?></div>
                                 <div class="col-md-2"><?php echo $row_oder_id_promotion['QTY']; ?></div>
@@ -280,7 +295,6 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
         $(document).ready(function() {
             $('#bank<?php echo $row_oder['ID_Oder'] ?>').change(function() {
                 var ID_P = $('#bank<?php echo $row_oder['ID_Oder'] ?>').val();
-
                 $.ajax({
                     url: "../sql/select_pay.php",
                     method: "post",
@@ -302,6 +316,8 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
 <br>
 <br>
 <br>
+
+
 
 <?php require_once('menu.php'); ?>
 </div>

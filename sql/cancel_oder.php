@@ -1,9 +1,9 @@
 <?php
 require_once('connect.php');
 
-if (isset($_POST['cancel_oder'])) {
+if (isset($_GET['cancel_oder'])) {
     $data_ID_Oder = [
-        'ID_Oder' => $_POST['ID_Oder'],
+        'ID_Oder' => $_GET['cancel_oder'],
     ];
 
     $sql_oder = "SELECT * FROM oder_detail WHERE ID_Oder=:ID_Oder";
@@ -20,6 +20,10 @@ if (isset($_POST['cancel_oder'])) {
         $sql_update_product = "UPDATE stock SET QTY_Product=QTY_Product+:QTY WHERE ID_Product=:ID_Product";
         $stmt_update_product = $conn->prepare($sql_update_product);
         $stmt_update_product->execute($data_Product);
+
+        $sql_update_product_promotion = "UPDATE stock_promotion SET QTY_Product=QTY_Product+:QTY WHERE ID_Product_Promotion=:ID_Product";
+        $stmt_update_product_promotion = $conn->prepare($sql_update_product_promotion);
+        $stmt_update_product_promotion->execute($data_Product);
     }
     // ลบข้อมูลตาราง oder_detail
     $sql_cancel_oder_detail = "DELETE FROM oder_detail WHERE ID_Oder=:ID_Oder";
