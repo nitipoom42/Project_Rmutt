@@ -9,7 +9,7 @@ JOIN oder as o ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
-GROUP BY od.ID_Product
+GROUP BY date(o.Oder_date)
 ORDER BY sumQTY DESC
 ";
 $stmt_report_seler = $conn->prepare($sql_report_seler);

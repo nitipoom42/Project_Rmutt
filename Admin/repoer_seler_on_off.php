@@ -9,7 +9,7 @@ JOIN oder as o ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
-GROUP BY o.oder_status
+GROUP BY date(o.Oder_date)
 ";
 $stmt_report_on_off = $conn->prepare($sql_report_on_off);
 $stmt_report_on_off->execute($data_date);
@@ -50,7 +50,7 @@ $result_report_on_off = $stmt_report_on_off->fetchAll(PDO::FETCH_ASSOC);
                         <?php if ($row_report['oder_status'] >= 4) { ?>
                             ขายหน้าร้าน
                         <?php } ?></td>
-                    <td class="text-center"><?php echo number_format($row_report['sumQTY']); ?></td>
+                    <td class="text-end"><?php echo number_format($row_report['sumQTY']); ?>-บาท</td>
                 </tr>
             <?php } ?>
         </tbody>
