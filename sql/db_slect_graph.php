@@ -28,7 +28,7 @@ JOIN oder as o ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
-GROUP BY tp.ID_Type_Product";
+GROUP BY s.Type_Product";
 $stmt_oder_date_type = $conn->prepare($sql_oder_date_type);
 $stmt_oder_date_type->execute($data_date);
 $result_oder_date_type = $stmt_oder_date_type->fetchAll(PDO::FETCH_ASSOC);
@@ -104,13 +104,12 @@ if ($result_oder_date) { ?>
         series: [{
             name: 'จำนวนการขาย',
             data: [<?php
-                    foreach ($result_oder_date as $row_oder_date) { ?>
+                    foreach ($result_oder_date_type as $row_oder_date) { ?>
                     <?php echo $row_oder_date['sumQTY']; ?>,
                 <?php }
                 ?>
             ]
         }],
-
         chart: {
             type: 'bar',
             height: 350
@@ -124,7 +123,7 @@ if ($result_oder_date) { ?>
         },
         xaxis: {
             categories: [<?php
-                            foreach ($result_oder_date as $row_oder_date) { ?> '<?php echo $row_oder_date['INFO_Type_Product']; ?>',
+                            foreach ($result_oder_date_type as $row_oder_date) { ?> '<?php echo $row_oder_date['INFO_Type_Product']; ?>',
                 <?php } ?>
             ],
         },
@@ -213,7 +212,6 @@ if ($result_oder_date) { ?>
     var options = {
         series: [<?php
                     foreach ($result_total_money_his as $row_total_money_his) { ?>
-
                 <?php echo $row_total_money_his['sumQTY'] ?>,
             <?php }
             ?>
