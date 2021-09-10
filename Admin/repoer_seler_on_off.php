@@ -4,12 +4,14 @@ $data_date = [
     'date_start' => $_POST['date_start'],
     'date_end' => $_POST['date_end']
 ];
-$sql_report_on_off = "SELECT *,SUM(od.QTY*s.PRICE_Product) as sumQTY, SUM(od.QTY*s.PRICE_Product) as sumPrice FROM oder_detail as od
+$sql_report_on_off = " SELECT * ,SUM(od.QTY) as sumQTY,
+SUM(s.PRICE_Product*od.QTY) as sumPrice
+FROM oder_detail as od
 JOIN oder as o ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end
-GROUP BY date(o.Oder_date)
+GROUP BY o.oder_status;
 ";
 $stmt_report_on_off = $conn->prepare($sql_report_on_off);
 $stmt_report_on_off->execute($data_date);
@@ -32,8 +34,8 @@ $result_report_on_off = $stmt_report_on_off->fetchAll(PDO::FETCH_ASSOC);
                 <th scope="col">ลำดับ</th>
                 <th scope="col">วันที่</th>
                 <th scope="col">ชื่อสินค้า</th>
+                <th scope="col">รายได้</th>
                 <th scope="col">จำนวนการขาย</th>
-                <th scope="col">ราคา</th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +52,8 @@ $result_report_on_off = $stmt_report_on_off->fetchAll(PDO::FETCH_ASSOC);
                         <?php if ($row_report['oder_status'] >= 4) { ?>
                             ขายหน้าร้าน
                         <?php } ?></td>
-                    <td class="text-end"><?php echo number_format($row_report['sumQTY']); ?>-บาท</td>
+                    <td class="text-end"><?php echo number_format($row_report['sumPrice'], 2); ?>บาท</td>
+                    <td class="text-end"><?php echo number_format($row_report['sumQTY']); ?> ชิ้น</td>
                 </tr>
             <?php } ?>
         </tbody>

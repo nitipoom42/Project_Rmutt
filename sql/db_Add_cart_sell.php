@@ -25,7 +25,7 @@ if ($stmt_sell->rowCount() == 1) {
         'ID_Product' => $_POST['ID_Product'],
         'QTY' => 1
     ];
-    $sql_QTY = "UPDATE stock SET QTY_Product=QTY_Product-:QTY WHERE ID_Product=:ID_Product ";
+    $sql_QTY = "UPDATE stock SET QTY_Product=QTY_Product-:QTY WHERE ID_Product=:ID_Product AND Status_Product = 1";
     $stmt_QTY = $conn->prepare($sql_QTY);
     $stmt_QTY->execute($data_QTY);
 }
