@@ -324,6 +324,15 @@ tr {
   width: 35rem;
   height: 11rem;
 }
+
+.btn_del_oder {
+  position: absolute;
+
+  height: 3rem;
+  width: 3rem;
+  top: 100;
+  right: 20rem;
+}
 @media screen and (max-width: 768px) {
   .Box_Menu {
     display: flex;
