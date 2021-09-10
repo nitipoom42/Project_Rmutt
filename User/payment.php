@@ -63,9 +63,12 @@ $result_payment = $stmt_payment->fetchAll(PDO::FETCH_ASSOC);
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <P>400/880 ซอย 2/6 หมู่บ้านเอื้ออาทร</P>
-                    <p>หมู่ 9 ตำบลตาลเดี่ยว อำเภอแก่งคอย</p>
-                    <p>จังหวัดสระบุรี รหัสไปรษณีย์ 18110</p>
+                    <div class="ms-5 mt-3">
+                        <h4>ร้านตั้งอยู่ที่ <i class="fas fa-map-marker-alt"></i></h4>
+                        <p>400/880 ซอย 2/6 หมู่บ้านเอื้ออาทร</p>
+                        <p>หมู่ 9 ตำบลตาลเดี่ยว อำเภอแก่งคอย</p>
+                        <p>จังหวัดสระบุรี รหัสไปรษณีย์ 18110</p>
+                    </div>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1930.9868054173103!2d101.0134048687771!3d14.54350180541503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311dc2f74d8e0393%3A0x11b256b02685cdc0!2z4Lia4LmJ4Liy4LiZ4LmA4Lit4Li34LmJ4Lit4Lit4Liy4LiX4LijIOC5geC4geC5iOC4h-C4hOC4reC4og!5e0!3m2!1sth!2sth!4v1631277796838!5m2!1sth!2sth" width="630" height="450" style="border:1;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
