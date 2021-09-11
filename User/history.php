@@ -81,14 +81,14 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
     <?php require_once('alert.php'); ?>
 
 
-    <div class="container overflow-hidden">
+    <div class="container">
 
 
         <?php require_once('navbar.php'); ?>
         <br>
         <br>
         <br>
-        <br>
+
         <br>
 
         <?php if (@!$result_oder & @!$result_oder_promotion) { ?>
@@ -103,8 +103,8 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
         <?php foreach ($result_oder as $key => $row_oder) { ?>
             <!-- form ยกเลิกการสั่ง -->
             <form action="../sql/cancel_oder.php" enctype="multipart/form-data" method="post">
-                <div class="mt-3 shadow border">
-                    <div class="row  bg-light p-3 text-start">
+                <div class="mt-3 shadow  box_order_member ">
+                    <div class="row p-3  text-start">
                         <h5>
                             วันที่สั่งซื้อ
                             <?php
@@ -131,11 +131,9 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                                 });
                             }
                         </script>
-
-
                     </div>
 
-                    <div class="row bg-light text-center  ">
+                    <div class="row  text-center">
                         <div class="row mb-2">
                             <div class="col-md-2"></div>
                             <div class="col-md-2">ชื่อสินค้า</div>
@@ -170,8 +168,6 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                                 <div class="col-md-2"><?php echo $row_oder_id['NAME_Product']; ?></div>
                                 <div class="col-md-2"><?php echo $row_oder_id['QTY']; ?></div>
                                 <div class="col-md-2"><?php echo $row_oder_id['QTY'] * $row_oder_id['PRICE_Product']; ?> .-บาท</div>
-                                <div class="col-md-2">
-                                </div>
                             </div>
                             <?php
                             $sum = $row_oder_id['QTY'] * $row_oder_id['PRICE_Product'];
@@ -186,95 +182,103 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                                 <div class="col-md-2"><?php echo $row_oder_id_promotion['NAME_Product']; ?></div>
                                 <div class="col-md-2"><?php echo $row_oder_id_promotion['QTY']; ?></div>
                                 <div class="col-md-2"><?php echo $row_oder_id_promotion['QTY'] * $row_oder_id_promotion['POINT_Product']; ?> แต้ม</div>
-                                <div class="col-md-2">
-                                </div>
                             </div>
+
                         <?php    }  ?>
-            </form>
-            <div class="row">
-                <div class="col text-end">
-                    <?php
-                    $potin = $total;
-                    $Point =  $potin / 20;
-                    ?>
-                    <h5>ได้รับแต้ม <?php echo number_format($Point) ?> แต้ม</h5>
-                    <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท</h5>
-                </div>
-            </div>
-            <div class="row">
-                <?php
-                if ($row_oder['oder_status'] == 0) { ?>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $row_oder['ID_Oder']; ?>">
-                        <p>แจ้งชำระเงิน</p>
-                    </button>
-                <?php } ?>
-
-            </div>
-
-            <div class="row">
-                <?php if ($row_oder['oder_status'] == 0) { ?>
-                    <div class="alert alert-danger" role="alert">
-                        กรุณาแจ้งชำระเงิน
                     </div>
-                <?php } ?>
-                <?php if ($row_oder['oder_status'] == 1) { ?>
-                    <div class="alert alert-warning" role="alert">
-                        <div class="spinner-border text-warning" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                    <div class="row">
+                        <div class="col text-end me-2">
+                            <?php
+                            $potin = $total;
+                            $Point =  $potin / 20;
+                            ?>
+                            <h5>ได้รับแต้ม <?php echo number_format($Point) ?> แต้ม</h5>
+                            <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท</h5>
                         </div>
-                        <p> กำลังดำเนินการ กรุณารอสักครู่</p>
                     </div>
+                    <div class="row  ">
+                        <div class="col-8 mx-auto text-center">
+                            <?php
+                            if ($row_oder['oder_status'] == 0) { ?>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="col-12 btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $row_oder['ID_Oder']; ?>">
+                                    แจ้งชำระเงิน
+                                </button>
+                            <?php } ?>
+                            <?php if ($row_oder['oder_status'] == 0) { ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <div class="spinner-border text-danger me-2">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    กรุณาแจ้งชำระเงิน ก่อนเวลา <?php echo date("H:i:s", strtotime('+30 minutes', strtotime($row_oder['Oder_date'], 10))); ?> น.
+                                </div>
+                            <?php } ?>
+                            <?php if ($row_oder['oder_status'] == 1) { ?>
+                                <div class="alert alert-warning" role="alert">
+                                    <div class="spinner-border text-warning" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    กำลังดำเนินการ กรุณารอสักครู่
+                                </div>
 
-                <?php } ?>
+                            <?php } ?>
 
-                <?php if ($row_oder['oder_status'] == 2) { ?>
-                    <div class="alert alert-success" role="alert">
-                        กรุณาไปรับสินค้า
+                            <?php if ($row_oder['oder_status'] == 2) { ?>
+                                <div class="alert alert-success" role="alert">
+                                    <div class="spinner-border text-success" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    กรุณาไปรับสินค้า
+                                </div>
+                            <?php } ?>
+
+
+                        </div>
+
+
                     </div>
-                <?php } ?>
-            </div>
-
-
-
+                </div>
+            </form>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal<?php echo $row_oder['ID_Oder']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">แจ้งชำระเงิน</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-
                             <form action="../sql/db_confirm_pay.php" enctype="multipart/form-data" method="post">
-                                <div id="logo_bank<?php echo $row_oder['ID_Oder'] ?>" class="img_bank">
-                                    <img class="" src="../Asset/img_pay/logo.png">
-                                </div>
-                                <div id="show<?php echo $row_oder['ID_Oder'] ?>" class="mb-2"></div>
                                 <div class="row">
-                                    <div class="input-group mb-2">
-                                        <!-- ประเภทสินค้า -->
-                                        <label class="input-group-text" for="inputGroupSelect02">ธนาคาร</label>
-                                        <select id="bank<?php echo $row_oder['ID_Oder'] ?>" name="NAME_bank" class="form-select">
-                                            <!-- loop ข้อมูลของประเภทของสินค้าจากตาราง type_product มาแเสงใน List รายการ -->
-                                            <option class=" form-control" value="" selected disabled>--- กรุณาเลือกช่องทางชำระเงิน --- </option>
-                                            <?php
-                                            foreach ($result_bank as $row_bank) { ?>
-                                                <option class="form-control" value="<?php echo $row_bank['ID_bank'] ?>">ธนาคาร <?php echo $row_bank['NAME_bank'] ?> </option>
-                                            <?php  } ?>
-                                        </select>
-                                    </div>
+                                    <div class="col-6">
+                                        <div id="logo_bank<?php echo $row_oder['ID_Oder'] ?>" class="img_bank">
+                                            <img class="" src="../Asset/img_pay/logo.png">
+                                        </div>
+                                        <div id="show<?php echo $row_oder['ID_Oder'] ?>" class="mb-2"></div>
 
+                                        <div class="input-group mb-2">
+                                            <!-- ประเภทสินค้า -->
+                                            <label class="input-group-text" for="inputGroupSelect02">ธนาคาร</label>
+                                            <select id="bank<?php echo $row_oder['ID_Oder'] ?>" name="NAME_bank" class="form-select">
+                                                <!-- loop ข้อมูลของประเภทของสินค้าจากตาราง type_product มาแเสงใน List รายการ -->
+                                                <option class=" form-control" value="" selected disabled>--- กรุณาเลือกช่องทางชำระเงิน --- </option>
+                                                <?php
+                                                foreach ($result_bank as $row_bank) { ?>
+                                                    <option class="form-control" value="<?php echo $row_bank['ID_bank'] ?>">ธนาคาร <?php echo $row_bank['NAME_bank'] ?> </option>
+                                                <?php  } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-2  img_pay mx-auto">
+                                            <img id="output<?php echo $row_oder['ID_Oder'] ?>" src="../Asset/img_pay/pay.png">
+                                        </div>
+                                        <input class="form-control" name="IMG_Pay" type="file" accept="image/*" onchange="loadFile<?php echo $row_oder['ID_Oder'] ?>(event)">
+                                        <div id="emailHelp" class="form-text">*กรุณาโอนเงินตามจำนวนให้ถูกต้อง*</div>
+                                        <hr>
+                                        <h5 class="mb-1 text-danger">ราคาทั้งหมด <?php echo number_format($total, 2) ?>-บาท</h5>
+                                    </div>
                                 </div>
-                                <hr>
-                                <div class="mb-2  img_pay mx-auto">
-                                    <img id="output<?php echo $row_oder['ID_Oder'] ?>" src="../Asset/img_pay/pay.png">
-                                </div>
-                                <input class="form-control" name="IMG_Pay" type="file" accept="image/*" onchange="loadFile<?php echo $row_oder['ID_Oder'] ?>(event)">
-                                <div id="emailHelp" class="form-text">*กรุณาโอนเงินตามจำนวนให้ถูกต้อง*</div>
-                                <hr>
-                                <h5 class="mb-1 text-danger">ราคาทั้งหมด <?php echo number_format($total, 2) ?>-บาท</h5>
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder'] ?>">
@@ -286,59 +290,61 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
-    </div>
-    </div>
-    <!-- แสดงรูปภาพอัตโนมัติ  โดยใน file ต้องมี accept="image/*" onchange="loadFile(event)" ละที่แสดงรูปโดยอ้างอิง ID output ของ div-->
-    <script>
-        var loadFile<?php echo $row_oder['ID_Oder'] ?> = function(event) {
-            var output<?php echo $row_oder['ID_Oder'] ?> = document.getElementById('output<?php echo $row_oder['ID_Oder'] ?>');
-            output<?php echo $row_oder['ID_Oder'] ?>.src = URL.createObjectURL(event.target.files[0]);
-            output<?php echo $row_oder['ID_Oder'] ?>.onload = function() {
-                URL.revokeObjectURL(output<?php echo $row_oder['ID_Oder'] ?>.src) // free memory
-            }
-        };
-    </script>
-
-
-    <script>
-        $(document).ready(function() {
-            $('#bank<?php echo $row_oder['ID_Oder'] ?>').change(function() {
-                var ID_P = $('#bank<?php echo $row_oder['ID_Oder'] ?>').val();
-                $.ajax({
-                    url: "../sql/select_pay.php",
-                    method: "post",
-                    data: {
-                        ID: ID_P
-                    },
-                    success(data) {
-                        $('#show<?php echo $row_oder['ID_Oder'] ?>').html(data);
-                        $('#logo_bank<?php echo $row_oder['ID_Oder'] ?>').hide();
+            <!-- แสดงรูปภาพอัตโนมัติ  โดยใน file ต้องมี accept="image/*" onchange="loadFile(event)" ละที่แสดงรูปโดยอ้างอิง ID output ของ div-->
+            <script>
+                var loadFile<?php echo $row_oder['ID_Oder'] ?> = function(event) {
+                    var output<?php echo $row_oder['ID_Oder'] ?> = document.getElementById('output<?php echo $row_oder['ID_Oder'] ?>');
+                    output<?php echo $row_oder['ID_Oder'] ?>.src = URL.createObjectURL(event.target.files[0]);
+                    output<?php echo $row_oder['ID_Oder'] ?>.onload = function() {
+                        URL.revokeObjectURL(output<?php echo $row_oder['ID_Oder'] ?>.src) // free memory
                     }
+                };
+            </script>
+
+
+            <script>
+                $(document).ready(function() {
+                    $('#bank<?php echo $row_oder['ID_Oder'] ?>').change(function() {
+                        var ID_P = $('#bank<?php echo $row_oder['ID_Oder'] ?>').val();
+                        $.ajax({
+                            url: "../sql/select_pay.php",
+                            method: "post",
+                            data: {
+                                ID: ID_P
+                            },
+                            success(data) {
+                                $('#show<?php echo $row_oder['ID_Oder'] ?>').html(data);
+                                $('#logo_bank<?php echo $row_oder['ID_Oder'] ?>').hide();
+                            }
+                        });
+                    });
+                    $.ajax({
+                        url: "../sql/db_cancel_oder_timeout.php"
+                    })
                 });
-            });
-            $.ajax({
-                url: "../sql/db_cancel_oder_timeout.php"
-            })
-        });
-    </script>
+            </script>
 
-<?php } ?>
-
-<br>
-<br>
-<br>
-<br>
+        <?php } ?>
+    </div>
 
 
 
-<?php require_once('menu.php'); ?>
-</div>
 
-<script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
+    <br>
+    <br>
+    <br>
+    <br>
 
 
-<!-- sweetalert2 -->
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <?php require_once('menu.php'); ?>
+    </div>
+
+    <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
+
+
+    <!-- sweetalert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 

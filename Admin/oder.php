@@ -313,9 +313,11 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                 foreach ($result_pay as $row_pay) { ?>
                                                                     <div class="row">
                                                                         <div class="col text-center">
-                                                                            <img src="../Asset/img_pay/<?php echo $row_pay['IMG_Pay'] ?>" width="300" height="400">
+                                                                            <div class="bill_pay">
+                                                                                <img src="../Asset/img_pay/<?php echo $row_pay['IMG_Pay'] ?>">
+                                                                            </div>
                                                                             <div class="row text-start">
-                                                                                <div class="col ml-5 mt-2">
+                                                                                <div class="col  mt-2">
                                                                                     <div class="alert alert-info" role="alert">
                                                                                         <p>ชื่อลูกค้า : <?php echo $row_pay['Name'] ?></p>
                                                                                         <p>เบอร์ติดต่อ : <?php echo $row_pay['Tel'] ?></p>
