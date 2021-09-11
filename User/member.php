@@ -262,4 +262,12 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
 
 <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "../sql/db_cancel_oder_timeout.php"
+        })
+    });
+</script>
+
 </html>

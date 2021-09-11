@@ -316,6 +316,9 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                     }
                 });
             });
+            $.ajax({
+                url: "../sql/db_cancel_oder_timeout.php"
+            })
         });
     </script>
 

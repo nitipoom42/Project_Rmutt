@@ -85,11 +85,13 @@
 
     <script>
         $(document).ready(function() {
-            setInterval(function() {
-                $("#result").load('navbar.php');
-            });
+            $.ajax({
+                url: "../sql/db_cancel_oder_timeout.php"
+            })
         });
     </script>
+
+
 
 
 
