@@ -172,7 +172,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                 <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder'] ?>">
                                                                 <input type="hidden" name="ID_Member" value="<?php echo $row_oder['ID_Member'] ?>">
                                                                 <button type="submit" name="admin_confirm_pay" class="btn btn-success">
-                                                                    <i class="fas fa-check"></i>
+                                                                    <i class="fas fa-check"></i> ปรับปรุงสถานะ
                                                                 </button>
                                                             </form>
                                                         <?php } ?>
@@ -192,9 +192,23 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                             <form action="../sql/admin_cancel_oder.php" method="post">
                                                                 <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder'] ?>">
                                                                 <input type="hidden" name="ID_Member" value="<?php echo $row_oder['ID_Member'] ?>">
-                                                                <button type="submit" name="admin_cancel_oder" class="btn btn-outline-danger">
+                                                                <p onclick="cancel_oder(<?php echo $row_oder['ID_Oder'] ?>,<?php echo $row_oder['ID_Member'] ?>)" name="admin_cancel_oder" class="btn btn-outline-danger">
                                                                     ยกเลิกรายการ
-                                                                </button>
+                                                                </p>
+
+                                                                <script>
+                                                                    function cancel_oder(ID_Oder, ID_Member) {
+                                                                        Swal.fire({
+                                                                            icon: 'error',
+                                                                            title: `คุณจะยกเลิกรายการนี้หรือไม่`,
+                                                                            confirmButtonText: `<a class="text-light" href="../sql/admin_cancel_oder.php?admin_cancel_oder=${ID_Oder}&ID_Member=${ID_Member}">ยืนยัน</a>`,
+                                                                            confirmButtonColor: '#d33',
+                                                                            showCancelButton: true,
+                                                                            cancelButtonText: `ยกเลิก`,
+                                                                            cancelButtonColor: '#188754'
+                                                                        });
+                                                                    }
+                                                                </script>
                                                             </form>
                                                         <?php } ?>
                                                     </div>

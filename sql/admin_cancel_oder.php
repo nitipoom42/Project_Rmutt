@@ -1,10 +1,10 @@
 <?php
 require_once('connect.php');
 
-if (isset($_POST['admin_cancel_oder'])) {
+if (isset($_GET['admin_cancel_oder'])) {
 
     $data_ID_Oder = [
-        'ID_Oder' => $_POST['ID_Oder'],
+        'ID_Oder' => $_GET['admin_cancel_oder'],
     ];
 
     $sql_oder = "SELECT * FROM oder as o
