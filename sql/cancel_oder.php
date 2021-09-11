@@ -36,5 +36,6 @@ if (isset($_GET['cancel_oder'])) {
         $stmt_cancel_oder = $conn->prepare($sql_cancel_oder);
         $stmt_cancel_oder->execute($data_ID_Oder);
     }
+    $_SESSION['cancel_oder'] = 1;
     Header("Location:../User/history.php");
 };

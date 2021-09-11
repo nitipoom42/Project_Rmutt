@@ -109,6 +109,32 @@ if (@$_SESSION['edit_member'] == 1) {
   $_SESSION['edit_member'] = 0;
 }
 ?>
+<?php
+if (@$_SESSION['admin_cancel_oder'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'success',
+          title: 'ยกเลิกรายการสำเร็จ',
+          showConfirmButton: false,
+          timer: 1700
+          })
+        </script>";
+  $_SESSION['admin_cancel_oder'] = 0;
+}
+?>
+<?php
+if (@$_SESSION['cancel_oder'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'success',
+          title: 'ยกเลิกรายการสำเร็จ',
+          showConfirmButton: false,
+          timer: 1700
+          })
+        </script>";
+  $_SESSION['cancel_oder'] = 0;
+}
+?>
 
 <?php
 if (@$_SESSION['login_fall'] == 1) {
