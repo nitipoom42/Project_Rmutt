@@ -12,6 +12,14 @@ WHERE c.ID_Member = :ID_Member GROUP BY ID_Product";
 $stmt_cart = $conn->prepare($sql_cart);
 $stmt_cart->execute($data_member);
 $result_cart = $stmt_cart->fetchAll(PDO::FETCH_ASSOC);
+
+// นับจำนวนรายการ order
+
+
+$sql_oder_count = "SELECT *FROM oder WHERE ID_Member =:ID_Member AND oder_status <3 ";
+$stmt_oder_count = $conn->prepare($sql_oder_count);
+$stmt_oder_count->execute($data_member);
+$result_oder_count = $stmt_oder_count->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -40,7 +48,15 @@ $result_cart = $stmt_cart->fetchAll(PDO::FETCH_ASSOC);
                 <li class="nav-item mt-3 ms-5">
                     <a class="nav-link info_menu <?php if ($url == 'history.php') {
                                                         echo "bg_menu_active";
-                                                    } ?>" href="history.php">แจ้งชำระเงิน</a>
+                                                    } ?>" href="history.php">แจ้งชำระเงิน
+                    </a>
+                    <?php
+                    if ($result_oder_count) { ?>
+                        <div class="noti_oder translate-middle badge rounded-pill bg-danger">
+                            <?php echo count($result_oder_count); ?>
+                        </div>
+                    <?php    } ?>
+
                 </li>
                 <li class="nav-item mt-3 ms-5">
                     <a class="nav-link info_menu <?php if ($url == 'payment.php') {

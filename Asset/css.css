@@ -332,6 +332,12 @@ tr {
   top: 100;
   right: 20rem;
 }
+.noti_oder {
+  position: absolute;
+  top: 20px;
+  left: 47rem;
+}
+
 @media screen and (max-width: 768px) {
   .Box_Menu {
     display: flex;

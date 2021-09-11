@@ -34,7 +34,7 @@
     ?>
     <!-- สินค้าในตะกร้า -->
     <?php
-    if (@!$result_cart and @!$result_cart_promotion) { ?>
+    if (@!$result_cart & @!$result_cart_promotion) { ?>
         <div class="row">
             <div class="col text-center mt-5">
                 <h1><i class="far fa-times-circle"></i></h1>
@@ -42,7 +42,6 @@
             </div>
         </div>
     <?php } ?>
-
 
     <?php
     if (@$result_cart or @$result_cart_promotion) { ?>
