@@ -23,7 +23,6 @@ if (isset($_POST['Confirm_Oder'])) {
     $sql_oder = "INSERT INTO oder (ID_Member) VALUES (:ID_Member)";
     $stmt_oder = $conn->prepare($sql_oder);
     $stmt_oder->execute($data_oder);
-
     $data_oder1 = [
         'ID_Member1' => $_SESSION['ID_Member'],
         'last_ID' => $conn->lastInsertId(),
@@ -36,8 +35,6 @@ if (isset($_POST['Confirm_Oder'])) {
         WHERE o.ID_Oder = :last_ID";
     $stmt_oder = $conn->prepare($sql_oder);
     $stmt_oder->execute($data_oder1);
-
-
 
     // // ลบข้อมูลออกจากตะกร้า -->
     $data_member = [
