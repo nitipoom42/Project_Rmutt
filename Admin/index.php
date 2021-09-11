@@ -23,12 +23,13 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
 <!-- ยอดขายที่ได้จากการสั่งออนไลน์ -->
 <?php
 $sql_oder_s3 = "SELECT *  ,SUM(od.QTY) as sumQTY ,
-SUM(od.QTY*s.PRICE_Product) as sumPriec
+SUM(od.QTY*s.PRICE_Product) as sumPriec,
+SUM(od.QTY*s.Cost_PRICE_Product) as sumCost
 FROM oder as o
 JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
-JOIN stock as s ON od.ID_Product=s.ID_Product  AND s.Status_Product = 1
-WHERE o.oder_status=3 
-GROUP BY od.ID_Product;
+JOIN stock as s ON od.ID_Product=s.ID_Product  
+WHERE o.oder_status=3  AND s.Status_Product = 1
+GROUP BY date(o.Oder_date), o.oder_status ,s.ID_Product;
 ";
 $stmt_oder_s3 = $conn->prepare($sql_oder_s3);
 $stmt_oder_s3->execute();
@@ -37,12 +38,13 @@ $result_oder_s3 = $stmt_oder_s3->fetchAll(PDO::FETCH_ASSOC);
 <!-- ยอดขายที่ได้จากหน้าร้าน-->
 <?php
 $sql_oder_s4 = "SELECT *  ,SUM(od.QTY) as sumQTY ,
-SUM(od.QTY*s.PRICE_Product) as sumPriec
+SUM(od.QTY*s.PRICE_Product) as sumPriec,
+SUM(od.QTY*s.Cost_PRICE_Product) as sumCost
 FROM oder as o
 JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
-JOIN stock as s ON od.ID_Product=s.ID_Product  AND s.Status_Product = 1
-WHERE o.oder_status=4 
-GROUP BY od.ID_Product;
+JOIN stock as s ON od.ID_Product=s.ID_Product  
+WHERE o.oder_status=4  AND s.Status_Product = 1
+GROUP BY date(o.Oder_date), o.oder_status ,s.ID_Product;
 ";
 $stmt_oder_s4 = $conn->prepare($sql_oder_s4);
 $stmt_oder_s4->execute();
@@ -68,7 +70,6 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -137,7 +138,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                                     <div class="h4 mb-0 text-gray-800">
                                                         <?php foreach ($result_oder_s3 as $total_sell) { ?>
                                                             <?php
-                                                            $sum_total_online = $total_sell['sumPriec'];
+                                                            $sum_total_online = $total_sell['sumPriec'] - $total_sell['sumCost'];
 
                                                             $sell_total_online = $sell_total_online + $sum_total_online;
                                                             ?>
@@ -160,7 +161,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                                     <div class="h4 mb-0 text-gray-800">
                                                         <?php foreach ($result_oder_s4 as $total_sell_s4) { ?>
                                                             <?php
-                                                            $sum_total_sell = $total_sell_s4['sumPriec'];
+                                                            $sum_total_sell = $total_sell_s4['sumPriec'] - $total_sell_s4['sumCost'];
                                                             $sell_total_sell = $sell_total_sell + $sum_total_sell;
                                                             ?>
                                                         <?php } ?> <?php echo $sell_total_sell; ?>.-บาท</div>

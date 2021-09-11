@@ -6,13 +6,14 @@ $data_date = [
 ];
 // ประเภทสินค้า
 $sql_seler_type = "SELECT *,SUM(od.QTY) as sumQTY,
-SUM(od.QTY*s.PRICE_Product) as sumPrice
+SUM(od.QTY*s.PRICE_Product) as sumPrice,
+SUM(od.QTY*s.Cost_PRICE_Product) as sumCost
 FROM oder as o
 JOIN oder_detail as od ON  o.ID_Oder = od.ID_Oder
 JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
-WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end AND o.oder_status >=3
-GROUP BY date(o.Oder_date), s.TYPE_Product
+WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end AND o.oder_status >=3 AND s.Status_Product = 1
+GROUP BY date(o.Oder_date), o.oder_status ,s.ID_Product
 
 ";
 
@@ -46,7 +47,7 @@ $result_seler_type = $stmt_seler_type->fetchAll(PDO::FETCH_ASSOC);
                         echo  date("d/m/Y", strtotime(substr($row_report['Oder_date'], 0, 10)));
                         ?></td>
                     <td class="text-start"><?php echo $row_report['INFO_Type_Product']; ?></td>
-                    <td class="text-end"><?php echo number_format($row_report['sumPrice'], 2); ?>บาท</td>
+                    <td class="text-end"><?php echo number_format($row_report['sumPrice'] - $row_report['sumCost'], 2); ?>บาท</td>
                     <td class="text-end"><?php echo number_format($row_report['sumQTY']); ?> ชิ้น</td>
                 </tr>
             <?php } ?>
