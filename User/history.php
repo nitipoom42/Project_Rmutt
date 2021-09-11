@@ -15,9 +15,9 @@ if (!$_SESSION['User']) {
 $data_id = [
     'ID_Member' => $_SESSION['ID_Member'],
 ];
-
-$sql_oder = "SELECT * FROM oder_detail as od
-INNER JOIN oder as o ON od.ID_Oder = od.ID_Oder
+// รานการ order สินค้า
+$sql_oder = "SELECT * FROM oder as o
+INNER JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
 INNER JOIN stock as s ON s.ID_Product = od.ID_Product
 WHERE o.ID_Member=:ID_Member AND s.Status_Product =1 AND NOT oder_status=3 
 GROUP BY o.ID_Oder";
@@ -26,9 +26,9 @@ $stmt_oder->execute($data_id);
 $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
 
 // สินค้าโปรโมชั่น
-$sql_oder_promotion = "SELECT * FROM oder_detail as od
-JOIN oder as o ON od.ID_Oder = od.ID_Oder
-JOIN stock_promotion as sp ON sp.ID_Product_Promotion = od.ID_Product
+$sql_oder_promotion = "SELECT * FROM oder as o
+INNER JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
+INNER JOIN stock_promotion as sp ON sp.ID_Product_Promotion = od.ID_Product
 WHERE o.ID_Member=:ID_Member AND NOT oder_status=3
 GROUP BY o.ID_Oder";
 $stmt_oder_promotion = $conn->prepare($sql_oder);
@@ -91,8 +91,16 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
         <br>
         <br>
 
+        <?php if (@!$result_oder & @!$result_oder_promotion) { ?>
+            <div class="row">
+                <div class="col text-center mt-5">
+                    <h1><i class="far fa-times-circle mb-5"></i></h1>
+                    <h1>ไม่มีรายการที่ต้องชำระเงิน</h1>
+                </div>
+            </div>
+        <?php  } ?>
         <?php $total = 0; ?>
-        <?php foreach ($result_oder as $row_oder) { ?>
+        <?php foreach ($result_oder as $key => $row_oder) { ?>
             <!-- form ยกเลิกการสั่ง -->
             <form action="../sql/cancel_oder.php" enctype="multipart/form-data" method="post">
                 <div class="mt-3 shadow border">
@@ -154,8 +162,6 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                         $stmt_oder_id_promotion = $conn->prepare($sql_oder_id_promotion);
                         $stmt_oder_id_promotion->execute($data_oder_id);
                         $result_oder_id_promotion = $stmt_oder_id_promotion->fetchAll(PDO::FETCH_ASSOC);
-
-
                         ?>
                         <?php
                         foreach ($result_oder_id as $row_oder_id) { ?>
@@ -172,7 +178,6 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                             $total = $total + $sum;
                             ?>
                         <?php    }  ?>
-
                         <!-- สินค้าโปรโมชั่น -->
                         <?php
                         foreach ($result_oder_id_promotion as $row_oder_id_promotion) { ?>
@@ -184,7 +189,6 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                                 <div class="col-md-2">
                                 </div>
                             </div>
-
                         <?php    }  ?>
             </form>
             <div class="row">
@@ -197,35 +201,41 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                     <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท</h5>
                 </div>
             </div>
-            <?php if ($row_oder['oder_status'] == 0) { ?>
-                <div class="alert alert-danger" role="alert">
-                    กรุณาแจ้งชำระเงิน
-                </div>
-            <?php } ?>
-            <?php if ($row_oder['oder_status'] == 1) { ?>
-                <div class="alert alert-warning" role="alert">
-                    <div class="spinner-border text-warning" role="status">
-                        <span class="visually-hidden">Loading...</span>
+            <div class="row">
+                <?php
+                if ($row_oder['oder_status'] == 0) { ?>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $row_oder['ID_Oder']; ?>">
+                        <p>แจ้งชำระเงิน</p>
+                    </button>
+                <?php } ?>
+
+            </div>
+
+            <div class="row">
+                <?php if ($row_oder['oder_status'] == 0) { ?>
+                    <div class="alert alert-danger" role="alert">
+                        กรุณาแจ้งชำระเงิน
                     </div>
-                    <p> กำลังดำเนินการ กรุณารอสักครู่</p>
-                </div>
+                <?php } ?>
+                <?php if ($row_oder['oder_status'] == 1) { ?>
+                    <div class="alert alert-warning" role="alert">
+                        <div class="spinner-border text-warning" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p> กำลังดำเนินการ กรุณารอสักครู่</p>
+                    </div>
 
-            <?php } ?>
+                <?php } ?>
 
-            <?php if ($row_oder['oder_status'] == 2) { ?>
-                <div class="alert alert-success" role="alert">
-                    กรุณาไปรับสินค้า
-                </div>
-            <?php } ?>
+                <?php if ($row_oder['oder_status'] == 2) { ?>
+                    <div class="alert alert-success" role="alert">
+                        กรุณาไปรับสินค้า
+                    </div>
+                <?php } ?>
+            </div>
 
 
-            <?php
-            if ($row_oder['oder_status'] == 0) { ?>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $row_oder['ID_Oder']; ?>">
-                    <p>แจ้งชำระเงิน</p>
-                </button>
-            <?php } ?>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal<?php echo $row_oder['ID_Oder']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -278,7 +288,6 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
             </div>
     </div>
     </div>
-
     <!-- แสดงรูปภาพอัตโนมัติ  โดยใน file ต้องมี accept="image/*" onchange="loadFile(event)" ละที่แสดงรูปโดยอ้างอิง ID output ของ div-->
     <script>
         var loadFile<?php echo $row_oder['ID_Oder'] ?> = function(event) {
