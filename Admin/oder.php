@@ -139,14 +139,11 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                             <tbody>
                                 <?php $total = 0; ?>
                                 <?php foreach ($result_oder_admin as $row_oder) { ?>
-
                                     <?php if ($row_oder['oder_status'] == 1 or $row_oder['oder_status'] == 2) { ?>
                                         <tr>
                                             <td><?php echo $row_oder['Oder_date']; ?></td>
                                             <td><?php echo $row_oder['Name']; ?></td>
                                             <td><?php echo $row_oder['Tel']; ?></td>
-
-
                                             <td>
                                                 <div class="row align-items-center">
                                                     <div class="col-md-3">
@@ -174,7 +171,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                             <form action="../sql/db_admin_confirm_pay.php" method="post">
                                                                 <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder'] ?>">
                                                                 <input type="hidden" name="ID_Member" value="<?php echo $row_oder['ID_Member'] ?>">
-                                                                <button type="submit" name="admin_confirm_pay" class="btn btn-outline-success">
+                                                                <button type="submit" name="admin_confirm_pay" class="btn btn-success">
                                                                     <i class="fas fa-check"></i>
                                                                 </button>
                                                             </form>
@@ -183,12 +180,23 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                             <form action="../sql/db_admin_confirm_pick_up.php" method="post">
                                                                 <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder'] ?>">
                                                                 <input type="hidden" name="ID_Member" value="<?php echo $row_oder['ID_Member'] ?>">
-                                                                <button type="submit" name="admin_confirm_pick_up" class="btn btn-outline-success">
-                                                                    <i class="fas fa-check"></i>
+                                                                <button type="submit" name="admin_confirm_pick_up" class="btn btn-success">
+                                                                    <i class="fas fa-check"></i> ปรับปรุงสถานะ
                                                                 </button>
                                                             </form>
                                                         <?php } ?>
 
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <?php if ($row_oder['oder_status'] == 1) { ?>
+                                                            <form action="../sql/admin_cancel_oder.php" method="post">
+                                                                <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder'] ?>">
+                                                                <input type="hidden" name="ID_Member" value="<?php echo $row_oder['ID_Member'] ?>">
+                                                                <button type="submit" name="admin_cancel_oder" class="btn btn-outline-danger">
+                                                                    ยกเลิกรายการ
+                                                                </button>
+                                                            </form>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                             </td>
@@ -209,7 +217,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
 
 
                                                                     </div>
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-4">
                                                                         <h5>ชื่อสินค้า</h5>
 
                                                                     </div>
@@ -219,7 +227,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                         </h5>
 
                                                                     </div>
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-2">
                                                                         <h5>ราคา</h5>
                                                                     </div>
                                                                 </div>
@@ -258,13 +266,13 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                         <div class="col-3">
                                                                             <img class="img-fluid" src="../Asset/img/<?php echo $row_oder_id['IMG_Product']; ?>" alt="">
                                                                         </div>
-                                                                        <div class="col-3">
+                                                                        <div class="col-4">
                                                                             <?php echo $row_oder_id['NAME_Product']; ?>
                                                                         </div>
                                                                         <div class="col-3">
                                                                             <?php echo $row_oder_id['QTY']; ?>
                                                                         </div>
-                                                                        <div class="col-3">
+                                                                        <div class="col-2">
                                                                             <?php echo $row_oder_id['PRICE_Product']; ?>.-บาท
                                                                         </div>
                                                                     </div>
@@ -338,7 +346,6 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                 </div>
                                             </div>
                                         </div>
-
                                     <?php } ?>
                                 <?php } ?>
                             </tbody>
