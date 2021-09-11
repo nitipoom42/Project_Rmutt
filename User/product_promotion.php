@@ -84,7 +84,7 @@ $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="col">
                     <div class="text-end type_full mt-2">
-                        <a href="product_full.php?ID_Type_Product=<?php echo $row_promotion['ID_Type_Product']; ?>   ">ดูทั้งหมด <i class="fas fa-angle-double-right"></i></a>
+                        <a href="product_promotion_full.php">ดูทั้งหมด <i class="fas fa-angle-double-right"></i></a>
                     </div>
                 </div>
 

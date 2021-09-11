@@ -1,20 +1,14 @@
 <!-- ต่อฐานข้อมูล -->
 <?php require_once('../sql/connect.php') ?>
 
-
-
-
 <!-- เรียกข้อมูลประเภทสินค้าตาราง type_product-->
 <?php
-$data = [
-    'id' => $_GET['ID_Type_Product'],
 
-];
 $sql_fetch_type = "SELECT  * FROM type_product as t
 JOIN stock_promotion as s ON t.ID_Type_Product = s.TYPE_Product
-WHERE ID_Type_Product=:id";
+WHERE ID_Type_Product=1";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
-$smtm_fetch_type->execute($data);
+$smtm_fetch_type->execute();
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -76,7 +70,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                                                                     echo "outstock";
                                                                 }
 
-                                                                ?> accordion-bodyoverflow-hidden"> <img class=" card-img-top mx-auto" src="../Asset/img/<?php echo $row_type['IMG_Product']; ?>"></div>
+                                                                ?> accordion-bodyoverflow-hidden"> <img class=" card-img-top mx-auto" src="../Asset/img_promotion/<?php echo $row_type['IMG_Product']; ?>"></div>
                                     <div class="card-body">
                                         <p class="card-text text-wrap"><?php echo $row_type['NAME_Product']; ?></p>
                                         <h5 class="card-text text-success"><?php echo $row_type['POINT_Product']; ?> บาท</h5>
@@ -99,12 +93,11 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <img class="card-img-top mx-auto" src="../Asset/img/<?php echo $row_type['IMG_Product']; ?>">
+                                        <img class="card-img-top mx-auto" src="../Asset/img_promotion/<?php echo $row_type['IMG_Product']; ?>">
                                         <div class="text-center">
                                             <p><?php echo $row_type['NAME_Product']; ?></p>
                                             <p>สินค้าคงเหลือ <?php echo $row_type['QTY_Product']; ?></p>
                                         </div>
-
                                         <div class="row text-center">
                                             <div class="col-md-6 mx-auto text-center ">
                                                 <div class="input-group mb-3">
@@ -122,7 +115,8 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                         <!-- ปุ่มหยิบสินค้าลงตะกร้า -->
-                        <input type="hidden" name="ID_Product_Promotion" value="<?php echo $row_type['ID_Type_Product']; ?>">
+
+                        <input type="hidden" name="ID_Product_Promotion" value="<?php echo $row_type['ID_Product_Promotion']; ?>">
                     </form>
                 </div>
             <?php    } ?>
