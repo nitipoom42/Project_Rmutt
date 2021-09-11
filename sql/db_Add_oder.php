@@ -8,11 +8,6 @@ $date = new DateTime();
 ?>
 
 <?php
-$sql = "SELECT * FROM oder";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$count = $stmt->rowCount();
 
 if (isset($_POST['Confirm_Oder'])) {
     $data_oder = [
