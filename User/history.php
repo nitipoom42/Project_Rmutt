@@ -116,21 +116,27 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                             echo  $newDate = date("H:i:s", strtotime($originalDate));
                             ?>
                         </h5>
-                        <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder']; ?>">
-                        <p onclick="del_oder(<?php echo $row_oder['ID_Oder'] ?>)" class="btn btn-outline-danger btn_del_oder"><i class="fas fa-trash-alt"></i></p>
-                        <script>
-                            function del_oder(id) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: `คุณจะยกเลิกรายการนี้หรือไม่`,
-                                    confirmButtonText: `<a class="text-light" href="../sql/cancel_oder.php?cancel_oder=${id}">ยืนยัน</a>`,
-                                    confirmButtonColor: '#d33',
-                                    showCancelButton: true,
-                                    cancelButtonText: `ยกเลิก`,
-                                    cancelButtonColor: '#188754'
-                                });
-                            }
-                        </script>
+                        <?php if ($row_oder['oder_status'] == 0) { ?>
+                            <input type="hidden" name="ID_Oder" value="<?php echo $row_oder['ID_Oder']; ?>">
+                            <p onclick="del_oder(<?php echo $row_oder['ID_Oder'] ?>)" class="btn btn-outline-danger btn_del_oder"><i class="fas fa-trash-alt"></i></p>
+                            <script>
+                                function del_oder(id) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: `คุณจะยกเลิกรายการนี้หรือไม่`,
+                                        confirmButtonText: `<a class="text-light" href="../sql/cancel_oder.php?cancel_oder=${id}">ยืนยัน</a>`,
+                                        confirmButtonColor: '#d33',
+                                        showCancelButton: true,
+                                        cancelButtonText: `ยกเลิก`,
+                                        cancelButtonColor: '#188754'
+                                    });
+                                }
+                            </script>
+
+                        <?php  } ?>
+
+
+
                     </div>
 
                     <div class="row  text-center">
@@ -346,16 +352,6 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
     <!-- sweetalert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-
-
-
-
-
-
-
 </body>
-
-
 
 </html>

@@ -65,10 +65,9 @@ foreach ($result as $row) {
 
                 $data_promotion = [
                     'ID_Member' => $_SESSION['ID_Member'],
-                    'Point_Product' => $_POST['Point_Product'],
-                    'QTY' => $_POST['QTY']
+                    'POINT_Product' => $row['POINT_Product'],
                 ];
-                $sql_point = "UPDATE member SET Point=Point-(:QTY*:Point_Product) WHERE ID_Member=:ID_Member ";
+                $sql_point = "UPDATE member SET Point=Point-:POINT_Product WHERE ID_Member=:ID_Member ";
                 $stmt_point = $conn->prepare($sql_point);
                 $stmt_point->execute($data_promotion);
                 $_SESSION['cart'] = 1;
