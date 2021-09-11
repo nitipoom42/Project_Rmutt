@@ -61,10 +61,10 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
 
                 <!-- End of Topbar -->
 
-                <div class="col-md-5 mt-2 card border-left-primary shadow mx-auto">
+                <div class="col-md-5 mt-1 card border-left-primary shadow mx-auto">
                     <form class="user" action="../sql/db_Add_Product.php" enctype="multipart/form-data" method="post">
                         <div class="card-body">
-                            <div class="mb-3 text-center">
+                            <div class="mb-1 text-center">
                                 <img class="shadow-lg rounded" width="260" height="250" id="output" src="https://hongthaipackaging.com/wp-content/uploads/2019/04/%E0%B8%81%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%9A%E0%B8%AD%E0%B8%A3%E0%B9%8C-I-55x45x40-cm-%E0%B8%A2x%E0%B8%81x%E0%B8%AA.jpg">
                             </div>
 
@@ -73,7 +73,6 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                                     <i class="fa fa-image"></i> เลือกรูปสินค้า<input type="file" style="display: none;" accept="image/*" onchange="loadFile(event)" name="IMG_Product" required>
                                 </label>
                             </div>
-
                             <div class="form-group row">
                                 <label class="form-label">รหัสสินค้า</label>
                                 <input name="ID_Product" type="text" class="form-control form-control-user" placeholder="รหัสสินค้า..." required>
@@ -82,10 +81,22 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                                 <label class="form-label">ชื่อสินค้า</label>
                                 <input name="NAME_Product" type="text" class="form-control form-control-user" placeholder="ชื่อสินค้า..." required>
                             </div>
-                            <div class="form-group row">
-                                <label class="form-label">ราคาสินค้า</label>
-                                <input name="PRICE_Product" type="number" class="form-control form-control-user" placeholder="ราคาสินค้า..." required>
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="form-group row">
+                                        <label class="form-label">ราคาทุน</label>
+                                        <input name="Cost_PRICE_Product" type="number" class="form-control form-control-user" placeholder="ราคาทุน" required>
+                                    </div>
+
+                                </div>
+                                <div class="col-5 ms-5">
+                                    <div class="form-group row">
+                                        <label class="form-label">ราคาขาย</label>
+                                        <input name="PRICE_Product" type="number" class="form-control form-control-user" placeholder="ราคาขาย..." required>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-group row">
                                 <label class="form-label">จำนวนสินค้า</label>
                                 <input name="QTY_Product" type="number" class="form-control form-control-user" placeholder="จำนวนสิค้า..." required>
