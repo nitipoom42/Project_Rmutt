@@ -48,7 +48,7 @@ $result_oder_count = $stmt_oder_count->fetchAll(PDO::FETCH_ASSOC);
                 <li class="nav-item mt-3 ms-5">
                     <a class="nav-link info_menu <?php if ($url == 'history.php') {
                                                         echo "bg_menu_active";
-                                                    } ?>" href="history.php">แจ้งชำระเงิน
+                                                    } ?>" href="history.php">รายการสั่งซื้อ
                     </a>
                     <?php
                     if ($result_oder_count) { ?>

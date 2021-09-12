@@ -72,7 +72,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.18/sweetalert2.min.css">
 
 
-    <title>Home</title>
+    <title>รายการสั่งซื้อ</title>
 </head>
 
 <body>
