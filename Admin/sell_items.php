@@ -117,7 +117,7 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-2"></div>
                     <div class="col-9 text-end">
                         <div class="">
-                            <div id="" class="">ยอดเงินทั้งหมด <?php echo $total_bill  ?>.00 </div>
+                            <div id="" class="">ยอดเงินทั้งหมด <?php echo $total_bill  ?>.00 บาท </div>
                             <input id="total_bill" type="hidden" value="<?php echo $total_bill  ?>">
                         </div>
                         <div class="">
@@ -125,7 +125,7 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                             <div id="show_get_money"></div>
                         </div>
                         <div class="">
-                            <div id="show_change"></div>
+                            <div class="show_change"></div>
                             <div id="show_point"></div>
                             <input type="hidden" name="" id="show_change1" value="">
                         </div>
@@ -155,7 +155,9 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
 
             <button class="btn btn-warning btn-lg col-12 cal">คำนวนเงิน</button>
             <hr>
-
+            <div class="text-danger h1 text-center mb-5 mt-5">
+                <div class="show_change"></div>
+            </div>
             <div id="final_oder">
                 <button id="btn_confirm_sell" onclick="printJS({
                         printable: 'box_bill',
@@ -221,8 +223,8 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
 
             // คำนวนเงิน
             if (get_money >= total_bill) {
-                $('#show_get_money').html('รับเงินมา ' + get_money + '.00');
-                $('#show_change').html('เงินทอน ' + change + '.00');
+                $('#show_get_money').html('รับเงินมา ' + get_money + '.00' + ' บาท');
+                $('.show_change').html('เงินทอน ' + change + '.00' + ' บาท');
                 $('#default_money').hide();
                 $('#btn_confirm_sell').addClass('confirm_sell_show');
 
