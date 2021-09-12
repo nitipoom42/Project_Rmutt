@@ -45,7 +45,10 @@ body {
   border-radius: 0px 15px 15px 0px;
 }
 .bg_head_peoduct {
-  background: #008065;
+  color: #000;
+  border-left: 0.3rem solid #008065;
+  border-bottom: 0.3rem solid #008065;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 /* type_full_product */
 .type_full a {
@@ -328,8 +331,9 @@ tr {
   page-break-after: 90%;
 }
 .img_payment {
-  width: 35rem;
-  height: 11rem;
+  width: 50rem;
+  height: 30rem;
+  border-radius: 1rem;
 }
 
 .btn_del_oder {
@@ -349,7 +353,16 @@ tr {
   border-left: 0.3rem solid #008065;
   border-top: 0.3rem solid #008065;
 }
-
+.box_address {
+  position: fixed;
+  border-radius: 1rem;
+  border-left: 0.3rem solid #008065;
+  border-top: 0.3rem solid #008065;
+}
+.box_oder_his {
+  border-radius: 1rem;
+  border-left: 0.3rem solid #008065;
+}
 @media print {
   @page {
     size: A6;

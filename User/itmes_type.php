@@ -41,6 +41,8 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
         -webkit-align-items: center;
         align-items: center;
         transition: 0.3s ease-in-out;
+        border-radius: 1.5rem;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
 
     #box_items_typy .swiper-slide img {
@@ -78,7 +80,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
         background: #008065;
     }
 </style>
-<div id="box_items_typy">
+<div id="box_items_typy" class="mt-5 mb-5">
     <h3>ประเภทสินค้า</h3>
     <!-- Swiper -->
     <div class="swiper mySwiper">

@@ -84,7 +84,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
         <div class="row mb-2 mt-5 mx-auto justify-content-between align-items-center">
 
             <div class="col-2  text-center ">
-                <h4 class=" rounded-pill bg_head_peoduct text-light p-2">สินค้ามาใหม่</h4>
+                <h4 class=" rounded-pill bg_head_peoduct p-2">สินค้ามาใหม่</h4>
             </div>
             <div class="col">
                 <div class="text-end type_full mt-2">

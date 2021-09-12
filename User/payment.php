@@ -62,7 +62,7 @@ $result_payment = $stmt_payment->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="row">
             <div class="col-md-6">
-                <div class="card">
+                <div class="card box_address ">
                     <div class="ms-5 mt-3">
                         <h4>ร้านตั้งอยู่ที่ <i class="fas fa-map-marker-alt"></i></h4>
                         <p>400/880 ซอย 2/6 หมู่บ้านเอื้ออาทร</p>
@@ -78,7 +78,7 @@ $result_payment = $stmt_payment->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($result_payment as $row_payment) { ?>
                     <div class="row">
                         <div class="col mb-2">
-                            <img class="img_payment" src="../Asset/img_bank/<?php echo $row_payment['IMG_bank']; ?>" alt="">
+                            <img class="img_payment shadow" src="../Asset/img_bank/<?php echo $row_payment['IMG_bank']; ?>" alt="">
                         </div>
                     </div>
 

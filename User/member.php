@@ -171,13 +171,13 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
     <?php } ?>
     <h1>ประวัติการสั่งซื้อ</h1>
 
-    <?php $total = 0; ?>
+
 
     <?php foreach ($result_oder as $row_oder) { ?>
 
         <div class="accordion accordion-flush rounded shadows mt-3 " id="accordionExample">
             <div class="accordion-item rounded">
-                <h2 class="accordion-header rounded" id="headingOne<?php echo $row_oder['ID_Oder']; ?>">
+                <h2 class="accordion-header rounded box_oder_his" id="headingOne<?php echo $row_oder['ID_Oder']; ?>">
                     <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<?php echo $row_oder['ID_Oder']; ?>" aria-expanded="true" aria-controls="collapseOne">
                         <div class="row align-items-center">
                             <?php
@@ -211,6 +211,7 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
                         $stmt_oder_id_promotion->execute($data_oder_id);
                         $result_oder_id_promotion = $stmt_oder_id_promotion->fetchAll(PDO::FETCH_ASSOC);
                         ?>
+                        <?php $total = 0; ?>
                         <?php
                         foreach ($result_oder_id as $row_oder_id) { ?>
                             <div class="row align-items-center">
@@ -224,6 +225,7 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
                             $total = $total + $sum;
                             ?>
                         <?php    }  ?>
+
                         <?php
                         foreach ($result_oder_id_promotion as $row_oder_id_promotion) { ?>
                             <div class="row align-items-center">
