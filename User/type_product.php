@@ -206,16 +206,25 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
     <script>
         function inc(element) {
             let el = document.querySelector(`[id="${element}"]`);
+
+
             el.value = parseInt(el.value) + 1;
+
         }
 
         function dec(element) {
             let el = document.querySelector(`[id="${element}"]`);
+
+            if (parseInt(el.value) == 1) {
+                el.value = parseInt(el.value) = 1;
+            }
             if (parseInt(el.value) > 0) {
                 el.value = parseInt(el.value) - 1;
             }
         }
     </script>
+
+
 </body>
 
 </html>
