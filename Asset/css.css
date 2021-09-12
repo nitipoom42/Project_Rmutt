@@ -12,6 +12,10 @@ body {
   background-color: #ffffff;
   font-family: "K2D", sans-serif;
 }
+hr {
+  border-radius: 0.5rem;
+  border-top: 0.5rem solid #008065;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 0.7rem;
@@ -280,7 +284,7 @@ button.slick-next::before {
 }
 
 .bg_menu_admin {
-  background: #2c57d8;
+  background: #198754;
 }
 
 .box_sell_product {
@@ -401,6 +405,11 @@ tr {
 .copy_right {
   position: relative;
   top: 6rem;
+}
+.btn_edit_member {
+  position: relative;
+  left: 35rem;
+  bottom: 9rem;
 }
 @media print {
   @page {

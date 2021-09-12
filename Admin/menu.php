@@ -2,6 +2,10 @@
 <?php require_once('../sql/connect.php') ?>
 
 <?php
+@$url .= $_SERVER['REQUEST_URI'];
+@$url = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
+?>
+<?php
 
 $sql_oder = "SELECT * FROM oder_detail as od
 JOIN oder as o ON od.ID_Oder = od.ID_Oder
@@ -26,16 +30,9 @@ if (@$_SESSION['status_onti'] == 1) {
     $_SESSION['status_onti'] = 0;
 }
 ?>
-
-<?php
-@$url .= $_SERVER['REQUEST_URI'];
-@$url = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
-?>
-
-
 <div id="content ">
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " id="accordionSidebar ">
+    <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion " id="accordionSidebar ">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center " href="index.php">
@@ -70,7 +67,7 @@ if (@$_SESSION['status_onti'] == 1) {
                                                 echo "bg_menu_admin";
                                             } ?>" href="sell.php">
                 <i class="far fa-plus-square"></i>
-                <span>หน้าร้าน</span>
+                <span>หน้าร้าน </span>
             </a>
             <hr>
 

@@ -97,7 +97,7 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
                                         <h5>เบอร์โทร</h5>
                                         <p class="text-success"><?php echo $row_member['Tel']  ?> </p>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-outline-success btn_edit_member" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <i class="far fa-edit"></i>
                                         </button>
                                         <!-- Modal -->
@@ -148,8 +148,7 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="row">
                                     <div class="col text-center">
                                         <h5>แต้มสะสมทั้งหมด</h5>
-                                        <h1><?php echo number_format($row_member['Point'])  ?></h1>
-                                        <h5>แต้ม</h5>
+                                        <h1 class="text-success"><?php echo number_format($row_member['Point'])  ?> แต้ม</h1>
                                     </div>
                                 </div>
                             </div>
@@ -157,14 +156,14 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
-            <hr>
+
 
             <div class="row">
                 <div class="col loguot text-center ">
                     <a href="../sql/db_Logout.php"><small>ออกจากระบบ</small></a>
                 </div>
             </div>
-
+            <hr>
         </div>
 
 

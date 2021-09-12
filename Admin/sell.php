@@ -42,10 +42,9 @@ if ($_SESSION['User'] != "admin") {
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <div id="menu"></div>
+        <?php require_once('menu.php') ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
@@ -73,7 +72,6 @@ if ($_SESSION['User'] != "admin") {
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             $(document).ready(function() {
-                $('#menu').load('menu.php');
                 $('#sell').load('sell_items.php');
             });
         </script>
