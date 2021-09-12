@@ -67,7 +67,7 @@ $result_oder_count = $stmt_oder_count->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="col-5  col-md-5 text-end">
             <div class="banner_photo mt-3 me-4">
-                <button type="button" id="test" class="btn btn-primary position-relative" data-bs-backdrop="false" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
+                <button type="button" id="test" class="btn btn-outline-success position-relative" data-bs-backdrop="false" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
                     <i class="fas fa-shopping-cart"></i>
                     <!-- แสดงตัวเลขของสินค้าในตะกร้าสินค้า -->
                     <?php
