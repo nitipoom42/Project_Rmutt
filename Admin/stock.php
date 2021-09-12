@@ -74,7 +74,7 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
             <div id="content">
 
                 <!-- End of Topbar -->
-                <div class="alert alert-primary text-center" role="alert">
+                <div class="alert alert-success text-center" role="alert">
                     <h1>สินค้าทั่วไป</h1>
                 </div>
                 <div class="row ">

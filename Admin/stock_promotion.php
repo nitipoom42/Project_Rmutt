@@ -65,7 +65,7 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
             <div id="content">
 
                 <!-- End of Topbar -->
-                <div class="alert alert-primary text-center" role="alert">
+                <div class="alert alert-success text-center" role="alert">
                     <h1>สินค้าโปรโมชั่น</h1>
                 </div>
                 <div class="row ">
