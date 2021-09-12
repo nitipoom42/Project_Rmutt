@@ -20,6 +20,7 @@ $stmt_cart_sell = $conn->prepare($sql_cart_sell);
 $stmt_cart_sell->execute($data_cart_sell);
 $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <div id="sell_items">
     <div class="row ms-2 mt-2">
         <div class="col-5 box_sell_product">
@@ -89,7 +90,7 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 <?php } ?>
         </div>
         <!-- ใบเสร็จ -->
-        <div class="col-5 box_bill ">
+        <div id="box_bill" class="col-5 box_bill ">
             <div class="row justify-content-center">
                 <h4 class="text-center">ร้านน้องมายด์</h4>
                 <small class="text-center mb-3">ใบเสร็จรับเงิน</small>
@@ -118,23 +119,15 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                         <div class="">
                             <div id="" class="">ยอดเงินทั้งหมด <?php echo $total_bill  ?>.00 </div>
                             <input id="total_bill" type="hidden" value="<?php echo $total_bill  ?>">
-
                         </div>
                         <div class="">
                             <div id="default_money" class="">รับเงินมา 00.00 </div>
                             <div id="show_get_money"></div>
-
-
                         </div>
                         <div class="">
-
                             <div id="show_change"></div>
                             <div id="show_point"></div>
-
-
                             <input type="hidden" name="" id="show_change1" value="">
-
-
                         </div>
                     </div>
                     <div class="row">
@@ -162,22 +155,26 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
 
             <button class="btn btn-warning btn-lg col-12 cal">คำนวนเงิน</button>
             <hr>
-            <button class="btn btn-success btn-lg col-12 confirm_sell">ทำรายการสำเร็จ</button>
+
+            <div id="final_oder">
+                <button id="btn_confirm_sell" onclick="printJS({
+                        printable: 'box_bill',
+                        type: 'html',
+                        css:[
+                         '../Asset/Bootstrap/css/bootstrap.min.css',
+                        '../Asset/css.css'
+                    ]
+                })" class="btn btn-success btn-lg col-12 confirm_sell confirm_sell_none">ออกใบเสร็จ</button>
+            </div>
         </div>
-
     </div>
-
 <?php  } ?>
 
-
-
-
 </div>
 </div>
-
-
 <script>
     $(document).ready(function() {
+
         $("#Select_ID_Product").focus();
         $('#Select_ID_Product').change(function() {
             var ID_Product = $('#Select_ID_Product').val();
@@ -190,6 +187,7 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 success() {
                     ID_Product = $('#Select_ID_Product').val("");
                     $('#sell').load('sell_items.php');
+
                 }
             });
         });
@@ -209,8 +207,8 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                     Swal.fire({
                         title: 'ทำรายการสำเร็จ',
                         icon: 'success',
-                        timer: 1000,
-                        showConfirmButton: false,
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#3085d6',
                     })
                 }
             });
@@ -219,14 +217,15 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
         $('.cal').click(function() {
             var get_money = parseInt(document.getElementById('get_money').value);
             var total_bill = parseInt(document.getElementById('total_bill').value);
-
-
             var change = (get_money - total_bill);
+
             // คำนวนเงิน
             if (get_money >= total_bill) {
                 $('#show_get_money').html('รับเงินมา ' + get_money + '.00');
                 $('#show_change').html('เงินทอน ' + change + '.00');
                 $('#default_money').hide();
+                $('#btn_confirm_sell').addClass('confirm_sell_show');
+
             } else {
                 Swal.fire({
                     title: 'ยอดเงินไม่เพียงพอ',
@@ -256,7 +255,9 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 });
             }
         });
-
-
     });
 </script>
+
+
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
