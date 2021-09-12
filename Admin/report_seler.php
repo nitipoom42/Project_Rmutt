@@ -43,7 +43,7 @@ $data_date = [
             <div class="box_report overflow-hidden">
                 <div class="row">
                     <div class="col text-end me-5 mt-5">
-                        <p onclick="Print_PDF()" class="btn btn-warning btn-lg"><i class="far fa-save"></i> PDF </p>
+                        <p onclick="Print_PDF()" class="btn btn-success btn-lg"><i class="far fa-save"></i> PDF </p>
                     </div>
                 </div>
                 <div class="row ms-5">
@@ -65,6 +65,7 @@ $data_date = [
                     <input type="hidden" id="date_end" value="<?php echo date("Y-m-d", strtotime($data_date['date_end'])) ?>">
 
                 </div>
+                <hr>
                 <div id="data_report">
                     <div id="result_report_seler_items"></div>
                     <div id="result_report_seler_on_off"></div>

@@ -14,7 +14,7 @@ body {
 }
 hr {
   border-radius: 0.5rem;
-  border-top: 0.5rem solid #008065;
+  border-top: 0.2rem solid #008065;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -410,6 +410,15 @@ tr {
   position: relative;
   left: 35rem;
   bottom: 9rem;
+}
+.btn_out_report {
+  position: absolute;
+  top: 0.01rem;
+  left: 18rem;
+}
+input[type="radio"]:checked {
+  background: #00b28e;
+  box-shadow: #00b28e 0px 2px 10px;
 }
 @media print {
   @page {

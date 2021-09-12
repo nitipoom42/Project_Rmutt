@@ -75,7 +75,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Dashboard</title>
+    <title>รายงานยอดขาย</title>
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -241,17 +241,20 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="col-3">
                                         <form id="from_date" action="report_seler.php" method="post">
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col btn_out_report">
                                                     <p id="report" class="btn btn-success" name="report">ออกรายงาน</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col-9">
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-week"></i></span>
-                                                        <input type="text" class="form-control col-md-7" name="dates" id="date_select" value="" />
+                                                        <input type="text" class="form-control" name="dates" id="date_select" value="" />
                                                     </div>
+
                                                 </div>
+
+
                                             </div>
 
                                         </form>
