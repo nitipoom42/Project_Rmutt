@@ -126,7 +126,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                             <!-- ป้ายแจ้งเตือนจำนวนรายการ -->
                             <div class="row mt-2">
                                 <!-- ยอดขายออนไลน์ -->
-                                <div class="col-xl-3 col-md-6 mb-4">
+                                <!-- <div class="col-xl-3 col-md-6 mb-4">
                                     <div class="card border-left-success border-bottom-success shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
@@ -147,9 +147,9 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- ยอดขายหน้าร้าน -->
-                                <div class="col-xl-3 col-md-6 mb-4">
+                                <!-- <div class="col-xl-3 col-md-6 mb-4">
                                     <div class="card border-left-success border-bottom-success shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
@@ -169,9 +169,9 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- จัดเตรียมสินค้า -->
-                                <div class="col-xl-3 col-md-6 mb-4">
+                                <!-- <div class="col-xl-3 col-md-6 mb-4">
                                     <div class="card border-left-danger border-bottom-danger shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
@@ -184,9 +184,9 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- รอลูกค้ามารับสินค้า -->
-                                <div class="col-xl-3 col-md-6 mb-4">
+                                <!-- <div class="col-xl-3 col-md-6 mb-4">
                                     <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
@@ -199,11 +199,11 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- สินค้าใกล้หมด -->
-                                <div class="col-xl-3 col-md-6 mb-4 btn-group dropend">
-                                    <!-- Default dropend button -->
-                                    <div class="btn " data-bs-toggle="dropdown" aria-expanded="false">
+                                <!-- <div class="col-xl-3 col-md-6 mb-4 btn-group dropend"> -->
+                                <!-- Default dropend button -->
+                                <!-- <div class="btn " data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="card border-left-warning border-bottom-warning shadow h-100 py-2">
                                             <div class="card-body">
                                                 <div class="row no-gutters align-items-center">
@@ -215,9 +215,9 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                    </div>
+                                <!-- </div>
                                     <ul class="dropdown-menu">
                                         <?php foreach ($result_stock_out as $row_stock_out) { ?>
                                             <div class="row">
@@ -227,14 +227,14 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         <?php   } ?>
                                     </ul>
-                                </div>
+                                </div> -->
 
                             </div>
 
                             <!-- Content Row -->
 
                             <div class="row">
-                                <hr>
+
                                 <!-- กราฟ -->
                                 <div class="row">
                                     <!-- ปุ่มเลือกวันที่ -->
