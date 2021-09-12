@@ -45,26 +45,33 @@
                     <div class="col-md-6 col-6 ">
                         <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input name="User" type="text" class="form-control" placeholder="Username">
+                            <input name="User" type="text" class="form-control" placeholder="Username" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input name="Pass" type="password" class="form-control" placeholder="Password">
+                            <input name="Pass" type="password" class="form-control" placeholder="Password" required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label"><i class="i_login fas fa-address-book"></i></label>
-                            <input name="Name" type="text" class="form-control" placeholder="ชื่อ...">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+
+                                    <input name="Name" type="text" class="form-control" placeholder="ชื่อ..." required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <input name="Lastname" type="text" class="form-control" placeholder="นามสกุล..." required>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <input name="Lastname" type="text" class="form-control" placeholder="นามสกุล...">
-                        </div>
-                        <div class="mb-3">
-                            <input name="Tel" type="text" class="form-control" placeholder="เบอร์...">
+
+
+                        <div class="mb-3 col-6">
+                            <input name="Tel" type="text" class="form-control" placeholder="เบอร์..." required>
                         </div>
                         <div class="mb-3">
                             <div name="Pass" id="emailHelp" class="form-text ms-2 mb-2">รูปโปรไฟล์</div>
-
-                            <input name="IMG_User" type="file" class="form-control" accept="image/*" onchange="loadFile(event)" name="IMG_Product" placeholder=""> <br>
+                            <input name="IMG_User" type="file" class="form-control" accept="image/*" onchange="loadFile(event)" name="IMG_Product" placeholder="" required> <br>
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" name="Register" class="btn btn-success btn-lg ">ยืนยัน</button>
@@ -72,7 +79,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-6 img_Register ">
-                        <img class="shadow-lg width=" id=" output" src="../Asset/img_member/blank-profile.png"> <br>
+                        <img class="shadow-lg width=" id="output" src="../Asset/img_member/blank-profile.png"> <br>
                     </div>
                 </div>
             </div>
@@ -96,7 +103,6 @@
             }
         };
     </script>
-
 </body>
 
 
