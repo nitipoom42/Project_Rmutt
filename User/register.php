@@ -64,8 +64,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="mb-3 col-6">
                             <input name="Tel" type="text" class="form-control" placeholder="เบอร์..." required>
                         </div>
