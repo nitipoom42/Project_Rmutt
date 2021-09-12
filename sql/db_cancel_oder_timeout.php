@@ -11,10 +11,10 @@ foreach ($result_oder_time as $row_oder_time) {
 
     $row_oder_time['Oder_date'];
     $date_order = strtotime($row_oder_time['Oder_date'], 10);
+    $Time_out = date("H:i:s", strtotime('+30 minutes', $date_order));
 
 
-
-    if ($date_now > $Time_out) {
+    if ($date_order > $Time_out) {
 
         $data_Product_time = [
             'ID_Product' => $row_oder_time['ID_Product'],
