@@ -255,7 +255,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                                 <div class="row">
                                     <div class="col-6">
                                         <div id="logo_bank<?php echo $row_oder['ID_Oder'] ?>" class="img_bank">
-                                            <img class="" src="../Asset/img_pay/logo.png">
+                                            <img class="" src="../Asset/img_pay/logo.jpg">
                                         </div>
                                         <div id="show<?php echo $row_oder['ID_Oder'] ?>" class="mb-2"></div>
 

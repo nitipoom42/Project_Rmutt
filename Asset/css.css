@@ -420,6 +420,19 @@ input[type="radio"]:checked {
   background: #00b28e;
   box-shadow: #00b28e 0px 2px 10px;
 }
+.img_bank_admin {
+  width: 20rem;
+  height: 15rem;
+}
+.box_items_bank {
+  margin-left: 20rem;
+  z-index: 1040;
+}
+.btn_add_bank {
+  z-index: 2000;
+  margin-left: 15rem;
+  margin-bottom: 1rem;
+}
 @media print {
   @page {
     size: A6;

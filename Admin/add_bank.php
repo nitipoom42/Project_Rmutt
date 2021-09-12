@@ -57,17 +57,17 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
     <?php require_once('../User/alert.php') ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
+        <div class="fixed-top"> <?php require_once('menu.php') ?></div>
 
-        <?php require_once('menu.php') ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" class="">
                 <!-- End of Topbar -->
                 <div class="row mt-5">
-                    <div class="col-md-12 ">
-                        <button type="button" class="btn btn-primary ms-5 mb-4" data-bs-toggle="modal" data-bs-target="#add_type_product">
+                    <div class="col-md-12 btn_add_bank">
+                        <button type="button" class="btn btn-primary  " data-bs-toggle="modal" data-bs-target="#add_type_product">
                             เพิ่มบัญชีธนาคาร
                         </button>
                     </div>
@@ -84,7 +84,7 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
                                 <form action="../sql/db_add_bank.php" enctype="multipart/form-data" method="post">
                                     <div class="card col-md-12 mx-auto p-5 shadow rounded-5">
                                         <div class="mb-3 text-center">
-                                            <img class="shadow-lg rounded" width="100%" height="200" id="output" src="../Asset/img_pay/logo.png">
+                                            <img class="shadow-lg rounded" width="100%" height="200" id="output" src="../Asset/img_pay/logo.jpg">
                                         </div>
                                         <label class="btn btn-primary mx-auto">
                                             <i class="fa fa-image"></i>เลือกรูปภาพ<input type="file" name="IMG_bank" style="display: none;" accept="image/*" onchange="loadFile(event)" required>
@@ -111,7 +111,7 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
 
 
                 <div class="row ">
-                    <div class="col-md-9 mx-auto card p-2">
+                    <div class="col-md-9 mx-auto card p-2 box_items_bank">
                         <table id="bank" class="display ">
                             <thead>
                                 <tr>
@@ -125,7 +125,9 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
                                 <?php
                                 foreach ($result_bank as $row_bank) { ?>
                                     <tr>
-                                        <td class="text-center"><img src="../Asset/img_bank/<?php echo $row_bank['IMG_bank'] ?>" width="90%" height="180"></td>
+                                        <td class="text-center ">
+                                            <img class="img_bank_admin" src="../Asset/img_bank/<?php echo $row_bank['IMG_bank'] ?>">
+                                        </td>
                                         <td><?php echo $row_bank['NAME_bank'] ?></td>
                                         <td><?php echo $row_bank['NUM_bank'] ?></td>
                                         <td>
@@ -216,8 +218,8 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
         <script>
             $(document).ready(function() {
                 $('#bank').dataTable({
-
-
+                    "pageLength": 2,
+                    "lengthChange": false,
                     "language": {
                         "lengthMenu": "แสดง _MENU_ แถว",
                         "zeroRecords": "ไม่พบธนาคาร",
