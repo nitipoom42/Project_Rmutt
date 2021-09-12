@@ -57,9 +57,8 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
         <br>
         <br>
         <br>
-
-
         <div class="row mt-5">
+
             <?php
             foreach ($result_type as $row_type) { ?>
                 <div class="col-md-3">

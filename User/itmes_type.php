@@ -101,7 +101,6 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-
 <script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 3,

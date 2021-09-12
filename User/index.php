@@ -61,10 +61,9 @@
         <!-- สินค้าแต่ละประเภท -->
         <?php require_once('type_product.php'); ?>
 
+
+
         <!-- สินค้าแต่ละประเภท -->
-
-
-
 
         <br>
         <br>
@@ -72,6 +71,11 @@
         <br>
         <?php require_once('menu.php'); ?>
     </div>
+    <!-- footer -->
+    <div class="overflow-hidden">
+        <?php require_once('footer.php'); ?>
+    </div>
+
 
 
 
