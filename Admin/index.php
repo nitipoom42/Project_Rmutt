@@ -260,10 +260,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
 
                                 </div>
                                 <div class="row">
-
-
                                     <div id="result_date"></div>
-
                                 </div>
                             </div>
                             <!-- /.container-fluid -->

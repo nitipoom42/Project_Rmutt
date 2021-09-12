@@ -37,11 +37,14 @@ $result_oder_date_type = $stmt_oder_date_type->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-$sql_total_money_his = "SELECT *  ,SUM(od.QTY*s.PRICE_Product) as sumQTY FROM oder as o
-JOIN oder_detail as od ON o.ID_Oder = od.ID_Oder
-JOIN stock as s ON od.ID_Product=s.ID_Product 
-WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end AND  o.oder_status >= 3  AND s.Status_Product = 1
-GROUP BY o.oder_status
+$sql_total_money_his = "SELECT *,
+SUM((od.QTY*s.PRICE_Product)-(od.QTY*s.Cost_PRICE_Product)) as sumPrice
+FROM oder as o
+JOIN oder_detail as od ON  o.ID_Oder = od.ID_Oder
+JOIN stock as s ON s.ID_Product = od.ID_Product
+JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
+WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end AND s.Status_Product = 1 AND o.oder_status >=3
+GROUP BY o.oder_status;
 ";
 $stmt_total_money_his = $conn->prepare($sql_total_money_his);
 $stmt_total_money_his->execute($data_date);
@@ -57,23 +60,21 @@ $result_total_money_his = $stmt_total_money_his->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 if ($result_oder_date) { ?>
-    <div class="row">
-        <div class="col-6 text-center">
-            <p>ยอดขาย</p>
-            <div id="chart_sales_his">
+    <div class="text-center ms-5">
+        <div class="row mt-2">
+            <div class="col-6 card pt-2">
+                <p>ยอดขาย</p>
+                <div id="chart_sales_his">
+                </div>
+            </div>
+            <div class="col-6 card pt-2">
+                <p>จำนวนการขายแต่ละประเภท</p>
+                <div id="chart_sales_type">
+                </div>
             </div>
         </div>
-        <div class="col-6 text-center">
-            <p>จำนวนการขายแต่ละประเภท</p>
-            <div id="chart_sales_type">
-            </div>
-
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="text-center">
+        <div class="row  mt-2">
+            <div class="col-12 card pt-2">
                 <p>จำนวนการขายทั้งหมด</p>
                 <div id="chart_sales">
                 </div>
@@ -114,7 +115,8 @@ if ($result_oder_date) { ?>
         }],
         chart: {
             type: 'bar',
-            height: 350
+            height: 280,
+
         },
         dataLabels: {
             enabled: false
@@ -214,7 +216,7 @@ if ($result_oder_date) { ?>
     var options = {
         series: [<?php
                     foreach ($result_total_money_his as $row_total_money_his) { ?>
-                <?php echo $row_total_money_his['sumQTY'] ?>,
+                <?php echo $row_total_money_his['sumPrice'] ?>,
             <?php }
             ?>
         ],
@@ -226,6 +228,11 @@ if ($result_oder_date) { ?>
         chart: {
             width: 380,
             type: 'pie',
+            toolbar: {
+                show: true,
+                offsetX: 100,
+                offsetY: -30,
+            }
         },
         tooltip: {
             y: {

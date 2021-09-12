@@ -284,20 +284,15 @@ button.slick-next::before {
 .confirm_sell_show {
   display: block;
 }
-
-#chart_sales_now {
-  width: 100%;
-  height: 10rem;
-}
-#chart_sales_type_now {
-  width: 50rem;
-  height: 10rem;
-}
 #chart_sales_total_money,
 #chart_sales_his {
   position: relative;
   top: 2rem;
   left: 12rem;
+}
+
+#chart_sales {
+  width: 100%;
 }
 .box_menu_top {
   background: #e9e9e9;
