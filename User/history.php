@@ -99,7 +99,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                 </div>
             </div>
         <?php  } ?>
-        <?php $total = 0; ?>
+
         <?php foreach ($result_oder as $key => $row_oder) { ?>
             <!-- form ยกเลิกการสั่ง -->
             <form action="../sql/cancel_oder.php" enctype="multipart/form-data" method="post">
@@ -154,7 +154,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
 
                         $sql_oder_id = "SELECT * FROM oder_detail as o
                     JOIN stock as s ON o.ID_Product=s.ID_Product  
-                    WHERE ID_Oder=:id AND s.Status_Product = 1";
+                    WHERE o.ID_Oder=:id AND s.Status_Product = 1";
                         $stmt_oder_id = $conn->prepare($sql_oder_id);
                         $stmt_oder_id->execute($data_oder_id);
                         $result_oder_id = $stmt_oder_id->fetchAll(PDO::FETCH_ASSOC);
@@ -162,12 +162,13 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                         // สินค้าโปรโมชั่น
                         $sql_oder_id_promotion = "SELECT * FROM oder_detail as o
                     JOIN stock_promotion as sp ON o.ID_Product=sp.ID_Product_Promotion  
-                    WHERE ID_Oder=:id";
+                    WHERE ID_Oder=:id ";
                         $stmt_oder_id_promotion = $conn->prepare($sql_oder_id_promotion);
                         $stmt_oder_id_promotion->execute($data_oder_id);
                         $result_oder_id_promotion = $stmt_oder_id_promotion->fetchAll(PDO::FETCH_ASSOC);
                         ?>
                         <?php
+                        $total = 0;
                         foreach ($result_oder_id as $row_oder_id) { ?>
                             <div class="row align-items-center mb-1 mt-1 ">
                                 <div class="col-md-2 "><img src="../Asset/img/<?php echo $row_oder_id['IMG_Product']; ?>" width="100" height="100"></div>
@@ -179,7 +180,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                             $sum = $row_oder_id['QTY'] * $row_oder_id['PRICE_Product'];
                             $total = $total + $sum;
                             ?>
-                        <?php    }  ?>
+                        <?php } ?>
                         <!-- สินค้าโปรโมชั่น -->
                         <?php
                         foreach ($result_oder_id_promotion as $row_oder_id_promotion) { ?>
@@ -196,7 +197,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                         <div class="col text-end me-2">
                             <?php
                             $potin = $total;
-                            $Point =  $potin / 20;
+                            $Point =  $potin / 30;
                             ?>
                             <h5>ได้รับแต้ม <?php echo number_format($Point) ?> แต้ม</h5>
                             <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท</h5>
@@ -237,11 +238,7 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                                     กรุณาไปรับสินค้า
                                 </div>
                             <?php } ?>
-
-
                         </div>
-
-
                     </div>
                 </div>
             </form>

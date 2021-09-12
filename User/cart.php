@@ -191,17 +191,15 @@
                     $total = $total + $sum;
                     ?>
                 <?php  } ?>
-
-
                 <hr>
                 <div class="row ">
                     <div class="col text-end ">
                         <?php
                         $potin = $total;
-                        $Point =  $potin / 20;
+                        $Point =  $potin / 30;
                         ?>
                         <h5>ได้รับแต้ม <?php echo number_format($Point) ?> แต้ม</h5>
-                        <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท </h5>
+                        <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?> บาท </h5>
                     </div>
                 </div>
                 <div class="row text-end mt-5">

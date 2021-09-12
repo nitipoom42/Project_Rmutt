@@ -137,7 +137,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $total = 0; ?>
+
                                 <?php foreach ($result_oder_admin as $row_oder) { ?>
                                     <?php if ($row_oder['oder_status'] == 1 or $row_oder['oder_status'] == 2) { ?>
                                         <tr>
@@ -272,9 +272,11 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                         $stmt_oder_id_promotion->execute($data_oder_id);
                                                         $result_oder_id_promotion = $stmt_oder_id_promotion->fetchAll(PDO::FETCH_ASSOC);
                                                         ?>
+
                                                         <div class="row">
                                                             <div class="col-6">
                                                                 <?php
+                                                                $total = 0;
                                                                 foreach ($result_oder_id as $row_oder_id) { ?>
                                                                     <div class="row mb-4 justify-content align-items-center">
                                                                         <div class="col-3">
@@ -287,9 +289,13 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                             <?php echo $row_oder_id['QTY']; ?>
                                                                         </div>
                                                                         <div class="col-2">
-                                                                            <?php echo $row_oder_id['PRICE_Product']; ?>.-บาท
+                                                                            <?php echo $row_oder_id['PRICE_Product'] * $row_oder_id['QTY']; ?>.-บาท
                                                                         </div>
                                                                     </div>
+                                                                    <?php
+                                                                    $sum = $row_oder_id['QTY'] * $row_oder_id['PRICE_Product'];
+                                                                    $total = $total + $sum;
+                                                                    ?>
                                                                 <?php } ?>
                                                                 <?php
                                                                 foreach ($result_oder_id_promotion as $row_oder_id_promotion) { ?>
@@ -308,10 +314,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                         </div>
                                                                     </div>
                                                                 <?php } ?>
-                                                                <?php
-                                                                $sum = $row_oder_id['QTY'] * $row_oder_id['PRICE_Product'];
-                                                                $total = $total + $sum;
-                                                                ?>
+
                                                                 <div class="row">
                                                                     <div class="col text-end mr-4">
                                                                         <h5>ราคารวมทั้งหมด <?php echo number_format($total, 2) ?>.-บาท</h5>
