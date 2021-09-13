@@ -50,7 +50,30 @@ $stmt_total_money_his = $conn->prepare($sql_total_money_his);
 $stmt_total_money_his->execute($data_date);
 $result_total_money_his = $stmt_total_money_his->fetchAll(PDO::FETCH_ASSOC);
 
+// คำนวนยอดเงิน ป้ายขายหน้าร้าน
+$sql_total_money_noti_shop = "SELECT *,SUM((od.QTY*s.PRICE_Product)-(od.QTY*s.Cost_PRICE_Product)) as sumPrice FROM oder as o
+INNER JOIN oder_detail as od ON  o.ID_Oder = od.ID_Oder
+INNER JOIN stock as s ON s.ID_Product = od.ID_Product
+INNER JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
+WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end AND s.Status_Product AND o.oder_status =4
+GROUP BY s.ID_Product
+";
+$stmt_total_money_noti_shop = $conn->prepare($sql_total_money_noti_shop);
+$stmt_total_money_noti_shop->execute($data_date);
+$result_total_money_noti_shop = $stmt_total_money_noti_shop->fetchAll(PDO::FETCH_ASSOC);
 
+
+// คำนวนยอดเงิน ป้ายขายหน้าร้าน
+$sql_total_money_noti_online = "SELECT *,SUM((od.QTY*s.PRICE_Product)-(od.QTY*s.Cost_PRICE_Product)) as sumPrice FROM oder as o
+INNER JOIN oder_detail as od ON  o.ID_Oder = od.ID_Oder
+INNER JOIN stock as s ON s.ID_Product = od.ID_Product
+INNER JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
+WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end AND s.Status_Product AND o.oder_status =3
+GROUP BY s.ID_Product
+";
+$stmt_total_money_noti_online = $conn->prepare($sql_total_money_noti_online);
+$stmt_total_money_noti_online->execute($data_date);
+$result_total_money_noti_online = $stmt_total_money_noti_online->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -60,6 +83,74 @@ $result_total_money_his = $stmt_total_money_his->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 if ($result_oder_date) { ?>
+    <div class="row mx-auto">
+
+        <div class="col-xl-3 col-md-6 mb-4 mx-auto">
+            <div class="card border-left-success border-bottom-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2 text-center">
+                            <div class="text-xs font-weight-bold text-success mb-1">
+                                <h4>&#3647; ยอดขายหน้าร้าน</h4>
+                            </div>
+
+                            <div class="h4 mb-0 text-gray-800">
+                                <?php $sum_noti_shop = 0; ?>
+                                <?php foreach ($result_total_money_noti_shop as $row_noti_shop) { ?>
+                                    <?php
+                                    $result_noti_shop =  $row_noti_shop['sumPrice'];
+                                    $sum_noti_shop = $sum_noti_shop +  $result_noti_shop
+                                    ?>
+                                <?php    } ?>
+                                <p><?php echo number_format($sum_noti_shop, 2);  ?> บาท</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4 mx-auto">
+            <div class="card border-left-success border-bottom-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2 text-center">
+                            <div class="text-xs font-weight-bold text-success mb-1">
+                                <h4>&#3647; ยอดขายออนไลน์</h4>
+                            </div>
+                            <div class="h4 mb-0 text-gray-800">
+                                <?php $sum_noti_online = 0; ?>
+                                <?php foreach ($result_total_money_noti_online as $row_noti_online) { ?>
+                                    <?php
+                                    $result_noti_shop =  $row_noti_online['sumPrice'];
+                                    $sum_noti_online = $sum_noti_online +  $result_noti_shop
+                                    ?>
+                                <?php    } ?>
+                                <p><?php echo number_format($sum_noti_online, 2);  ?> บาท</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4 mx-auto">
+            <div class="card border-left-success border-bottom-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2 text-center">
+                            <div class="text-xs font-weight-bold text-success mb-1">
+                                <h4>&#3647; รายได้ของทั้งหมด</h4>
+                            </div>
+                            <div class="h4 mb-0 text-gray-800">
+                                <p><?php echo number_format($sum_noti_online + $sum_noti_shop, 2);  ?> บาท</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <div class="text-center ms-5">
         <div class="row mt-2">
             <div class="col-6 card pt-2">
@@ -241,7 +332,7 @@ if ($result_oder_date) { ?>
                 }
             }
         },
-        labels: ['หน้าร้าน', 'ออนไลน์'],
+        labels: ['ออนไลน์', 'หน้าร้าน'],
         responsive: [{
             breakpoint: 480,
             options: {
