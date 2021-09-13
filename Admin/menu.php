@@ -53,7 +53,7 @@ if (@$_SESSION['status_onti'] == 1) {
         <!-- Heading -->
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link  collapsed <?php if ($url == 'menu.php') {
+            <a class="nav-link  collapsed <?php if ($url == 'index.php') {
                                                 echo "bg_menu_admin";
                                             } ?>" href="index.php">
                 <i class="fas fa-file-invoice ms-1 me-2"></i>

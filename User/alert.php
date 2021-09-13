@@ -190,3 +190,16 @@ if (@$_SESSION['scan_false'] == 1) {
   $_SESSION['scan_false'] = 0;
 }
 ?>
+<?php
+if (@$_SESSION['status_bank'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'success',
+          title: 'เปลี่ยนสถานะสำเร็จ',
+          timer: 1500,
+          showConfirmButton: false,
+          })
+        </script>";
+  $_SESSION['status_bank'] = 0;
+}
+?>

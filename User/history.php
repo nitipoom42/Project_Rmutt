@@ -37,7 +37,7 @@ $result_oder_promotion = $stmt_oder_promotion->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php
-$sql = "SELECT * FROM bank";
+$sql = "SELECT * FROM bank WHERE Status_Product=1";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);

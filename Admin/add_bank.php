@@ -13,6 +13,8 @@ $stmt_bank = $conn->prepare($sql_bank);
 $stmt_bank->execute();
 $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -128,49 +130,44 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
                                         <td class="text-center ">
                                             <img class="img_bank_admin" src="../Asset/img_bank/<?php echo $row_bank['IMG_bank'] ?>">
                                         </td>
+
                                         <td><?php echo $row_bank['NAME_bank'] ?></td>
                                         <td><?php echo $row_bank['NUM_bank'] ?></td>
+
+                                        <!-- เรียกข้อมูลประเภทสินค้าจาก ฐานข้อมูล type_product -->
+                                        <?php
+
+                                        $data_status_bank = [
+                                            'ID_bank' => $row_bank['ID_bank'],
+                                        ];
+
+                                        $sql_fetch_type = "SELECT * FROM bank WHERE ID_bank=:ID_bank";
+                                        $smtm_fetch_type = $conn->prepare($sql_fetch_type);
+                                        $smtm_fetch_type->execute($data_status_bank);
+                                        $result_type_product = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
+                                        ?>
+
                                         <td>
-                                            <!-- <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_bank<?php echo $row_bank['ID_bank'] ?>">แก้ไข</a> -->
-                                            <a onclick="del_bank(<?php echo $row_bank['ID_bank'] ?>)" class="btn btn-danger btn-sm">ลบ</a>
+                                            <?php foreach ($result_type_product as $row_status) { ?>
+                                                <?php if ($row_status['Status_Product'] == 1) { ?>
+                                                    <form action="../sql/db_on_off_bank.php" method="post">
+                                                        <input type="hidden" name="ID_bank" value="<?php echo $row_bank['ID_bank'] ?>">
+                                                        <button type="submit" name="Status_off" class="btn btn-outline-danger">ปิดการใช้งาน</button>
+                                                    </form>
+                                                <?php  } ?>
+                                                <?php if ($row_status['Status_Product'] == 2) { ?>
+                                                    <form action="../sql/db_on_off_bank.php" method="post">
+                                                        <input type="hidden" name="ID_bank" value="<?php echo $row_bank['ID_bank'] ?>">
+                                                        <button type="submit" name="Status_on" class="btn btn-outline-success">เปิดการใช้งาน</button>
+                                                    </form>
+                                                <?php  } ?>
+                                            <?php  } ?>
+
+
+
                                         </td>
 
                                     </tr>
-
-                                    <!-- Modalแก้ไขสินค้า -->
-                                    <div class="modal fade" id="edit_bank<?php echo $row_bank['ID_bank'] ?>" tabindex="-1" aria-labelledby="add_type_product" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="add_type_product">แก้ไขข้อมูลสินค้า</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="../sql/db_add_bank.php" method="post">
-                                                        <div class="card col-md-12 mx-auto p-5 shadow rounded-5">
-                                                            <div class="text-center">
-                                                                <img src="../Asset/img_bank/<?php echo $row_bank['IMG_bank'] ?>" width="300" height="200">
-                                                                <div class="input-group mb-2">
-                                                                    <span class="input-group-text" id="basic-addon1">ชื่อธนาคาร</span>
-                                                                    <input name="NAME_Product" type="text" class="form-control" value="<?php echo $row_bank['NAME_bank'] ?>">
-                                                                </div>
-                                                                <div class="input-group mb-2">
-                                                                    <span class="input-group-text" id="basic-addon1">เลขบัญชี</span>
-                                                                    <input name="PRICE_Product" type="text" class="form-control" value="<?php echo $row_bank['NUM_bank'] ?>">
-                                                                </div>
-                                                                <input type="hidden" name="ID_Product" value="<?php echo $row_stock['ID_Product'] ?>">
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" name="edit_product" class="btn btn-success">ตกลง</button>
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
-
-                                                </div>
-                                            </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                 <?php } ?>
                             </tbody>
                         </table>

@@ -13,6 +13,14 @@ $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute();
 $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
 ?>
+
+<!-- สถานะสินค้า -->
+<?php
+$sql_status_product = "SELECT * FROM status_product";
+$smtm_status_product = $conn->prepare($sql_status_product);
+$smtm_status_product->execute();
+$result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,6 +125,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                                 <tr>
                                     <th>รูป</th>
                                     <th>ชื่อประเภทสินค้า</th>
+                                    <th>สภานะ</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -127,9 +136,21 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                                             <img src="../Asset/img_type_product/<?php echo $row_type['IMG_Type_Product'] ?>" width="75" height="75">
                                         </td>
                                         <td><?php echo $row_type['INFO_Type_Product'] ?></td>
-                                        <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_type_product<?php echo $row_type['ID_Type_Product'] ?>">แก้ไข</a>
-                                            <a onclick="del_type(<?php echo $row_type['ID_Type_Product']  ?>) " class="btn btn-danger btn-sm">ลบ</a>
+                                        <td>
+                                            <?php if ($row_type['Status_Product'] == 1) { ?>
+                                                <div class="alert alert-success" role="alert">
+                                                    พร้อมขาย
+                                                </div>
+                                            <?php } ?>
+                                            <?php if ($row_type['Status_Product'] == 2) { ?>
+                                                <div class="alert alert-danger text-center" role="alert">
+                                                    ยกเลิกการขาย
+                                                </div>
+                                            <?php } ?>
                                         </td>
+                                        <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_type_product<?php echo $row_type['ID_Type_Product'] ?>">แก้ไข</a>
+                                        </td>
+
                                     </tr>
 
                                     <!-- Modalแก้ไขประเภทสินค้า -->
@@ -148,8 +169,21 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                                                                 <input name="INFO_Type_Product" type="text" class="form-control" value="<?php echo $row_type['INFO_Type_Product'] ?>">
                                                                 <input type="hidden" name="ID_Type_Product" value="<?php echo $row_type['ID_Type_Product'] ?>">
                                                             </div>
+                                                            <div class="form-group mt-3">
+                                                                <!-- ประเภทสินค้า -->
+                                                                <label class="form-label">สภานะ:</label>
+                                                                <select name="Status_Product" class="form-control ">
+                                                                    <!-- loop ข้อมูลของประเภทของสินค้าจากตาราง type_product มาแเสงใน List รายการ -->
+                                                                    <?php
+                                                                    foreach ($result_status_product as $row_status_product) { ?>
+                                                                        <option class="form-control" value="<?php echo $row_status_product['ID_Status_Product'] ?>"><?php echo $row_status_product['INFO_Status_Product'] ?></option>
+                                                                    <?php  } ?>
+                                                                </select>
+                                                            </div>
                                                         </div>
+
                                                 </div>
+
                                                 <div class="modal-footer">
                                                     <button onclick="edit_type()" type="submit" name="edit_type_product" class="btn btn-success">ตกลง</button>
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
@@ -217,21 +251,6 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
         </script>
 
 
-        <script>
-            function del_type(id) {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'คุณจะลบรายการนี้หรือไม่',
-                    confirmButtonText: `<a class="text-light" href="../sql/del.php?ID_Type_Product=${id}">ยืนยัน</a>`,
-                    confirmButtonColor: '#d33',
-                    showCancelButton: true,
-                    cancelButtonText: `ยกเลิก`,
-                    cancelButtonColor: '#188754'
-
-                })
-            }
-        </script>
 
         <!-- แสดงรูปภาพอัตโนมัติ  โดยใน file ต้องมี accept="image/*" onchange="loadFile(event)" ละที่แสดงรูปโดยอ้างอิง ID output ของ div-->
         <script>
