@@ -111,7 +111,6 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                             <?php } ?>
                                         </td>
                                         <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Product_Promotion'] ?>">แก้ไข</a>
-                                            <a onclick="del_product(<?php echo $row_stock['ID_Product_Promotion'] ?>)" class="btn btn-danger btn-sm">ลบ</a>
                                         </td>
 
 
@@ -226,21 +225,6 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                     }
                 });
             });
-        </script>
-
-        <script>
-            function del_product(id) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'คุณจะลบรายการนี้หรือไม่',
-                    confirmButtonText: `<a class="text-light" href="../sql/del.php?ID_Product_Promotion=${id}">ยืนยัน</a>`,
-                    confirmButtonColor: '#d33',
-                    showCancelButton: true,
-                    cancelButtonText: `ยกเลิก`,
-                    cancelButtonColor: '#188754'
-
-                })
-            }
         </script>
 
 </body>

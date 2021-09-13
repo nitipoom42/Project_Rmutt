@@ -228,23 +228,6 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
                 });
             });
         </script>
-
-        <script>
-            function del_bank(id) {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'คุณจะลบรายการนี้หรือไม่',
-                    confirmButtonText: `<a class="text-light" href="../sql/del.php?ID_bank=${id}">ยืนยัน</a>`,
-                    confirmButtonColor: '#d33',
-                    showCancelButton: true,
-                    cancelButtonText: `ยกเลิก`,
-                    cancelButtonColor: '#188754'
-
-                })
-            }
-        </script>
-
         <!-- แสดงรูปภาพอัตโนมัติ  โดยใน file ต้องมี accept="image/*" onchange="loadFile(event)" ละที่แสดงรูปโดยอ้างอิง ID output ของ div-->
         <script>
             var loadFile = function(event) {
