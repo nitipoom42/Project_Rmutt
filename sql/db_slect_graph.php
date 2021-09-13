@@ -51,12 +51,12 @@ $stmt_total_money_his->execute($data_date);
 $result_total_money_his = $stmt_total_money_his->fetchAll(PDO::FETCH_ASSOC);
 
 
-
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <link rel="stylesheet" href="../Asset/css.css">
+
 
 <?php
 if ($result_oder_date) { ?>

@@ -42,7 +42,6 @@ $result_report_on_off = $stmt_report_on_off->fetchAll(PDO::FETCH_ASSOC);
         </thead>
         <tbody>
             <?php foreach ($result_report_on_off as $key => $row_report) { ?>
-
                 <tr>
                     <td class="text-center"><?php echo $key + 1 ?></th>
                     <td><?php

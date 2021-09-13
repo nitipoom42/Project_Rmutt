@@ -16,6 +16,14 @@ $stmt_oder = $conn->prepare($sql_oder);
 $stmt_oder->execute();
 $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
 
+
+// นับสินค้าที่ใก้ลหมด
+$sql_oder_out_stock = "SELECT * FROM stock 
+WHERE QTY_Product < 20";
+$stmt_oder_out_stock = $conn->prepare($sql_oder_out_stock);
+$stmt_oder_out_stock->execute();
+$result_oder_out_stock = $stmt_oder_out_stock->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <?php
 if (@$_SESSION['status_onti'] == 1) {
@@ -91,13 +99,17 @@ if (@$_SESSION['status_onti'] == 1) {
             </a>
             <a class="nav-link collapsed " data-bs-toggle="collapse" href="#collapseExample">
                 <i class="fas fa-cubes"></i>
-                <span>สต๊อกสินค้า</span>
+                <span>สต๊อกสินค้า
+
+                    <p class="btn btn-danger btn-sm rounded"><?php echo  $stmt_oder_out_stock->rowCount(); ?></p>
+
+                </span>
             </a>
 
             <div class="collapse" id="collapseExample">
                 <a class="nav-link collapsed" href="stock.php">
                     <i class="far fa-plus-square"></i>
-                    <span>สินค้าทั่วไป</span>
+                    <span>สินค้าทั่วไป <p class="btn btn-danger btn-sm rounded"><?php echo  $stmt_oder_out_stock->rowCount(); ?></p></span>
                 </a>
                 <a class="nav-link collapsed" href="stock_promotion.php">
                     <i class="far fa-plus-square"></i>

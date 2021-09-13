@@ -111,7 +111,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
     <!-- Page Wrapper -->
     <div id="wrapper">
         <div class="box_menu_admin">
-            <div id="menu"></div>
+            <?php require_once('menu.php') ?>
         </div>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -302,11 +302,6 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
 
         <script>
             $(document).ready(function() {
-                $('#menu').load('menu.php');
-                setInterval(function() {
-                    $('#menu').load('menu.php');
-                }, 1000)
-
                 $('#date_select').change(function() {
                     var date_select = $('#date_select').val();
                     $.ajax({
