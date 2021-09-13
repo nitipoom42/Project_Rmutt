@@ -75,7 +75,7 @@ if ($result_oder_date) { ?>
         </div>
         <div class="row  mt-2">
             <div class="col-12 card pt-2">
-                <p>จำนวนการขายทั้งหมด</p>
+                <p>จำนวนยอดขายของสินค้า</p>
                 <div id="chart_sales">
                 </div>
             </div>

@@ -1,6 +1,7 @@
 <?php
 require_once('connect.php');
 
+
 $sql_oder_time = "SELECT * FROM oder as o
 INNER JOIN  oder_detail as od ON o.ID_Oder = od.ID_Oder WHERE oder_status = 0";
 $stmt_oder_time = $conn->prepare($sql_oder_time);
@@ -10,10 +11,12 @@ $result_oder_time = $stmt_oder_time->fetchAll(PDO::FETCH_ASSOC);
 foreach ($result_oder_time as $row_oder_time) {
 
     $row_oder_time['Oder_date'];
-    $date_order = strtotime($row_oder_time['Oder_date'], 10);
-    $Time_out = date("H:i:s", strtotime('+30 minutes', $date_order));
+    echo $date_order =  date("H:i:s", strtotime($row_oder_time['Oder_date'], 10));
 
 
+
+
+    exit();
     if ($date_order > $Time_out) {
 
         $data_Product_time = [

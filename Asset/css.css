@@ -12,10 +12,6 @@ body {
   background-color: #ffffff;
   font-family: "K2D", sans-serif;
 }
-hr {
-  border-radius: 0.5rem;
-  border-top: 0.2rem solid #008065;
-}
 /* width */
 ::-webkit-scrollbar {
   width: 0.7rem;
