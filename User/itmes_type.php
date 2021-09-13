@@ -3,7 +3,7 @@
 
 <!-- เรียกข้อมูลประเภทสินค้าตาราง type_product-->
 <?php
-$sql_fetch_type = "SELECT  * FROM type_product WHERE Status_Product = 1";
+$sql_fetch_type = "SELECT  * FROM type_product WHERE Status_Type = 1";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute();
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);

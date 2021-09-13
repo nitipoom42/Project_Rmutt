@@ -6,7 +6,7 @@
 
 $sql_fetch_type = "SELECT  * FROM type_product as t
 JOIN stock_promotion as s ON t.ID_Type_Product = s.TYPE_Product
-WHERE ID_Type_Product=1";
+WHERE ID_Type_Product=1 AND Status_Product=1";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute();
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);

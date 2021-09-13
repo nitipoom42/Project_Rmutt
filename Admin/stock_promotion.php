@@ -9,10 +9,18 @@ if ($_SESSION['User'] != "admin") {
 
 <!-------------------------------------------------------------------->
 <?php
-$sql_stock = "SELECT * FROM stock_promotion as s JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product";
-$stmt_stock = $conn->prepare($sql_stock);
-$stmt_stock->execute();
-$result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
+$sql_stock_promotion = "SELECT * FROM stock_promotion as s JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product";
+$stmt_stock_promotion = $conn->prepare($sql_stock_promotion);
+$stmt_stock_promotion->execute();
+$result_stock_promotion = $stmt_stock_promotion->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!-- สถานะสินค้า -->
+<?php
+$sql_status_product = "SELECT * FROM status_product";
+$smtm_status_product = $conn->prepare($sql_status_product);
+$smtm_status_product->execute();
+$result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,22 +86,34 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                     <th>ราคา</th>
                                     <th>ประเภทสินค้า</th>
                                     <th>จำนวน</th>
+                                    <th>สถานะ</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($result_stock as $row_stock) { ?>
+                                foreach ($result_stock_promotion as $row_stock) { ?>
                                     <tr>
                                         <td class="text-center"><img src="../Asset/img_promotion/<?php echo $row_stock['IMG_Product'] ?>" width="75" height="75"></td>
                                         <td><?php echo $row_stock['NAME_Product'] ?></td>
                                         <td><?php echo $row_stock['POINT_Product'] ?>แต้ม</td>
                                         <td><?php echo $row_stock['INFO_Type_Product'] ?></td>
                                         <td><?php echo $row_stock['QTY_Product'] ?></td>
+                                        <td><?php if ($row_stock['Status_Product'] == 1) { ?>
+                                                <div class="alert alert-success" role="alert">
+                                                    พร้อมขาย
+                                                </div>
+                                            <?php } ?>
+                                            <?php if ($row_stock['Status_Product'] == 2) { ?>
+                                                <div class="alert alert-danger text-center" role="alert">
+                                                    ยกเลิกการขาย
+                                                </div>
+                                            <?php } ?>
+                                        </td>
                                         <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Product_Promotion'] ?>">แก้ไข</a>
                                             <a onclick="del_product(<?php echo $row_stock['ID_Product_Promotion'] ?>)" class="btn btn-danger btn-sm">ลบ</a>
-
                                         </td>
+
 
                                     </tr>
 
@@ -109,9 +129,9 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                                     <form action="../sql/db_edit_product_promotion.php" method="post">
                                                         <div class="card col-md-12 mx-auto p-5 shadow rounded-5">
                                                             <div class="text-center">
-                                                                <img src="../Asset/img/<?php echo $row_stock['IMG_Product'] ?>" width="75" height="75">
+                                                                <img src="../Asset/img_promotion/<?php echo $row_stock['IMG_Product'] ?>" width="250" height="270">
 
-                                                                <div class="input-group mb-2">
+                                                                <div class="input-group mb-2 mt-4">
                                                                     <span class="input-group-text" id="basic-addon1">ชื่อสินค้า</span>
                                                                     <input name="NAME_Product" type="text" class="form-control" value="<?php echo $row_stock['NAME_Product'] ?>">
                                                                 </div>
@@ -122,6 +142,17 @@ $result_stock = $stmt_stock->fetchAll(PDO::FETCH_ASSOC);
                                                                 <div class="input-group mb-2">
                                                                     <span class="input-group-text" id="basic-addon1">จำนวนสินค้า</span>
                                                                     <input name="QTY_Product" type="text" class="form-control" value="<?php echo $row_stock['QTY_Product'] ?>">
+                                                                </div>
+                                                                <div class="form-group mt-3">
+                                                                    <!-- ประเภทสินค้า -->
+                                                                    <label class="form-label">สภานะ:</label>
+                                                                    <select name="Status_Product" class="form-control ">
+                                                                        <!-- loop ข้อมูลของประเภทของสินค้าจากตาราง type_product มาแเสงใน List รายการ -->
+                                                                        <?php
+                                                                        foreach ($result_status_product as $row_status_product) { ?>
+                                                                            <option class="form-control" value="<?php echo $row_status_product['ID_Status_Product'] ?>"><?php echo $row_status_product['INFO_Status_Product'] ?></option>
+                                                                        <?php  } ?>
+                                                                    </select>
                                                                 </div>
                                                                 <input type="hidden" name="ID_Product_Promotion" value="<?php echo $row_stock['ID_Product_Promotion'] ?>">
                                                             </div>

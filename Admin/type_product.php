@@ -137,12 +137,12 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                         </td>
                                         <td><?php echo $row_type['INFO_Type_Product'] ?></td>
                                         <td>
-                                            <?php if ($row_type['Status_Product'] == 1) { ?>
+                                            <?php if ($row_type['Status_Type'] == 1) { ?>
                                                 <div class="alert alert-success" role="alert">
                                                     พร้อมขาย
                                                 </div>
                                             <?php } ?>
-                                            <?php if ($row_type['Status_Product'] == 2) { ?>
+                                            <?php if ($row_type['Status_Type'] == 2) { ?>
                                                 <div class="alert alert-danger text-center" role="alert">
                                                     ยกเลิกการขาย
                                                 </div>

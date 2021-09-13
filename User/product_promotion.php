@@ -4,7 +4,7 @@
 <!-- เรียกข้อมูลประเภทสินค้าตาราง type_product-->
 <?php
 $sql_fetch_promotion = "SELECT  * FROM stock_promotion as sp
-JOIN type_product as tp ON sp.TYPE_Product = tp.ID_Type_Product";
+JOIN type_product as tp ON sp.TYPE_Product = tp.ID_Type_Product WHERE Status_Product=1";
 $smtm_fetch_promotion = $conn->prepare($sql_fetch_promotion);
 $smtm_fetch_promotion->execute();
 $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);

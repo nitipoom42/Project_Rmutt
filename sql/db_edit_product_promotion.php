@@ -9,9 +9,9 @@ if (isset($_POST['edit_product'])) {
         'NAME_Product' => $_POST['NAME_Product'],
         'POINT_Product' => $_POST['POINT_Product'],
         'QTY_Product' => $_POST['QTY_Product'],
-
+        'Status_Product' => $_POST['Status_Product']
     ];
-    $sql_product = "UPDATE stock_promotion  SET NAME_Product=:NAME_Product,POINT_Product=:POINT_Product,QTY_Product=:QTY_Product
+    $sql_product = "UPDATE stock_promotion  SET NAME_Product=:NAME_Product,POINT_Product=:POINT_Product,QTY_Product=:QTY_Product,Status_Product=:Status_Product
     WHERE ID_Product_Promotion=:ID_Product_Promotion";
     $stmt_product = $conn->prepare($sql_product);
     $stmt_product->execute($data_product);
