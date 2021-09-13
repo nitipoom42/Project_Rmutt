@@ -120,6 +120,7 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
                                     <th>รูป</th>
                                     <th>ชื่อธนาคาร</th>
                                     <th>เลขบัญชี</th>
+                                    <th>สภานะ</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -133,6 +134,20 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
 
                                         <td><?php echo $row_bank['NAME_bank'] ?></td>
                                         <td><?php echo $row_bank['NUM_bank'] ?></td>
+                                        <td>
+
+                                            <?php if ($row_bank['Status_Product'] == 1) { ?>
+                                                <div class="alert alert-success" role="alert">
+                                                    พร้อมใช้งาน
+                                                </div>
+                                            <?php } ?>
+
+                                            <?php if ($row_bank['Status_Product'] == 2) { ?>
+                                                <div class="alert alert-danger text-center" role="alert">
+                                                    ปิดการใช้งาน
+                                                </div>
+                                            <?php } ?>
+                                        </td>
 
                                         <!-- เรียกข้อมูลประเภทสินค้าจาก ฐานข้อมูล type_product -->
                                         <?php
@@ -148,23 +163,22 @@ $result_bank = $stmt_bank->fetchAll(PDO::FETCH_ASSOC);
                                         ?>
 
                                         <td>
-                                            <?php foreach ($result_type_product as $row_status) { ?>
-                                                <?php if ($row_status['Status_Product'] == 1) { ?>
-                                                    <form action="../sql/db_on_off_bank.php" method="post">
-                                                        <input type="hidden" name="ID_bank" value="<?php echo $row_bank['ID_bank'] ?>">
-                                                        <button type="submit" name="Status_off" class="btn btn-outline-danger">ปิดการใช้งาน</button>
-                                                    </form>
+                                            <div class="justifly-contain-center">
+                                                <?php foreach ($result_type_product as $row_status) { ?>
+                                                    <?php if ($row_status['Status_Product'] == 1) { ?>
+                                                        <form action="../sql/db_on_off_bank.php" method="post">
+                                                            <input type="hidden" name="ID_bank" value="<?php echo $row_bank['ID_bank'] ?>">
+                                                            <button type="submit" name="Status_off" class="btn btn-outline-danger">ปิดการใช้งาน</button>
+                                                        </form>
+                                                    <?php  } ?>
+                                                    <?php if ($row_status['Status_Product'] == 2) { ?>
+                                                        <form action="../sql/db_on_off_bank.php" method="post">
+                                                            <input type="hidden" name="ID_bank" value="<?php echo $row_bank['ID_bank'] ?>">
+                                                            <button type="submit" name="Status_on" class="btn btn-outline-success">เปิดการใช้งาน</button>
+                                                        </form>
+                                                    <?php  } ?>
                                                 <?php  } ?>
-                                                <?php if ($row_status['Status_Product'] == 2) { ?>
-                                                    <form action="../sql/db_on_off_bank.php" method="post">
-                                                        <input type="hidden" name="ID_bank" value="<?php echo $row_bank['ID_bank'] ?>">
-                                                        <button type="submit" name="Status_on" class="btn btn-outline-success">เปิดการใช้งาน</button>
-                                                    </form>
-                                                <?php  } ?>
-                                            <?php  } ?>
-
-
-
+                                            </div>
                                         </td>
 
                                     </tr>

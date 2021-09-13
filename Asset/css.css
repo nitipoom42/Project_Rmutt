@@ -315,7 +315,7 @@ button.slick-next::before {
 #chart_sales_total_money,
 #chart_sales_his {
   position: relative;
-  top: 2rem;
+  top: 1rem;
   left: 12rem;
 }
 

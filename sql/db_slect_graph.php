@@ -206,7 +206,7 @@ if ($result_oder_date) { ?>
         }],
         chart: {
             type: 'bar',
-            height: 280,
+            height: 260,
 
         },
         dataLabels: {
@@ -266,7 +266,7 @@ if ($result_oder_date) { ?>
         }],
         chart: {
             type: 'bar',
-            height: 350
+            height: 290
         },
         dataLabels: {
             enabled: false

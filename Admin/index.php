@@ -326,9 +326,38 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                 $('input[name="dates"]').daterangepicker({
                     "locale": {
                         "format": "YYYY/MM/DD",
-                        "separator": " ",
-                    },
-                    "singleDatePicker": false,
+                        "separator": " - ",
+                        "applyLabel": "ตกลง",
+                        "cancelLabel": "ยกเลิก",
+                        "fromLabel": "จาก",
+                        "toLabel": "ถึง",
+                        "customRangeLabel": "Custom",
+                        "daysOfWeek": [
+                            "อา.",
+                            "จ.",
+                            "อ.",
+                            "พ.",
+                            "พฤ.",
+                            "ศ.",
+                            "ส."
+                        ],
+                        "monthNames": [
+                            "ม.ค.",
+                            "ก.พ.",
+                            "มี.ค.",
+                            "เม.ย.",
+                            "พ.ค.",
+                            "มิ.ย.",
+                            "ก.ค.",
+                            "ส.ค.",
+                            "ก.ย.",
+                            "ต.ค.",
+                            "พ.ย.",
+                            "ธ.ค."
+                        ],
+                        "firstDay": 0,
+                        "singleDatePicker": false,
+                    }
                 });
             });
         </script>
