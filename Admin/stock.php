@@ -86,7 +86,7 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                     <th>ชื่อสินค้า</th>
                                     <th>ราคา</th>
                                     <th>ประเภทสินค้า</th>
-                                    <th>จำนวน</th>
+                                    <th class="text-center">จำนวนสินค้า</th>
                                     <th>สถานะ</th>
                                     <th></th>
                                 </tr>
@@ -112,7 +112,7 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
 
                                             <?php   } ?>
                                             <?php if ($row_stock['QTY_Product'] >= 20) { ?>
-                                                <?php echo $row_stock['QTY_Product'] ?>
+                                                <?php echo $row_stock['QTY_Product'] ?> ชิ้น
                                             <?php   } ?>
 
                                         </td>
@@ -154,8 +154,10 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                                                     <input name="NAME_Product" type="text" class="form-control" value="<?php echo $row_stock['NAME_Product'] ?>">
                                                                 </div>
                                                                 <div class="input-group mb-2">
+
                                                                     <span class="input-group-text" id="basic-addon1">จำนวนสินค้า</span>
-                                                                    <input name="QTY_Product" type="text" class="form-control" value="<?php echo $row_stock['QTY_Product'] ?>">
+                                                                    <input name="QTY_Product" type="number" class="form-control col-3 text-center" value="<?php echo $row_stock['QTY_Product'] ?>">
+                                                                    <span class="input-group-text" id="basic-addon1">ชิ้น</span>
                                                                 </div>
 
 
