@@ -187,6 +187,11 @@ if ($result_oder_date) { ?>
                 borderRadius: 10,
 
             },
+            formatter: (val) => {
+                var num1 = `${val.toFixed()}`;
+                var number = new Intl.NumberFormat().format(num1);
+                return number;
+            },
         },
         colors: [<?php
                     for ($x = 0; $x <= $stmt_oder_date_type->rowCount(); $x++) {
@@ -208,7 +213,7 @@ if ($result_oder_date) { ?>
 
         },
         dataLabels: {
-            enabled: false
+            enabled: true
         },
         stroke: {
             show: true,
@@ -247,6 +252,11 @@ if ($result_oder_date) { ?>
                 distributed: true,
                 borderRadius: 10,
             },
+            formatter: (val) => {
+                var num1 = `${val.toFixed()}`;
+                var number = new Intl.NumberFormat().format(num1);
+                return number;
+            },
         },
         colors: [<?php
                     for ($x = 0; $x <= $stmt_oder_date->rowCount(); $x++) {
@@ -267,7 +277,7 @@ if ($result_oder_date) { ?>
             height: 290
         },
         dataLabels: {
-            enabled: false
+            enabled: true
         },
         stroke: {
             show: true,
