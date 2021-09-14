@@ -4,10 +4,8 @@
 
 // รายงานยอดขาย
 $data_date = [
-
     'date_start' => substr($_POST['date_select'], 0, 10),
     'date_end' => substr($_POST['date_select'], -10),
-
 ];
 $sql_oder_date = "SELECT *,SUM(od.QTY) as sumQTY  FROM oder as o
 JOIN oder_detail as od ON  o.ID_Oder = od.ID_Oder

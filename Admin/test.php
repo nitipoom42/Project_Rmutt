@@ -17,7 +17,13 @@ require_once('../sql/connect.php');
 </head>
 
 <body>
-    <?php echo $_SESSION['status_onti']; ?>
+
+    <div id="show"></div>
+
+
+    <script>
+
+    </script>
 </body>
 
 </html>

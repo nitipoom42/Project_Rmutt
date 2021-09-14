@@ -40,7 +40,7 @@ if (@$_SESSION['status_onti'] == 1) {
 ?>
 <div id="content ">
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion " id="accordionSidebar ">
+    <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion overflow-hidden" id="accordionSidebar ">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center " href="index.php">
@@ -106,12 +106,21 @@ if (@$_SESSION['status_onti'] == 1) {
                 </span>
             </a>
 
-            <div class="collapse" id="collapseExample">
-                <a class="nav-link collapsed" href="stock.php">
+            <div class="collapse <?php if ($url == 'stock.php') {
+                                        echo "show";
+                                    } ?>
+                                    <?php if ($url == 'stock_promotion.php') {
+                                        echo "show";
+                                    } ?>" id="collapseExample">
+                <a class="nav-link collapsed <?php if ($url == 'stock.php') {
+                                                    echo "bg-success";
+                                                } ?>" href="stock.php">
                     <i class="far fa-plus-square"></i>
                     <span>สินค้าทั่วไป <p class="btn btn-danger btn-sm rounded"><?php echo  $stmt_oder_out_stock->rowCount(); ?></p></span>
                 </a>
-                <a class="nav-link collapsed" href="stock_promotion.php">
+                <a class="nav-link collapsed <?php if ($url == 'stock_promotion.php') {
+                                                    echo "bg-success";
+                                                } ?>" href="stock_promotion.php">
                     <i class="far fa-plus-square"></i>
                     <span>สินค้าโปรโมชั่น</span>
                 </a>
@@ -135,6 +144,4 @@ if (@$_SESSION['status_onti'] == 1) {
         </li>
     </ul>
     <!-- End of Sidebar -->
-
-
 </div>

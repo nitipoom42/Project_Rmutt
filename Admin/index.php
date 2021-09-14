@@ -331,7 +331,7 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                         "cancelLabel": "ยกเลิก",
                         "fromLabel": "จาก",
                         "toLabel": "ถึง",
-                        "customRangeLabel": "Custom",
+                        "customRangeLabel": "ระบุวันที่เอง",
                         "daysOfWeek": [
                             "อา.",
                             "จ.",
@@ -357,6 +357,17 @@ $result_stock_out = $stmt_stock_out->fetchAll(PDO::FETCH_ASSOC);
                         ],
                         "firstDay": 0,
                         "singleDatePicker": false,
+                    },
+                    ranges: {
+                        'วันนี้': [moment(), moment()],
+                        'เมื่อวาน': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        '7 วันที่แล้ว': [moment().subtract(6, 'days'), moment()],
+                        '30 วันที่แล้ว': [moment().subtract(29, 'days'), moment()],
+                        'เดือนนี้': [moment().startOf('month'), moment().endOf('month')],
+                        'เดือนที่แล้ว': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    function(start, end, label) {
+                        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
                     }
                 });
             });
