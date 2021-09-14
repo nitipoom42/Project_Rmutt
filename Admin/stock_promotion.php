@@ -135,10 +135,6 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                                                     <input name="NAME_Product" type="text" class="form-control" value="<?php echo $row_stock['NAME_Product'] ?>">
                                                                 </div>
                                                                 <div class="input-group mb-2">
-                                                                    <span class="input-group-text" id="basic-addon1">แต้มสินค้า</span>
-                                                                    <input name="POINT_Product" type="text" class="form-control" value="<?php echo $row_stock['POINT_Product'] ?>">
-                                                                </div>
-                                                                <div class="input-group mb-2">
                                                                     <span class="input-group-text" id="basic-addon1">จำนวนสินค้า</span>
                                                                     <input name="QTY_Product" type="text" class="form-control" value="<?php echo $row_stock['QTY_Product'] ?>">
                                                                 </div>
