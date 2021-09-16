@@ -172,7 +172,7 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                                             <div class="form-group mt-3">
                                                                 <!-- ประเภทสินค้า -->
                                                                 <label class="form-label">สภานะ:</label>
-                                                                <select name="Status_Product" class="form-control ">
+                                                                <select name="Status_Product" class="form-select" aria-label="Default select example">
                                                                     <!-- loop ข้อมูลของประเภทของสินค้าจากตาราง type_product มาแเสงใน List รายการ -->
                                                                     <?php
                                                                     foreach ($result_status_product as $row_status_product) { ?>

@@ -87,7 +87,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                             <div class="form-group row">
                                 <!-- ประเภทสินค้า -->
                                 <label class="form-label me-2">สินค้าประเภท :</label>
-                                <select name="Type_Product" class="form-control ">
+                                <select name="Type_Product" class="form-select" aria-label="Default select example">
                                     <!-- loop ข้อมูลของประเภทของสินค้าจากตาราง type_product มาแเสงใน List รายการ -->
                                     <?php
                                     foreach ($result_type_product as $row_type) { ?>

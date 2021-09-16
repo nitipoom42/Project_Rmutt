@@ -129,14 +129,14 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                             <?php } ?>
 
                                         </td>
-                                        <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Product'] ?>">แก้ไข</a>
+                                        <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Pro'] ?>">แก้ไข</a>
 
                                         </td>
 
                                     </tr>
 
                                     <!-- Modalแก้ไขสินค้า -->
-                                    <div class="modal fade" id="edit_product<?php echo $row_stock['ID_Product'] ?>" tabindex="-1" aria-labelledby="add_type_product" aria-hidden="true">
+                                    <div class="modal fade" id="edit_product<?php echo $row_stock['ID_Pro'] ?>" tabindex="-1" aria-labelledby="add_type_product" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -163,8 +163,8 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
 
                                                                 <div class="form-group row">
                                                                     <!-- ประเภทสินค้า -->
-                                                                    <label class="form-label me-2">สินค้าประเภท :</label>
-                                                                    <select name="Status_Product" class="form-control ">
+                                                                    <label class="form-label me-2">สถานะ :</label>
+                                                                    <select name="Status_Product" class="form-select" aria-label="Default select example">
                                                                         <!-- loop ข้อมูลของประเภทของสินค้าจากตาราง type_product มาแเสงใน List รายการ -->
                                                                         <?php
                                                                         foreach ($result_status_product as $row_status_product) { ?>
@@ -173,7 +173,7 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                                                     </select>
                                                                 </div>
 
-                                                                <input type="hidden" name="ID_Product" value="<?php echo $row_stock['ID_Product'] ?>">
+                                                                <input type="text" name="ID_Product" value="<?php echo $row_stock['ID_Pro'] ?>">
                                                             </div>
                                                         </div>
                                                 </div>

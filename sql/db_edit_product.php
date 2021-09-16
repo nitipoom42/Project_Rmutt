@@ -13,7 +13,7 @@ if (isset($_POST['edit_product'])) {
     ];
 
     $sql_product = "UPDATE stock  SET NAME_Product=:NAME_Product,QTY_Product=:QTY_Product,Status_Product=:Status_Product
-    WHERE ID_Product=:ID_Product";
+    WHERE ID_Pro=:ID_Product";
     $stmt_product = $conn->prepare($sql_product);
     $stmt_product->execute($data_product);
     $_SESSION['edit_product'] = 1;

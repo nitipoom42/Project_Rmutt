@@ -12,7 +12,7 @@ $data = [
 ];
 $sql_fetch_type = "SELECT  * FROM type_product as t
 JOIN stock as s ON t.ID_Type_Product = s.TYPE_Product
-WHERE ID_Type_Product=:id  AND s.Status_Product=1";
+WHERE Status_Product=1 AND NOT ID_Type_Product=1";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute($data);
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
@@ -108,7 +108,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="col-md-6 mx-auto text-center ">
                                                 <div class="input-group mb-3">
                                                     <a class="btn btn_number me-2" onclick="dec('QTY<?php echo $row_type['ID_Product']; ?>')"><i class="fas fa-minus"></i></a>
-                                                    <input class="form-control text-center" id="QTY<?php echo $row_type['ID_Product']; ?>" name="QTY" type="number" value="1">
+                                                    <input class="form-control text-center" id="QTY<?php echo $row_type['ID_Product']; ?>" name="QTY" min="1" type="number" value="1">
                                                     <a class="btn btn_number ms-2" onclick="inc('QTY<?php echo $row_type['ID_Product']; ?>')"><i class="fas fa-plus"></i></a>
                                                 </div>
                                             </div>
