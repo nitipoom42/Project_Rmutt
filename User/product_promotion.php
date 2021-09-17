@@ -80,7 +80,7 @@ $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
         <div class="row mb-2 mt-5 mx-auto justify-content-between align-items-center">
 
             <div class="col-2  text-center ">
-                <h4 class=" rounded-pill bg_head_peoduct p-2"> <?php echo $row_promotion['INFO_Type_Product']; ?></h4>
+                <h4 class=" rounded-pill bg_head_peoduct p-2"> โปรโมชั่น</h4>
             </div>
             <div class="col">
                 <div class="text-end type_full mt-2">
@@ -120,7 +120,7 @@ $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
                         <script>
                             function stock<?php echo $row_promotion['ID_Product_Promotion']; ?>() {
                                 Swal.fire({
-                                    html: `<form action="../sql/db_Add_cart_Promotion.php" method="post">
+                                    html: `<form action="../sql/db_Add_cart_promotion.php" method="post">
                                 <div class="overflow-hidden">
                                 <img class="card-img-top mx-auto " src="../Asset/img_promotion/<?php echo $row_promotion['IMG_Product']; ?> ">
                                         <div class="text-center">

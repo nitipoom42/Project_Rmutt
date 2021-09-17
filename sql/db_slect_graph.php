@@ -13,7 +13,7 @@ JOIN stock as s ON s.ID_Product = od.ID_Product
 JOIN type_product as tp ON tp.ID_Type_Product = s.TYPE_Product
 WHERE date(o.Oder_date) BETWEEN :date_start AND :date_end AND s.Status_Product = 1
 GROUP BY od.ID_Product
-ORDER BY sumQTY DESC
+ORDER BY sumQTY DESC limit 10
 ";
 $stmt_oder_date = $conn->prepare($sql_oder_date);
 $stmt_oder_date->execute($data_date);

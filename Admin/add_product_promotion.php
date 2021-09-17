@@ -77,7 +77,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                                 <input name="NAME_Product" type="text" class="form-control form-control-user" placeholder="ชื่อสินค้า..." required>
                             </div>
                             <div class="form-group row">
-                                <label class="form-label">ราคาสินค้า</label>
+                                <label class="form-label">ราคาสินค้า(แต้ม)</label>
                                 <input name="POINT_Product" type="number" class="form-control form-control-user" placeholder="ราคาสินค้า..." required>
                             </div>
                             <div class="form-group row">

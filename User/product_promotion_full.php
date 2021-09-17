@@ -61,7 +61,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                     <form action="../sql/db_Add_cart_promotion.php" method="post">
                         <a <?php if ($row_type['QTY_Product'] == 0) { ?> onclick=" out_stock() <?php   } ?>" class=" box_product" data-bs-toggle="modal" data-bs-target="<?php
                                                                                                                                                                             if ($row_type['QTY_Product'] > 0) { ?>
-                    #product_popup<?php echo $row_type['ID_Type_Product'] ?>
+                    #product_popup<?php echo $row_type['ID_Product_Promotion'] ?>
                 <?php } ?>">
                             <div class=" mt-2">
                                 <div class="box_info_product ">
@@ -85,7 +85,7 @@ $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                         <!-- ป็อบอัพหยิบลงกะตร้า -->
                         <!-- Modal -->
-                        <div class="modal fade" id="product_popup<?php echo $row_type['ID_Type_Product']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="product_popup<?php echo $row_type['ID_Product_Promotion']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
