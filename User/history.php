@@ -272,12 +272,13 @@ $result_bank = $stmt->fetchall(PDO::FETCH_ASSOC);
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-6 text-center">
                                         <div class="mb-2  img_pay mx-auto">
                                             <img id="output<?php echo $row_oder['ID_Oder'] ?>" src="../Asset/img_pay/pay.png">
                                         </div>
                                         <input class="form-control" name="IMG_Pay" type="file" accept="image/*" onchange="loadFile<?php echo $row_oder['ID_Oder'] ?>(event)">
                                         <div id="emailHelp" class="form-text">*กรุณาโอนเงินตามจำนวนให้ถูกต้อง*</div>
+                                        <div id="emailHelp" class="form-text">*ไม่คืนเงินทุกกรณี*</div>
                                         <hr>
                                         <h5 class="mb-1 text-danger">ราคาทั้งหมด <?php echo number_format($total, 2) ?>-บาท</h5>
                                     </div>

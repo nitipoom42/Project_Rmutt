@@ -12,7 +12,6 @@
     echo "เชื่อมต่อฐานข้อมูลไม่สำเร็จ: " . $e->getMessage();
   }
   ?>
-
   <?php
   function result($data)
   {

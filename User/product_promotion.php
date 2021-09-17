@@ -76,22 +76,22 @@ $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div id="box_items_product">
         <!-- Swiper -->
-        <?php foreach ($result_promotion as $row_promotion) { ?>
-            <div class="row mb-2 mt-5 mx-auto justify-content-between align-items-center">
 
-                <div class="col-2  text-center ">
-                    <h4 class=" rounded-pill bg_head_peoduct p-2"> <?php echo $row_promotion['INFO_Type_Product']; ?></h4>
-                </div>
-                <div class="col">
-                    <div class="text-end type_full mt-2">
-                        <a href="product_promotion_full.php">ดูทั้งหมด <i class="fas fa-angle-double-right"></i></a>
-                    </div>
-                </div>
+        <div class="row mb-2 mt-5 mx-auto justify-content-between align-items-center">
 
+            <div class="col-2  text-center ">
+                <h4 class=" rounded-pill bg_head_peoduct p-2"> <?php echo $row_promotion['INFO_Type_Product']; ?></h4>
             </div>
-            <div class="swiper mySwiper ">
-                <div class="swiper-wrapper">
+            <div class="col">
+                <div class="text-end type_full mt-2">
+                    <a href="product_promotion_full.php">ดูทั้งหมด <i class="fas fa-angle-double-right"></i></a>
+                </div>
+            </div>
 
+        </div>
+        <div class="swiper mySwiper ">
+            <div class="swiper-wrapper">
+                <?php foreach ($result_promotion as $row_promotion) { ?>
                     <div class="swiper-slide shadow">
                         <a <?php if ($row_promotion['QTY_Product'] > 0) { ?> onclick="stock<?php echo $row_promotion['ID_Product_Promotion']; ?>() <?php   } ?>" <?php if ($row_promotion['QTY_Product'] == 0) { ?> onclick=" out_stock() <?php   } ?>" class="box_product" data-bs-target="<?php
                                                                                                                                                                                                                                                                                             if ($row_promotion['QTY_Product'] > 0) { ?>
@@ -147,12 +147,12 @@ $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
                             }
                         </script>
                     </div>
+                <?php } ?>
 
-
-                </div>
-                <div class="swiper-pagination1"></div>
             </div>
-        <?php } ?>
+            <div class="swiper-pagination1"></div>
+        </div>
+
     </div>
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

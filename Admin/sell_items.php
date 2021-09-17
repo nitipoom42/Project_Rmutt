@@ -14,7 +14,7 @@ $data_cart_sell = [
 $sql_cart_sell = "SELECT * ,SUM(c.QTY) as QTY FROM cart as c
 JOIN stock as s ON  c.ID_Product=s.ID_Product
 JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product
-WHERE ID_Member=:ID_Member AND s.Status_Product = 1 AND Status_Type =1
+WHERE ID_Member=:ID_Member AND s.Status_Product = 1 AND t.Status_Type =1
 GROUP BY c.ID_Product";
 $stmt_cart_sell = $conn->prepare($sql_cart_sell);
 $stmt_cart_sell->execute($data_cart_sell);
@@ -127,7 +127,7 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                         <div class="">
                             <div class="show_change"></div>
                             <div id="show_point"></div>
-                            <input type="hidden" name="" id="show_change1" value="">
+                            <input type="hidden" id="show_change1" value="">
                         </div>
                     </div>
                     <div class="row">
@@ -237,21 +237,21 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                 })
             }
             // สะสมแต้ม
+            var Tel_member = document.getElementById('Tel_member').value;
             if (Tel_member != "") {
-                var Tel_member = document.getElementById('Tel_member').value;
                 $.ajax({
                     url: "../sql/db_point_front_sell.php",
                     method: "post",
-                    dataType: "json",
                     data: {
                         Tel_member: Tel_member
                     },
                     success(data) {
                         $('#show_change1').val(data);
-                        var show_change1 = document.getElementById('show_change1').value;
+                        let show_change1 = document.getElementById('show_change1').value;
+                        console.log(show_change1);
                         if (show_change1 == 1) {
-                            var cal_point = (total_bill / 30).toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                            $('#show_point').html('ได้รับแต้ม ' + cal_point);
+                            let cal_point = (total_bill / 30).toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                            $('#show_point').html('ได้รับแต้ม ' + cal_point).show();
                         }
                     },
                 });

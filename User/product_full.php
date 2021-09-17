@@ -6,15 +6,19 @@
 
 <!-- เรียกข้อมูลประเภทสินค้าตาราง type_product-->
 <?php
-$data = [
+if ($_GET['ID_Type_Product'] == 1) {
+    Header("Location:product_promotion_full.php");
+}
+$data_id_type = [
     'id' => $_GET['ID_Type_Product'],
 
 ];
+
 $sql_fetch_type = "SELECT  * FROM type_product as t
 JOIN stock as s ON t.ID_Type_Product = s.TYPE_Product
-WHERE Status_Product=1 AND NOT ID_Type_Product=1";
+WHERE Status_Product=1 AND  ID_Type_Product=:id";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
-$smtm_fetch_type->execute($data);
+$smtm_fetch_type->execute($data_id_type);
 $result_type = $smtm_fetch_type->fetchAll(PDO::FETCH_ASSOC);
 
 ?>

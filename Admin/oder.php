@@ -343,7 +343,7 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                             </div>
                                                                             <div class="row text-start">
                                                                                 <div class="col  mt-2">
-                                                                                    <div class="alert alert-info" role="alert">
+                                                                                    <div class="alert alert-success" role="alert">
                                                                                         <p>ชื่อลูกค้า : <?php echo $row_pay['Name'] ?></p>
                                                                                         <p>เบอร์ติดต่อ : <?php echo $row_pay['Tel'] ?></p>
                                                                                     </div>

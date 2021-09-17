@@ -228,7 +228,7 @@ $result_oder = $stmt_oder->fetchAll(PDO::FETCH_ASSOC);
                         <?php
                         foreach ($result_oder_id_promotion as $row_oder_id_promotion) { ?>
                             <div class="row align-items-center">
-                                <div class="col-md-2"><img src="../Asset/img/<?php echo $row_oder_id_promotion['IMG_Product']; ?>" width="100" height="100"></div>
+                                <div class="col-md-2"><img src="../Asset/img_promotion/<?php echo $row_oder_id_promotion['IMG_Product']; ?>" width="100" height="100"></div>
                                 <div class="col-md-2"><?php echo $row_oder_id_promotion['NAME_Product']; ?></div>
                                 <div class="col-md-2"><?php echo $row_oder_id_promotion['QTY']; ?></div>
                                 <div class="col-md-2"><?php echo $row_oder_id_promotion['QTY'] * $row_oder_id_promotion['POINT_Product']; ?>.แต้ม</div>
