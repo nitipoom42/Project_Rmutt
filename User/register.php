@@ -63,6 +63,11 @@
                                     <input name="Lastname" type="text" class="form-control" placeholder="นามสกุล..." required>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <input name="email" type="email" class="form-control" placeholder="อีเมล..." required>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3 col-6">
                             <input name="Tel" type="text" class="form-control" placeholder="เบอร์..." required>

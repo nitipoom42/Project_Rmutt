@@ -203,3 +203,28 @@ if (@$_SESSION['status_bank'] == 1) {
   $_SESSION['status_bank'] = 0;
 }
 ?>
+<?php
+if (@$_SESSION['OTP'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'success',
+          title: 'กรุณาตรวจสอบอีเมล',
+          text: 'รหัส OTP จะถูกส่งไปยังอีเมลของคุณ',
+          showConfirmButton: true,
+          })
+        </script>";
+  $_SESSION['OTP'] = 0;
+}
+?>
+<?php
+if (@$_SESSION['OTP_false'] == 1) {
+  echo "<script>
+        Swal.fire({
+          icon: 'error',
+          title: 'รหัส OTP ไม่ถูกต้อง',
+          showConfirmButton: true,
+          })
+        </script>";
+  $_SESSION['OTP_false'] = 0;
+}
+?>

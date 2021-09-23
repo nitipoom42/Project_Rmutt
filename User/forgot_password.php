@@ -18,7 +18,8 @@
     <link rel="stylesheet" type="text/css" href="../Asset/slick/slick/slick.css" />
 
     <link rel="stylesheet" type="text/css" href="../Asset/slick/slick/slick-theme.css" />
-
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -39,52 +40,31 @@
         <br>
         <br>
         <br>
-        <form action="../sql/db_Login.php" method="post">
+        <form action="../sql/db_otp_reset_password.php" method="post">
             <div class="card p-5 box_login">
                 <div class="row">
-                    <h1>เข้าสู่ระบบ</h1>
+                    <h1>ลืมรหัสผ่าน</h1>
                     <div class="col-md-6 col-6 mt-5 ">
-                        <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input name="User" type="text" class="form-control" placeholder="Username">
+                        <div class="mb-1">
+                            <label class="form-label">กรุณากรอกอีเมล</label>
+                            <input name="email" type="text" class="form-control" id="email_reset_password" placeholder="อีเมล..." required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input name="Pass" type="password" class="form-control" placeholder="Password">
-                        </div>
-                        <div class=" text-center mt-5">
-                            <button type="submit" name="Login" class="btn btn-success ">เข้าสู่ระบบ</button>
-                        </div>
-                        <div class=" text-center mt-3">
-                            <a href="register.php">สมัครสมาชิก</a><a class="ms-5" href="forgot_password.php">? ลืมรหัสผ่าน</a>
+                        <div class=" text-center mt-2">
+                            <button type="submit" name="reset_password" class="btn btn-success">ยืนยัน</button>
                         </div>
                     </div>
-
                     <div class="col-md-6 col-6 img_Register ">
                         <img class="shadow-lg " src="https://images.unsplash.com/photo-1580913428735-bd3c269d6a82?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"> <br>
                     </div>
-
                 </div>
             </div>
         </form>
-
-
     </div>
     <script src="../Asset/Bootstrap/js/bootstrap.min.js"></script>
     <!-- sweetalert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-    <!-- แสดงรูปภาพอัตโนมัติ  โดยใน file ต้องมี accept="image/*" onchange="loadFile(event)" ละที่แสดงรูปโดยอ้างอิง ID output ของ div-->
-    <script>
-        var loadFile = function(event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
-            }
-        };
-    </script>
 
 </body>
 

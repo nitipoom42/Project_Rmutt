@@ -10,6 +10,7 @@ if (isset($_POST['Register'])) {
         'Pass' => $_POST['Pass'],
         'Name' => $_POST['Name'],
         'Lastname' => $_POST['Lastname'],
+        'email' => $_POST['email'],
         'Tel' => $_POST['Tel']
     ];
     // เอาไฟล์รูปลงเครื่อง
@@ -19,8 +20,8 @@ if (isset($_POST['Register'])) {
 
         // เอาข้อมูลเพิ่มลงไปในฐานข้อมูล
         try {
-            $sql_Register = "INSERT INTO member (IMG_User,User,Pass,Name,Lastname,Tel)
-            VALUES (:IMG_User,:User,:Pass,:Name,:Lastname,:Tel)";
+            $sql_Register = "INSERT INTO member (IMG_User,User,Pass,Name,Lastname,email,Tel)
+            VALUES (:IMG_User,:User,:Pass,:Name,:Lastname,:email,:Tel)";
             $stmt_Register = $conn->prepare($sql_Register);
             $stmt_Register->execute($data_Register);
             Header("Location:../User/login.php");

@@ -39,31 +39,25 @@
         <br>
         <br>
         <br>
-        <form action="../sql/db_Login.php" method="post">
+        <form action="../sql/db_confrim_forgot_password.php" method="post">
             <div class="card p-5 box_login">
                 <div class="row">
-                    <h1>เข้าสู่ระบบ</h1>
                     <div class="col-md-6 col-6 mt-5 ">
-                        <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input name="User" type="text" class="form-control" placeholder="Username">
+                        <div class="mb-2">
+                            <label class="form-label">รหัส OTP</label>
+                            <input name="OTP" type="number" class="form-control" placeholder="OTP..." required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input name="Pass" type="password" class="form-control" placeholder="Password">
+                        <div class="mb-2">
+                            <label class="form-label">รหัสผ่านใหม่</label>
+                            <input name="password" type="password" class="form-control" placeholder="รหัสผ่านใหม่" required>
                         </div>
-                        <div class=" text-center mt-5">
-                            <button type="submit" name="Login" class="btn btn-success ">เข้าสู่ระบบ</button>
-                        </div>
-                        <div class=" text-center mt-3">
-                            <a href="register.php">สมัครสมาชิก</a><a class="ms-5" href="forgot_password.php">? ลืมรหัสผ่าน</a>
+                        <div class=" text-center mt-2">
+                            <button type="submit" name="confrim_reset_password" class="btn btn-success">ยืนยัน</button>
                         </div>
                     </div>
-
                     <div class="col-md-6 col-6 img_Register ">
                         <img class="shadow-lg " src="https://images.unsplash.com/photo-1580913428735-bd3c269d6a82?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"> <br>
                     </div>
-
                 </div>
             </div>
         </form>
@@ -74,17 +68,6 @@
     <!-- sweetalert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-    <!-- แสดงรูปภาพอัตโนมัติ  โดยใน file ต้องมี accept="image/*" onchange="loadFile(event)" ละที่แสดงรูปโดยอ้างอิง ID output ของ div-->
-    <script>
-        var loadFile = function(event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
-            }
-        };
-    </script>
 
 </body>
 
