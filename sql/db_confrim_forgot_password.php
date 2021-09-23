@@ -5,8 +5,6 @@ if (isset($_POST['confrim_reset_password'])) {
     $data_OTP = [
         'OTP' => $_POST['OTP']
     ];
-
-
     $sql = "SELECT * FROM member WHERE OTP=:OTP";
     $stmt = $conn->prepare($sql);
     $stmt->execute($data_OTP);
@@ -14,7 +12,6 @@ if (isset($_POST['confrim_reset_password'])) {
 
     if ($stmt->rowCount() == 1) {
         foreach ($result as $row) {
-
             $data_password = [
                 'ID_Member' => $row['ID_Member'],
                 'password' => $_POST['password']
@@ -23,7 +20,6 @@ if (isset($_POST['confrim_reset_password'])) {
             $sql_password = "UPDATE member SET Pass=:password WHERE ID_Member=:ID_Member";
             $stmt_password = $conn->prepare($sql_password);
             $stmt_password->execute($data_password);
-
 
             // ปรับ OTP ให้เป็นค่าว่าง
             $data_otp_0 = [
