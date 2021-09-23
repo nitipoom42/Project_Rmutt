@@ -173,7 +173,7 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                                                     </select>
                                                                 </div>
 
-                                                                <input type="text" name="ID_Product" value="<?php echo $row_stock['ID_Pro'] ?>">
+                                                                <input type="hidden" name="ID_Product" value="<?php echo $row_stock['ID_Pro'] ?>">
                                                             </div>
                                                         </div>
                                                 </div>

@@ -303,13 +303,13 @@ $result_oder_s2 = $stmt_oder_s2->fetchAll(PDO::FETCH_ASSOC);
                                                                         <div class="col-3">
                                                                             <img class="img-fluid" src="../Asset/img_promotion/<?php echo $row_oder_id_promotion['IMG_Product']; ?>" alt="">
                                                                         </div>
-                                                                        <div class="col-3">
+                                                                        <div class="col-4">
                                                                             <?php echo $row_oder_id_promotion['NAME_Product']; ?>
                                                                         </div>
                                                                         <div class="col-3">
                                                                             <?php echo $row_oder_id_promotion['QTY']; ?>
                                                                         </div>
-                                                                        <div class="col-3">
+                                                                        <div class="col-2">
                                                                             <?php echo $row_oder_id_promotion['POINT_Product']; ?>แต้ม
                                                                         </div>
                                                                     </div>

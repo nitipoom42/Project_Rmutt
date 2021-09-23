@@ -99,7 +99,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
 
                             <div class="form-group row">
                                 <label class="form-label">จำนวนสินค้า</label>
-                                <input name="QTY_Product" type="number" class="form-control form-control-user" placeholder="จำนวนสิค้า..." required>
+                                <input name="QTY_Product" type="number" class="form-control form-control-user" placeholder="จำนวนสินค้า..." required>
                             </div>
                             <div class="form-group row">
                                 <!-- ประเภทสินค้า -->

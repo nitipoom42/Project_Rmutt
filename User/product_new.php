@@ -5,7 +5,7 @@
 <?php
 $sql_fetch_type = "SELECT  * FROM type_product as tp
 INNER JOIN stock as s ON tp.ID_Type_Product = s.TYPE_Product
-WHERE NOT ID_Type_Product=1 AND s.Status_Product=1
+WHERE NOT ID_Type_Product=1 AND s.Status_Product=1 AND tp.Status_Type =1
 ORDER BY ID_Pro DESC";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);
 $smtm_fetch_type->execute();

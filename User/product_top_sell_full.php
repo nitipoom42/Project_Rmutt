@@ -10,7 +10,7 @@
 $sql_fetch_type = "SELECT *, SUM(od.QTY) as QTY  FROM type_product as tp
 INNER JOIN stock as s ON tp.ID_Type_Product = s.TYPE_Product
 INNER JOIN oder_detail as od ON od.ID_Product = s.ID_Product
-WHERE NOT ID_Type_Product=1 AND Status_Product=1
+WHERE NOT ID_Type_Product=1 AND Status_Product=1 AND tp.Status_Type =1
 GROUP BY s.ID_Pro
 ORDER BY od.QTY DESC";
 $smtm_fetch_type = $conn->prepare($sql_fetch_type);

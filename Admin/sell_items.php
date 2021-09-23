@@ -15,7 +15,8 @@ $sql_cart_sell = "SELECT * ,SUM(c.QTY) as QTY FROM cart as c
 JOIN stock as s ON  c.ID_Product=s.ID_Product
 JOIN type_product as t ON s.TYPE_Product = t.ID_Type_Product
 WHERE ID_Member=:ID_Member AND s.Status_Product = 1 AND t.Status_Type =1
-GROUP BY c.ID_Product";
+GROUP BY c.ID_Product
+ORDER BY c.ID_Cart ASC";
 $stmt_cart_sell = $conn->prepare($sql_cart_sell);
 $stmt_cart_sell->execute($data_cart_sell);
 $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
@@ -250,8 +251,8 @@ $result_cart_sell = $stmt_cart_sell->fetchAll(PDO::FETCH_ASSOC);
                         let show_change1 = document.getElementById('show_change1').value;
                         console.log(show_change1);
                         if (show_change1 == 1) {
-                            let cal_point = (total_bill / 30).toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                            $('#show_point').html('ได้รับแต้ม ' + cal_point).show();
+                            let cal_point = (total_bill / 3.33).toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                            $('#show_point').html('ได้รับแต้ม ' + cal_point + " แต้ม").show();
                         }
                     },
                 });
