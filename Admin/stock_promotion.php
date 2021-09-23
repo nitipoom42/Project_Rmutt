@@ -86,8 +86,10 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                     <th>ราคา</th>
                                     <th>ประเภทสินค้า</th>
                                     <th class="text-center">จำนวนสินค้า</th>
+
                                     <th>สถานะ</th>
                                     <th></th>
+                                    <th>หมดเขตวันที่</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,6 +113,7 @@ $result_status_product = $smtm_status_product->fetchall(PDO::FETCH_ASSOC);
                                             <?php } ?>
                                         </td>
                                         <td> <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit_product<?php echo $row_stock['ID_Product_Promotion'] ?>">แก้ไข</a>
+                                        <td><?php echo date('d/m/Y', strtotime($row_stock['date_out']));  ?>
                                         </td>
 
 

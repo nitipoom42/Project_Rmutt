@@ -6,6 +6,7 @@
 if (isset($_POST['Add_banner'])) {
     $data_banner = [
         'IMG_Banner' => $_FILES['IMG_Banner']['name'],
+        'date_banber' => $_POST['date_banber'],
     ];
     // เอาไฟล์รูปลงเครื่อง
     $IMG_Banner = $_FILES['IMG_Banner']['name'];
@@ -14,8 +15,8 @@ if (isset($_POST['Add_banner'])) {
 
         // เอาข้อมูลเพิ่มลงไปในฐานข้อมูล
         try {
-            $sql = "INSERT INTO banner (IMG_Banner)
-            VALUES (:IMG_Banner)";
+            $sql = "INSERT INTO banner (IMG_Banner,date_banber)
+            VALUES (:IMG_Banner,:date_banber)";
             $stmt = $conn->prepare($sql);
             $stmt->execute($data_banner);
             Header("Location:../Admin/banner_promotion.php");

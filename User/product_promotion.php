@@ -108,6 +108,7 @@ $result_promotion = $smtm_fetch_promotion->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="card-body">
                                         <p class="card-text text-wrap"><?php echo $row_promotion['NAME_Product']; ?></p>
                                         <h5 class="card-text text-success"><?php echo $row_promotion['POINT_Product']; ?> แต้ม</h5>
+                                        <small class="card-text">หมดเขตวันที่ <?php echo date('d/m/Y', strtotime($row_promotion['date_out'])); ?></small>
                                     </div>
                                 </div>
                             </div>

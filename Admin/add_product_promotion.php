@@ -59,7 +59,7 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
 
             <!-- Main Content -->
             <div id="content">
-                <div class="col-md-5 mt-5 card border-left-primary shadow mx-auto">
+                <div class="col-md-5  card border-left-primary shadow mx-auto">
                     <form class="user" action="../sql/db_Add_Product_Promotion.php" enctype="multipart/form-data" method="post">
                         <div class="card-body">
                             <div class="mb-3 text-center">
@@ -83,6 +83,13 @@ $result_type_product = $smtm_fetch_type->fetchall(PDO::FETCH_ASSOC);
                             <div class="form-group row">
                                 <label class="form-label">จำนวนสินค้า</label>
                                 <input name="QTY_Product" type="number" class="form-control form-control-user" placeholder="จำนวนสิค้า..." required>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="form-label">วันที่สิ้นสุด</label>
+                                <div class="col-6">
+                                    <input name="date_out" type="date" class="form-control form-control-user">
+                                </div>
+
                             </div>
                             <div class="form-group row">
                                 <!-- ประเภทสินค้า -->

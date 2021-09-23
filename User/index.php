@@ -92,14 +92,14 @@
             $.ajax({
                 url: "../sql/db_cancel_oder_timeout.php"
             })
+            $.ajax({
+                url: "../sql/db_time_promotion.php"
+            })
+            $.ajax({
+                url: "../sql/db_time_banner.php"
+            })
         });
     </script>
-
-
-
-
-
-
 </body>
 
 </html>

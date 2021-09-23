@@ -94,6 +94,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <label class="btn btn-primary mx-auto">
                                             <i class="fa fa-image mx-auto"></i>เลือกรูปภาพ<input type="file" name="IMG_Banner" style="display: none;" accept="image/*" onchange="loadFile(event)" required>
                                         </label>
+
+                                        <div class="input-group mb-3 mx-auto col-6">
+                                            <span class="input-group-text">วันที่สิ้นสุด</span>
+                                            <input type="date" class="form-control" name="date_banber">
+                                        </div>
                                     </div>
                             </div>
                             <div class="modal-footer">
@@ -114,8 +119,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="IMG_Banner mb-5 text-end">
                                 <i onclick=del_promotion(<?php echo $row['ID_Banner'] ?>); class="far fa-times-circle btn_del_banner "></i>
                                 <img src="../Asset/img_banner/<?php echo $row['IMG_Banner'] ?>" alt="">
+                                <p>หมดเขตถึงวันที่ <?php echo date('d/m/Y', strtotime($row['date_banber']));  ?> </p>
                             </div>
-
                         <?php } ?>
                     </div>
                 </div>
