@@ -26,9 +26,9 @@ if (isset($_POST['reset_password'])) {
     foreach ($result_member as $row_member) {
         $mailto = $row_member["email"];
         $subject = "เปลี่ยนรหัสผ่าน";
-        $name = "Web_Time_Skip";
+        $name = "ร้าน-น้องมายด์";
         $mail_user = 'ineedgam@i-need-game.com';
-        $message = $row_member["OTP"];
+        $message = 'รหัส OTP ใช้ยืนยืนการเปลี่ยนรหัสผ่าน   ' . $row_member["OTP"];
         $header_mail = "Content-type: text/html; charset=utf-8\n";
         $header_mail .= "From: " . $name . " E-mail : " . $mail_user;
         mail($mailto, $subject, $message, $header_mail);
