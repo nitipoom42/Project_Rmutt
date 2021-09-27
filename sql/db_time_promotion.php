@@ -17,7 +17,7 @@ foreach ($result_time_promotion as $row_time_promotion) {
         $data_out_promotion = [
             'ID_Product_Promotion' => $row_time_promotion['ID_Product_Promotion']
         ];
-        $sql_time_promotion_del = "DELETE FROM stock_promotion WHERE ID_Product_Promotion=:ID_Product_Promotion";
+        $sql_time_promotion_del = "UPDATE stock_promotion SET Status_Product=2 WHERE ID_Product_Promotion=:ID_Product_Promotion";
         $stmt_time_promotion_del = $conn->prepare($sql_time_promotion_del);
         $stmt_time_promotion_del->execute($data_out_promotion);
     }
